@@ -28,54 +28,27 @@
             <form method="POST" id="store" action="{{ route('siswa.store') }}">
                 @csrf
                 <div>
-                    <label for="nis">Nis :</label>
-                    <input type="number" id="nis" name="nis" autocomplete="off">
-                    @error('nis')
+                    <label for="Nama">Nama :</label>
+                    <input type="text" value="{{ @old('Nama') }}" id="Nama" name="Nama" autocomplete="off">
+                    @error('Nama')
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>
                 <div>
-                    <label for="nama">Nama :</label>
-                    <input type="text" value="{{ @old('nama') }}" id="nama" name="nama" autocomplete="off">
-                    @error('nama')
+                    <label for="Tanggal">Tanggal & Waktu :</label>
+                    <input type="datetime-local" value="{{ @old('Tanggal') }}" id="Tanggal" name="Tanggal" autocomplete="off">
+                    @error('Tanggal')
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>
                 <div>
-                    <label for="jenis_kelamin">Jenis Kelamin :</label><br>
-                    <select name="jenis_kelamin" id="jenis_kelamin">
-                        <option value="Pria">Pria</option>
-                        <option value="Wanita">Wanita</option>
+                    <label for="OpsiKehadiran">Opsi Kehadiran :</label><br>
+                    <select name="OpsiKehadiran" id="OpsiKehadiran">
+                        <option value="hadir">Hadir</option>
+                        <option value="sakit">Sakit</option>
+                        <option value="izin">Izin</option>
                     </select>
-                    @error('jenis_kelamin')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="tempat_lahir">Tempat Lahir :</label>
-                    <input type="text" value="{{ @old('tempat_lahir') }}" id="tempat_lahir" name="tempat_lahir" autocomplete="off">
-                    @error('tempat_lahir')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="tanggal_lahir">Tanggal Lahir :</label>
-                    <input type="date" value="{{ @old('tanggal_lahir') }}" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off">
-                    @error('tanggal_lahir')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="alamat">Alamat :</label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="2">{{ @old('alamat') }}</textarea>
-                    @error('alamat')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="no_telp">Nomor Telpon :</label>
-                    <input type="number" value="{{ @old('no_telp') }}" id="no_telp" name="no_telp" autocomplete="off">
-                    @error('no_telp')
+                    @error('OpsiKehadiran')
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>

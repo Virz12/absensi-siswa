@@ -32,32 +32,26 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Nis</th>
+                        <th>Id</th>
                         <th>Nama</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Alamat</th>
-                        <th>Nomor Telepon</th>
+                        <th>Tanggal</th>
+                        <th>OpsiKehadiran</th>
                         <th colspan="2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($siswa as $data)
                     <tr>
-                        <td>{{ $data->nis }}</td>
-                        <td>{{ $data->nama }}</td>
-                        <td>{{ $data->jenis_kelamin }}</td>
-                        <td>{{ $data->tempat_lahir }}</td>
-                        <td>{{ $data->tanggal_lahir }}</td>
-                        <td>{{ $data->alamat }}</td>
-                        <td>{{ $data->no_telp }}</td>
+                        <td>{{ $data->id }}</td>
+                        <td>{{ $data->Nama }}</td>
+                        <td class="tanggal">{{ $data->Tanggal }}</td>
+                        <td>{{ $data->OpsiKehadiran }}</td>
                         <td>
-                            <a href="{{ route('siswa.edit', $data->nis) }}"><button>Edit</button></a>
+                            <a href="{{ route('siswa.edit', $data->id) }}"><button>Edit</button></a>
                         </td>
                         <td>
                             <button type="submit" class="delete">
-                                <a href="{{ route('siswa.destroy', $data->nis) }}" data-confirm-delete="true">Hapus</a>
+                                <a href="{{ route('siswa.destroy', $data->id) }}" data-confirm-delete="true">Hapus</a>
                             </button>
                         </td>
                     </tr>
@@ -70,6 +64,12 @@
     <footer>
         <span>Copyright © Made By Virgi</span>
     </footer>
+    <script>
+        const x = document.getElementsByClassName("tanggal");
+        Array.from(x).forEach(tanggal => {
+            tanggal.innerHTML = tanggal.innerText.replace("T", " ");
+        });
+    </script>
 </body>
 
 </html>
