@@ -20,7 +20,7 @@
         <div class="container nav">
             <img src="{{ asset('image/brand.png') }}" alt="Logo">
             <h1>DATA KEHADIRAN</h1>
-            <form action="{{ route('siswa.index') }}" method="GET">
+            <form action="{{ route('siswa.admin') }}" method="GET">
                 <button type="submit" class="btnSearch" id="search"><i class="fa-solid fa-magnifying-glass" style="color: #c41700"></i></button>
                 <div class="search">
                     <button type="submit" class="btnSearch"><i class="fa-solid fa-magnifying-glass" style="color: #c41700"></i></button>
@@ -32,9 +32,6 @@
     </div>
     <main>
         <div class="container">
-            <div class="addSearch">
-                <a href="{{ route('siswa.create') }}"><button>Absen</button></a>
-            </div>
             <table>
                 <thead>
                     <tr>
@@ -43,6 +40,7 @@
                         <th>Tanggal</th>
                         <th>Opsi Kehadiran</th>
                         <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +51,9 @@
                         <td class="tanggal">{{ $data->Tanggal }}</td>
                         <td>{{ $data->OpsiKehadiran }}</td>
                         <td>-</td>
+                        <td>
+                            <a href=""><button>Tambah Komentar</button></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
