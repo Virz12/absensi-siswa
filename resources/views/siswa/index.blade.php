@@ -7,9 +7,12 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/styleBase.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styleIndex.css') }}">
+    
     <!-- ICON -->
     <script src="https://kit.fontawesome.com/a1fe272ba9.js" crossorigin="anonymous"></script>
-    <title>Data Siswa</title>
+    <link rel="icon" href="{{ asset('image/favicon-16x16.png') }}" type="image/x-icon" ?v={{ time() }}>
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Data Kehadiran</title>
 </head>
 
 <body>
@@ -17,13 +20,13 @@
     <div class="header">
         <div class="container">
             <img src="{{ asset('img/brand.png') }}" alt="Logo">
-            <h1>DATA SISWA</h1>
+            <h1>DATA KEHADIRAN</h1>
         </div>
     </div class="header">
     <main>
         <div class="container">
             <div class="addSearch">
-                <a href="{{ route('siswa.create') }}"><button>Tambah Siswa</button></a>
+                <a href="{{ route('siswa.create') }}"><button>Absen</button></a>
                 <form action="{{ route('siswa.index') }}" method="GET">
                     <button type="submit" class="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
                     <input type="text" placeholder="Masukan Keywords..." name="keyword" value="{{ $keyword }}" autocomplete="off">
@@ -62,7 +65,7 @@
         </div>
     </main>
     <footer>
-        <span>Copyright © Made By Virgi</span>
+        <span>Copyright © SMKN 2 BANDUNG</span>
     </footer>
     <script>
         const x = document.getElementsByClassName("tanggal");
