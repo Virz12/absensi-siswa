@@ -39,7 +39,6 @@
                         <th>Nama</th>
                         <th>Tanggal</th>
                         <th>OpsiKehadiran</th>
-                        <th colspan="2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,14 +48,6 @@
                         <td>{{ $data->Nama }}</td>
                         <td class="tanggal">{{ $data->Tanggal }}</td>
                         <td>{{ $data->OpsiKehadiran }}</td>
-                        <td>
-                            <a href="{{ route('siswa.edit', $data->id) }}"><button>Edit</button></a>
-                        </td>
-                        <td>
-                            <button type="submit" class="delete">
-                                <a href="{{ route('siswa.destroy', $data->id) }}" data-confirm-delete="true">Hapus</a>
-                            </button>
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>
