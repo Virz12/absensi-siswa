@@ -27,7 +27,7 @@
                     <input type="text" placeholder="Masukan Keywords..." name="keyword" value="{{ $keyword }}" autocomplete="off">
                 </div>
             </form>
-            <a href=""><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
+            <a href="{{ route('siswa.logout') }}" id="logout"><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
         </div>
     </div>
     <main>
@@ -41,6 +41,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
+                        <th>Nomor Telpon</th>
                         <th>Opsi Kehadiran</th>
                         <th>Keterangan</th>
                     </tr>
@@ -51,8 +52,9 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->Nama }}</td>
                         <td class="tanggal">{{ $data->Tanggal }}</td>
+                        <td>{{ $data->Notelp }}</td>
                         <td>{{ $data->OpsiKehadiran }}</td>
-                        <td>-</td>
+                        <td>{{ $data->Komentar }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -61,18 +63,16 @@
         </div>
     </main>
     <footer>
+<<<<<<< Updated upstream
         <span>Copyright © SMKN 2 BANDUNG</span>
+=======
+        <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
+>>>>>>> Stashed changes
     </footer>
     <script>
-        // Mengubah huruf T menjadi spasi
-        const x = document.getElementsByClassName("tanggal");
-        Array.from(x).forEach(tanggal => {
-            tanggal.innerHTML = tanggal.innerText.replace("T", " ");
-        });
-
-
+        // Mengubah tampilan search
         const search = document.getElementById("search");
-        const mediaWidth = window.matchMedia('(max-width: 700px)');
+        const mediaWidth = window.matchMedia('(max-width: 835px)');
         const searchInput = document.querySelector(".search");
         
         if (mediaWidth.matches) {
@@ -84,7 +84,6 @@
         } else {
             search.style.display='none';
         }
-
     </script>
 </body>
 

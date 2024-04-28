@@ -27,7 +27,7 @@
                     <input type="text" placeholder="Masukan Keywords..." name="keyword" value="{{ $keyword }}" autocomplete="off">
                 </div>
             </form>
-            <a href=""><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
+            <a href="{{ route('siswa.logout') }}"><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
         </div>
     </div>
     <main>
@@ -38,6 +38,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
+                        <th>Nomor Telpon</th>
                         <th>Opsi Kehadiran</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
@@ -49,10 +50,11 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->Nama }}</td>
                         <td class="tanggal">{{ $data->Tanggal }}</td>
+                        <td>{{ $data->Notelp }}</td>
                         <td>{{ $data->OpsiKehadiran }}</td>
-                        <td>-</td>
+                        <td>{{ $data->Komentar }}</td>
                         <td>
-                            <a href=""><button>Tambah Komentar</button></a>
+                            <a href="{{ route('siswa.comment', $data->id) }}"><button class="comment">Tambah Komentar</button></a>
                         </td>
                     </tr>
                     @endforeach
@@ -62,18 +64,12 @@
         </div>
     </main>
     <footer>
-        <span>Copyright © SMKN 2 BANDUNG</span>
+        <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
     </footer>
     <script>
-        // Mengubah huruf T menjadi spasi
-        const x = document.getElementsByClassName("tanggal");
-        Array.from(x).forEach(tanggal => {
-            tanggal.innerHTML = tanggal.innerText.replace("T", " ");
-        });
-
-
+        // Mengubah tampilan search
         const search = document.getElementById("search");
-        const mediaWidth = window.matchMedia('(max-width: 700px)');
+        const mediaWidth = window.matchMedia('(max-width: 835px)');
         const searchInput = document.querySelector(".search");
         
         if (mediaWidth.matches) {
