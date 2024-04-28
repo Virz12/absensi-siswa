@@ -22,33 +22,15 @@
     </div>
     <main>
         <div class="container">
-            <a href="{{ route('siswa.index') }}">
+            <a href="{{ route('siswa.admin') }}">
                 <i class="fa-solid fa-arrow-left"></i>Kembali
             </a>
-            <form method="POST" id="store" action="{{ route('siswa.store') }}">
+            <form method="POST" id="store" action="">
                 @csrf
                 <div>
-                    <label for="Nama">Nama :</label>
-                    <input type="text" value="{{ @old('Nama') }}" id="Nama" name="Nama" autocomplete="off">
-                    @error('Nama')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="Tanggal">Tanggal & Waktu :</label>
-                    <input type="datetime-local" value="{{ @old('Tanggal') }}" id="Tanggal" name="Tanggal" autocomplete="off">
-                    @error('Tanggal')
-                    <div style="color: red;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="OpsiKehadiran">Opsi Kehadiran :</label><br>
-                    <select name="OpsiKehadiran" id="OpsiKehadiran">
-                        <option value="hadir">Hadir</option>
-                        <option value="sakit">Sakit</option>
-                        <option value="izin">Izin</option>
-                    </select>
-                    @error('OpsiKehadiran')
+                    <label for="comment">Komentar :</label>
+                    <textarea name="comment" id="comment" cols="30" rows="5" required></textarea>
+                    @error('comment')
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>
@@ -80,4 +62,4 @@
     </script>
 </body>
 
-</html>
+</html>d
