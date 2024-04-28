@@ -1,0 +1,137 @@
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Ubuntu", sans-serif;
+    background-color: #f2f2f2;
+}
+
+.container,
+.notification {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.container a img {
+	width: 25px;
+}
+
+.container form+a {
+    margin-left: 5%;
+}
+
+
+.header {
+    background-color: #c41700;
+    height: 70px;
+    box-shadow: 0 0 30px rgba(28, 39, 60, 0.08);
+    margin-bottom: 35px;
+}
+
+.container img {
+    width: 50px;
+    border-radius: 50%;
+    margin: 8px 0;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    height: 100%;
+}
+
+.container h1 {
+    margin-left: 20px;
+    font-size: x-large;
+}
+
+main .container {
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(28, 39, 60, 0.08);
+    border-radius: 10px;
+    border-left: 6px solid #c41700;
+    margin-bottom: 30px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 1180px) {
+    .container {
+        max-width: 85%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .container {
+        max-width: 85%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 835px) {
+    .search {
+        position: absolute;
+        display: none;
+        top: 80px;
+        right: 8%;
+    }
+
+    main .container {
+        margin-top: 50px
+    }
+
+    button.btnSearch {
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    table {
+        display: block;
+    }
+
+    tr td:nth-child(2),
+    tr td:nth-child(6) {
+    max-width: none;
+}
+    
+}
+
+@media screen and (max-width: 560px) {
+    .container {
+        max-width: 85%;
+        margin: auto;
+    }
+
+    .container img {
+        width: 40px;
+    }
+
+    .container h1 {
+        font-size: larger;
+    }
+
+    .container a img {
+        width: 20px;
+    }
+}

@@ -1,0 +1,110 @@
+.addSearch {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.btnSearch {
+    border-radius: 3px 0px 0px 3px;
+    background-color: #fff;
+}
+
+.btnSearch:hover {
+    background-color: #dfdfdf;
+}
+
+form {
+    margin-left: auto;
+}
+
+.block {
+    display: block;
+    transition-property: all;
+    transition-duration: 1s;
+}
+
+input {
+    padding: 8px 6px;
+    margin-left: -4px;
+    border-radius: 0px 3px 3px 0px;
+    border: none;
+    background-color: #fff;
+}
+
+input:focus {
+    outline: none;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+th,
+td {
+    border-bottom: 1px solid #0a0a0a;
+    padding: 10px 10px;
+}
+
+
+td:nth-child(2),
+td:nth-child(6) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+th:nth-child(1) {
+    width: 50px;
+}
+
+th:nth-child(3) {
+    width: 200px;
+    min-width: 90px;
+}
+
+th:nth-child(5) {
+    width: 100px;
+}
+
+th:nth-child(7) {
+    min-width: 50px;
+}
+
+tr:nth-child(even) {
+    background-color: #ebebeb;
+}
+
+a,
+button {
+    text-decoration: none;
+    color: #fff;
+}
+
+button {
+    background-color: #4fc40c;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #4fb613;
+}
+
+.delete {
+    background-color: #d33;
+}
+
+.delete:hover {
+    background-color: #ca5151;
+}
+
+div.swal2-actions button.swal2-confirm {
+    background-color: #4fc40c;
+}
+
+div.swal2-actions button.swal2-cancel {
+    background-color: #d33;
+}

@@ -1,0 +1,29 @@
+i,
+a li {
+    color: #0e0e0e;
+}
+
+nav.page {
+    display: grid;
+    place-items: center;
+    background-color: #fff;
+    margin-top: 30px;
+}
+
+li {
+    border: 1px solid #0e0e0e;
+    border-radius: 3px;
+    padding: 5px;
+    display: inline;
+    list-style: none;
+    margin: 3px;
+}
+
+.arrow {
+    margin: auto;
+}
+
+.active {
+    background-color: #d33;
+    color: #fff;
+}
