@@ -20,14 +20,6 @@ return new class extends Migration
             $table->string('Komentar')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('akun', function (Blueprint $table) {
-            $table->string('id')->unique();
-            $table->string('Nama', 50);
-            $table->string('Password');
-            $table->string('Role');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -36,6 +28,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('siswa');
-        Schema::dropIfExists('akun');
     }
 };
