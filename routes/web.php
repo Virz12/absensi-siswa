@@ -6,7 +6,7 @@ use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('siswa.login');
 });
 
 Route::middleware(['auth'])->group(function(){
