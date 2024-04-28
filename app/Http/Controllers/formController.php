@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Akun;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use Alert;
@@ -29,6 +30,26 @@ class formController extends Controller
         return view('siswa.index', compact('siswa', 'keyword'));
     }
 
+    public function admin(Request $request)
+    {   
+        $siswa = siswa::orderBy('Tanggal', 'DESC')->paginate(5)->onEachSide(1);
+
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $siswa = Siswa::orderBy('Tanggal', 'DESC')->where('id', 'like', "%$keyword%")
+                ->orWhere('Nama', 'like', "%$keyword%")
+                ->orWhere('Tanggal', 'like', "%$keyword%")
+                ->orWhere('OpsiKehadiran', 'like', "%$keyword%")
+                ->paginate(5);
+        }
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('siswa.admin', compact('siswa', 'keyword'));
+    }
+
     public function create()
     {
         confirmDelete();
@@ -49,16 +70,31 @@ class formController extends Controller
         $request->validate([
             'Nama' => 'required|alpha',
             'Tanggal' => 'required',
+<<<<<<< Updated upstream
             'OpsiKehadiran' => 'required',
+=======
+            'Notelp' => 'required|numeric',
+            'OpsiKehadiran' => 'required'
+>>>>>>> Stashed changes
         ], $messages);
 
         Siswa::create($request->all());
         toast('Data Berhasil Ditambah', 'success')->position('top')->timerProgressBar();
         return redirect()->route('siswa.index');
     }
+    
+    public function comment($id)
+    {   
+        $siswa = Siswa::where('id', $id)->first();
+    
+        confirmDelete();
+
+        return view('siswa.comment', compact('siswa'));
+    }
 
     public function edit($nis)
     {
+<<<<<<< Updated upstream
         $siswa = Siswa::find($nis);
 
         confirmDelete();
@@ -103,5 +139,18 @@ class formController extends Controller
         $siswa->delete();
         toast('Data Berhasil Dihapus', 'success')->position('top')->timerProgressBar();
         return redirect()->route('siswa.index');
+=======
+        $request->validate([
+            'Komentar' => 'required|regex:/^[\pL\s]+$/u'
+        ]);
+
+        $siswa = Siswa::where('id', $id);
+        $siswa->update([
+            'Komentar' => $request->Komentar
+        ]);
+
+        toast('Komentar Berhasil Ditambah', 'success')->position('top')->timerProgressBar();
+        return redirect()->route('siswa.admin');
+>>>>>>> Stashed changes
     }
 }
