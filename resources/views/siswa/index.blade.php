@@ -61,7 +61,7 @@
         </div>
     </main>
     <footer>
-        <span>Copyright © SMKN 2 BANDUNG</span>
+        <span>Copyright © FRVZ SMKN 2 BANDUNG</span>
     </footer>
     <script>
         // Mengubah huruf T menjadi spasi
