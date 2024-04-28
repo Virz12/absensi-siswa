@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,21 +19,18 @@
         <div class="container nav">
             <img src="{{ asset('image/brand.png') }}" alt="Logo">
             <h1>DATA KEHADIRAN</h1>
-            <form action="{{ route('siswa.index') }}" method="GET">
+            <form action="{{ route('siswa.admin') }}" method="GET">
                 <button type="submit" class="btnSearch" id="search"><i class="fa-solid fa-magnifying-glass" style="color: #c41700"></i></button>
                 <div class="search">
                     <button type="submit" class="btnSearch"><i class="fa-solid fa-magnifying-glass" style="color: #c41700"></i></button>
                     <input type="text" placeholder="Masukan Keywords..." name="keyword" value="{{ $keyword }}" autocomplete="off">
                 </div>
             </form>
-            <a href="{{ route('siswa.logout') }}" id="logout"><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
+            <a href="{{ route('siswa.logout') }}"><img src="{{ asset('image/log-out.svg') }}" alt="Log Out"></a>
         </div>
     </div>
     <main>
         <div class="container">
-            <div class="addSearch">
-                <a href="{{ route('siswa.create') }}"><button>Absen</button></a>
-            </div>
             <table>
                 <thead>
                     <tr>
@@ -44,6 +40,7 @@
                         <th>Nomor Telpon</th>
                         <th>Opsi Kehadiran</th>
                         <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +52,9 @@
                         <td>{{ $data->Notelp }}</td>
                         <td>{{ $data->OpsiKehadiran }}</td>
                         <td>{{ $data->Komentar }}</td>
+                        <td>
+                            <a href="{{ route('siswa.comment', $data->id) }}"><button class="comment">Tambah Komentar</button></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -80,7 +80,7 @@
         } else {
             search.style.display='none';
         }
+
     </script>
 </body>
-
 </html>
