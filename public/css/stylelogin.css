@@ -1,0 +1,53 @@
+form {
+    margin-top: 50px;
+}
+
+form div {
+    margin: 20px 0;
+}
+
+.contlog {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-left: 20px;
+    text-decoration: underline;
+    text-decoration-color: #c41700;
+}
+
+main .contlog {
+    background-color: #fff;
+    padding: 30px 50px;
+    box-shadow: 0 0 10px rgba(28, 39, 60, 0.08);
+    border-radius: 10px;
+    border-left: 6px solid #c41700;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 95%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: medium;
+}
+
+button {
+    background-color: #4fc40c;
+    font-size: 1em;
+    font-weight: 600;
+    transition: 0.3s;
+    color: #fff;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #4fb613;
+}
