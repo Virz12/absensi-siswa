@@ -25,12 +25,13 @@
             <a href="{{ route('siswa.admin') }}">
                 <i class="fa-solid fa-arrow-left"></i>Kembali
             </a>
-            <form method="POST" id="store" action="">
+            <form method="POST" id="store" action="{{ route('siswa.addcomment', $siswa->id) }}">
                 @csrf
+                @method('PUT')
                 <div>
-                    <label for="comment">Komentar :</label>
-                    <textarea name="comment" id="comment" cols="30" rows="5" required></textarea>
-                    @error('comment')
+                    <label for="Komentar">Komentar :</label>
+                    <textarea name="Komentar" id="Komentar" cols="30" rows="5" required></textarea>
+                    @error('Komentar')
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>
@@ -39,7 +40,7 @@
         </div>
     </main>
     <footer>
-        <span>Copyright © SMKN 2 BANDUNG</span>
+        <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
     </footer>
     <script>
         document.getElementById('btnSubmit').addEventListener('click', function(e) {

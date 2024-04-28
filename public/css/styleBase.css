@@ -89,7 +89,7 @@ footer {
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 835px) {
     .search {
         position: absolute;
         display: none;
@@ -106,6 +106,14 @@ footer {
         background-color: #fff;
     }
 
+    table {
+        display: block;
+    }
+
+    tr td:nth-child(2),
+    tr td:nth-child(6) {
+    max-width: none;
+}
     
 }
 
@@ -125,9 +133,5 @@ footer {
 
     .container a img {
         width: 20px;
-    }
-
-    table {
-        display: block;
     }
 }

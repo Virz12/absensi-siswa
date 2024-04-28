@@ -22,7 +22,7 @@
     <main>
         <div class="contlog">
             <h1>Login</h1>
-        <form method="" id="" action="">
+        <form method="POST" action="{{ route('siswa.storelogin') }}">
             @csrf
             <div>
                 <label for="Nama">Nama :</label>
@@ -43,7 +43,7 @@
         </div>
     </main>
     <footer>
-        <span>Copyright ©FRVZ SMKN 2 BANDUNG 2024</span>
+        <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
     </footer>
 </body>
 </html>

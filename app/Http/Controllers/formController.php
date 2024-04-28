@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Akun;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 
@@ -27,6 +28,26 @@ class formController extends Controller
         return view('siswa.index', compact('siswa', 'keyword'));
     }
 
+    public function admin(Request $request)
+    {   
+        $siswa = siswa::orderBy('Tanggal', 'DESC')->paginate(5)->onEachSide(1);
+
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $siswa = Siswa::orderBy('Tanggal', 'DESC')->where('id', 'like', "%$keyword%")
+                ->orWhere('Nama', 'like', "%$keyword%")
+                ->orWhere('Tanggal', 'like', "%$keyword%")
+                ->orWhere('OpsiKehadiran', 'like', "%$keyword%")
+                ->paginate(5);
+        }
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('siswa.admin', compact('siswa', 'keyword'));
+    }
+
     public function create()
     {
         confirmDelete();
@@ -48,25 +69,36 @@ class formController extends Controller
         $request->validate([
             'Nama' => 'required|regex:/^[\pL\s]+$/u',
             'Tanggal' => 'required',
-            'OpsiKehadiran' => 'required',
-            'Notelp' => 'required|numeric'
+            'Notelp' => 'required|numeric',
+            'OpsiKehadiran' => 'required'
         ], $messages);
 
         Siswa::create($request->all());
         toast('Data Berhasil Ditambah', 'success')->position('top')->timerProgressBar();
         return redirect()->route('siswa.index');
     }
+    
+    public function comment($id)
+    {   
+        $siswa = Siswa::where('id', $id)->first();
+    
+        confirmDelete();
+
+        return view('siswa.comment', compact('siswa'));
+    }
 
     public function addcomment(Request $request, $id)
     {
         $request->validate([
-            'Komentar' => 'alpha'
+            'Komentar' => 'required|regex:/^[\pL\s]+$/u'
         ]);
 
-        $siswa = Siswa::where('id',$id);
+        $siswa = Siswa::where('id', $id);
         $siswa->update([
             'Komentar' => $request->Komentar
         ]);
-        return redirect()->route('');
+
+        toast('Komentar Berhasil Ditambah', 'success')->position('top')->timerProgressBar();
+        return redirect()->route('siswa.admin');
     }
 }

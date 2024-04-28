@@ -42,6 +42,13 @@
                     @enderror
                 </div>
                 <div>
+                    <label for="Notelp">No Telpon :</label>
+                    <input type="number" value="{{ @old('Notelp') }}" id="Notelp" name="Notelp" autocomplete="off">
+                    @error('Notelp')
+                    <div style="color: red;">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div>
                     <label for="OpsiKehadiran">Opsi Kehadiran :</label><br>
                     <select name="OpsiKehadiran" id="OpsiKehadiran">
                         <option value="hadir">Hadir</option>
@@ -52,12 +59,13 @@
                     <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </div>
+                <input type="hidden" value="-" id="Komentar" name="Komentar" autocomplete="off">
                 <button type="submit" id="btnSubmit">Simpan</button>
             </form>
         </div>
     </main>
     <footer>
-        <span>Copyright © SMKN 2 BANDUNG</span>
+        <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
     </footer>
     <script>
         document.getElementById('btnSubmit').addEventListener('click', function(e) {
