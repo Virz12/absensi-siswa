@@ -3,7 +3,7 @@ form {
 }
 
 form div {
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .contlog {
@@ -29,8 +29,8 @@ main .contlog {
 
 input {
     width: 95%;
-    padding: 10px;
-    margin: 8px 0;
+    padding: 8px;
+    margin: 8px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -44,7 +44,6 @@ button {
     font-weight: 600;
     transition: 0.3s;
     color: #fff;
-    margin-bottom: 20px;
     margin-top: 10px;
 }
 

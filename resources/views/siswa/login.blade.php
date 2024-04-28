@@ -22,7 +22,7 @@
     <main>
         <div class="contlog">
             <h1>Login</h1>
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('siswa.storelogin') }}">
             @csrf
             <div>
                 <label for="Nama">Nama :</label>
