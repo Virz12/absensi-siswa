@@ -63,11 +63,7 @@
         </div>
     </main>
     <footer>
-<<<<<<< Updated upstream
-        <span>Copyright © SMKN 2 BANDUNG</span>
-=======
         <span>Copyright © FRVZ SMKN 2 BANDUNG 2024</span>
->>>>>>> Stashed changes
     </footer>
     <script>
         // Mengubah tampilan search
