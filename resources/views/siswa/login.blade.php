@@ -26,7 +26,7 @@
             @csrf
             <div>
                 <label for="Nama">Nama :</label>
-                <input type="text" value="{{ @old('') }}" id="Nama" name="Nama" autocomplete="off">
+                <input type="text" value="{{ @old('Nama') }}" id="Nama" name="Nama" autocomplete="off">
                 @error('Nama')
                 <div style="color: red;">{{ $message }}</div>
                 @enderror

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class loginController extends Controller
 {
@@ -28,25 +28,27 @@ class loginController extends Controller
             'Password' => 'required'
         ], $messages);
 
-        $user_name = $request->Nama;
-        $user_password = $request->Password;
-        $user = Akun::where('Nama',$user_name)->first();
+        $infologin = [
+            'Nama' => $request->Nama,
+            'password' => $request->Password,
+        ];
 
-        if($user->Password === $user_password)
+        if(Auth::attempt($infologin))
         {
-            if($user->Role === 'Admin')
+            if (Auth::user()->Role == 'Admin')
             {
                 return redirect('/admin');
-            }elseif($user->Role === 'User') {
+            }elseif (Auth::user()->Role == 'User') {
                 return redirect('/siswa');
             }
         }else {
-            return redirect('/login')->withErrors('Nama dan Password Tidak Sesuai')->withInput();
+            return redirect('/login')->withErrors(['Nama' => 'Nama dan Password Tidak Sesuai'])->withInput();
         }
     }
 
     public function logout()
     {
+        Auth::logout();
         return redirect('/login');
     }
 }
