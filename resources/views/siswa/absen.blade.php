@@ -29,7 +29,7 @@
         <div class="container-fluid overflow-hidden">
             <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 58px)">
                 {{-- Card Hadir --}}
-                <div class="col-8 col-lg-4">
+                <div class="col-8 col-lg-3">
                     <div class="card text-center">
                         <div class="card-header">Absen Hadir</div>
                         <div class="card-body">
@@ -38,11 +38,20 @@
                     </div>
                 </div>
                 {{-- Card Sakit --}}
-                <div class="col-8 col-lg-4">
+                <div class="col-8 col-lg-3">
                     <div class="card text-center">
                         <div class="card-header">Absen Sakit</div>
                         <div class="card-body">
                             <a href="#" class="btn btn-secondary">Absen</a>
+                        </div>
+                    </div>
+                </div>
+                {{-- Card Izin --}}
+                <div class="col-8 col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-header">Absen Izin</div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-warning">Absen</a>
                         </div>
                     </div>
                 </div>
