@@ -14,44 +14,52 @@
         {{-- Navbar --}}
         <nav class="navbar bg-body-secondary px-3" style="--bs-bg-opacity: .5;">
             <div class="container-fluid">
-                <h1 class="navbar-brand">Absen</h1>
+                <h1 class="navbar-brand">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Fajar
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                 </ul>
                 </div>
             </div>
         </nav>
+        <div class="d-flex align-items-center mt-4 ms-4 mb-2">
+            <a href="/absen" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+        </div>
         {{-- Form --}}
         <div class="container-fluid">
-            <form class="row g-3 mt-5 px-3" action="" method="POST">
+            <form class="row g-3 justify-content-center m-auto" action="" method="POST">
             @csrf
             @method('PUT')
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" name="" class="form-control" id="username" autocomplete="off">
+                    <input type="text" name="" class="form-control border-2" id="username" autocomplete="off">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="telefone" class="form-label">Nomor Telfon</label>
-                    <input type="number" name="" class="form-control" id="telefone" autocomplete="off">
+                    <input type="number" name="" class="form-control border-2" id="telefone" autocomplete="off">
                 </div>
-                <div class="col-md-12">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" name="" class="form-control" id="password">
+                <div class="col-md-8">
+                    <label for="passwordOld" class="form-label">Password Lama</label>
+                    <input type="password" name="" class="form-control border-2" id="passwordOld">
                 </div>
-                <div class="col-md-12">
-                    <label for="passwordConfirm" class="form-label">Konfirmasi Password</label>
-                    <input type="password" name="" class="form-control" id="passwordConfirm">
+                <div class="col-md-8">
+                    <label for="password" class="form-label">Password Baru</label>
+                    <input type="password" name="" class="form-control border-2" id="password">
                 </div>
-                <div class="col-12">
+                <div class="col-md-8">
+                    <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru</label>
+                    <input type="password" name="" class="form-control border-2" id="passwordConfirm">
+                </div>
+                <div class="col-md-8">
                     <button type="submit" class="btn btn-primary">Ganti</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
+{{-- Icon --}}
+<script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </html>
