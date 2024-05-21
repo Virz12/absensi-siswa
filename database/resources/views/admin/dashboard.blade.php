@@ -20,7 +20,7 @@
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/admin_profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
                         <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                     </ul>
                     </div>

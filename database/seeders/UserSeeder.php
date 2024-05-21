@@ -2,30 +2,64 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\user;
+
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      */
     public function run(): void
     {
-        $userData = [
+
+        $data_siswa = [
             [
-                'Nama'=>'Admin',
-                'password'=>bcrypt('Admin'),
-                'Role'=>'Admin',
+                'id' => '1',
+                'username' => 'rifqi',
+                'Role' => 'siswa',
+                'telefone' => '',
+                'password' => bcrypt('rfq1611')
             ],[
-                'Nama'=>'User',
-                'password'=>bcrypt('User'),
-                'Role'=>'User',
-            ],
+                'id' => '2',
+                'username' => 'virgi',
+                'Role' => 'siswa',
+                'telefone' => '',
+                'password' => bcrypt('virz')
+            ],[
+                'id' => '3',
+                'username' => 'fajar',
+                'Role' => 'siswa',
+                'telefone' => '',
+                'password' => bcrypt('fazar')
+            ],[
+                'id' => '4',
+                'username' => 'zulfan',
+                'Role' => 'siswa',
+                'telefone' => '',
+                'password' => bcrypt('panjul')
+            ]
         ];
-        foreach($userData as $key => $val) {
-            User::create($val);
+
+        $data_Admin = [
+            [
+                'id' => '5',
+                'username' => 'admin',
+                'Role' => 'admin',
+                'telefone' => '',
+                'password' => bcrypt('admin')
+            ]
+        ];
+
+
+
+        foreach($data_siswa as $data) {
+            user::create($data);
+        }
+
+        foreach($data_Admin as $data) {
+            user::create($data);
         }
     }
 }
