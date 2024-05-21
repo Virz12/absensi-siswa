@@ -17,7 +17,7 @@
                     <h1 class="navbar-brand">Data Siswa</h1>
                     <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->username }}
+                        Admin
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/profile">Profile</a></li>

@@ -17,7 +17,7 @@
                 <h1 class="navbar-brand">Absen</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->username }}
+                    Fajar
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Anda Sudah Absen hari ini</h5>
                             <p class="card-text">08:00 - 16:00</p>
-                            <a href="/pulang" class="btn btn-primary">Pulang</a>
+                            <a href="#" class="btn btn-primary">Pulang</a>
                         </div>
                     </div>
                 </div>
