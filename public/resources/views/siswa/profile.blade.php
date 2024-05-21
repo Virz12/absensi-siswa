@@ -35,23 +35,23 @@
             @method('PUT')
                 <div class="col-md-4">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2" id="username" autocomplete="off">
+                    <input type="text" name="" class="form-control border-2" id="username" autocomplete="off">
                 </div>
                 <div class="col-md-4">
                     <label for="telefone" class="form-label">Nomor Telfon</label>
-                    <input type="text" value="{{ $data_user->telefone }}" name="telefone" class="form-control border-2" id="telefone" autocomplete="off">
+                    <input type="number" name="" class="form-control border-2" id="telefone" autocomplete="off">
                 </div>
                 <div class="col-md-8">
                     <label for="passwordOld" class="form-label">Password Lama</label>
-                    <input type="password" name="passwordOld" class="form-control border-2" id="passwordOld">
+                    <input type="password" name="" class="form-control border-2" id="passwordOld">
                 </div>
                 <div class="col-md-8">
                     <label for="password" class="form-label">Password Baru</label>
-                    <input type="password" name="password" class="form-control border-2" id="password">
+                    <input type="password" name="" class="form-control border-2" id="password">
                 </div>
                 <div class="col-md-8">
                     <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru</label>
-                    <input type="password" name="passwordConfirm" class="form-control border-2" id="passwordConfirm">
+                    <input type="password" name="" class="form-control border-2" id="passwordConfirm">
                 </div>
                 <div class="col-md-8">
                     <button type="submit" class="btn btn-primary">Ganti</button>

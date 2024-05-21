@@ -7,7 +7,7 @@
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Info Absen | Absen Siswa</title>
+    <title>Absen | Absen Siswa</title>
 </head>
 <body>
     <div class="container-fluid bg-white p-0">
@@ -28,14 +28,30 @@
         </nav>
         <div class="container-fluid overflow-hidden">
             <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 58px)">
-                {{-- Card --}}
-                <div class="col-8 col-lg-4">
+                {{-- Card Hadir --}}
+                <div class="col-8 col-lg-3">
                     <div class="card text-center">
-                        <div class="card-header">Info Absen</div>
+                        <div class="card-header">Absen Hadir</div>
                         <div class="card-body">
-                            <h5 class="card-title">Anda Sudah Absen hari ini</h5>
-                            <p class="card-text">08:00 - 16:00</p>
-                            <a href="/pulang" class="btn btn-primary">Pulang</a>
+                            <a href="/infoAbsen" class="btn btn-success">Absen</a>
+                        </div>
+                    </div>
+                </div>
+                {{-- Card Sakit --}}
+                <div class="col-8 col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-header">Absen Sakit</div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-secondary">Absen</a>
+                        </div>
+                    </div>
+                </div>
+                {{-- Card Izin --}}
+                <div class="col-8 col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-header">Absen Izin</div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-warning">Absen</a>
                         </div>
                     </div>
                 </div>

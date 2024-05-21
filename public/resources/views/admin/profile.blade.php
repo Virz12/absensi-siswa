@@ -17,7 +17,7 @@
                 <h1 class="navbar-brand">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                   {{ Auth::user()->username }}
+                    {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
@@ -26,34 +26,30 @@
             </div>
         </nav>
         <div class="d-flex align-items-center mt-4 ms-4 mb-2">
-            <a href="/absen" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+            <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
         </div>
         {{-- Form --}}
         <div class="container-fluid">
-            <form class="row g-3 justify-content-center m-auto" action="" method="POST">
+            <form class="row g-3 align-items-center justify-content-center m-auto" action="" method="POST">
             @csrf
             @method('PUT')
-                <div class="col-md-4">
+                <div class="col-md-7">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2" id="username" autocomplete="off">
+                    <input type="text" name="" class="form-control border-2" id="username" autocomplete="off">
                 </div>
-                <div class="col-md-4">
-                    <label for="telefone" class="form-label">Nomor Telfon</label>
-                    <input type="text" value="{{ $data_user->telefone }}" name="telefone" class="form-control border-2" id="telefone" autocomplete="off">
-                </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <label for="passwordOld" class="form-label">Password Lama</label>
-                    <input type="password" name="passwordOld" class="form-control border-2" id="passwordOld">
+                    <input type="password" name="" class="form-control border-2" id="passwordOld">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <label for="password" class="form-label">Password Baru</label>
-                    <input type="password" name="password" class="form-control border-2" id="password">
+                    <input type="password" name="" class="form-control border-2" id="password">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru</label>
-                    <input type="password" name="passwordConfirm" class="form-control border-2" id="passwordConfirm">
+                    <input type="password" name="" class="form-control border-2" id="passwordConfirm">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <button type="submit" class="btn btn-primary">Ganti</button>
                 </div>
             </form>
