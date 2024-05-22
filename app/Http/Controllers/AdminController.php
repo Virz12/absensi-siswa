@@ -17,7 +17,13 @@ class AdminController extends Controller
 
     function data()
     {
+<<<<<<< Updated upstream
         return view('admin.datasiswa');
+=======
+        // Mengambil semua data user yang role-nya 'siswa'
+        $datasiswa = user::where('role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
+        return view('admin.datasiswa')->with('datasiswa',$datasiswa);
+>>>>>>> Stashed changes
     }
 
     function profile()
