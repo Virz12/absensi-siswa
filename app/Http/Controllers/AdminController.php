@@ -17,7 +17,9 @@ class AdminController extends Controller
 
     function data()
     {
-        return view('admin.datasiswa');
+        // Mengambil semua data user yang role-nya 'siswa'
+        $datasiswa = user::where('role', 'siswa')->get();
+        return view('admin.datasiswa')->with('datasiswa',$datasiswa);
     }
 
     function profile()
@@ -51,7 +53,7 @@ class AdminController extends Controller
             'password' => 'nullable',
             'passwordConfirm' => 'nullable',
         ],$messages);
- 
+
         $data_user = user::findOrFail(Auth::id());
         $verify_password = Hash::check($request->input('passwordOld'),$data_user->password);
 

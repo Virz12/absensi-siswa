@@ -20,7 +20,7 @@
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="/admin_profile">Profile</a></li>
                         <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                     </ul>
                     </div>
@@ -36,24 +36,28 @@
                     </div>
                     <div class="col-12">
                         <div class="row g-4 text-left">
+                        @forelse ($datasiswa as $dsiswa)            
                             <div class="col-md-3 ">
                                 <div class="card ">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item ">Nama : Rifqi Sigma</li>
-                                        <li class="list-group-item ">Jenis Kelamin : Pria lah</li>
-                                        <li class="list-group-item ">No Hp : 082199448866 </li>
-                                        <li class="list-group-item fw-bold">Status : Aktif</li>
+                                        <li class="list-group-item ">Nama : {{$dsiswa->username}}</li>
+                                        <li class="list-group-item ">Jenis Kelamin : {{$dsiswa->jenis_kelamin}} </li>
+                                        <li class="list-group-item ">No Hp : {{$dsiswa->telefone}} </li>
+                                        <li class="list-group-item fw-bold">Status : {{$dsiswa->status}}</li>
                                         <li class="list-group-item d-flex justify-content-between">
                                             <a href="" class="text-decoration-none  ">
-                                                <button class="btn btn-success  ">Aktif</button>
+                                                <button type="submit" value="Aktif" class="btn btn-success ">Aktif</button>
                                             </a>
-                                            <a href="" class="text-decoration-none ">
+                                            <a href="" class="text-decoration-none ">                                                
                                                 <button class="btn btn-warning ">Non Aktif</button>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+                            @empty
+                                <h2 class="text-center">Data Kosong</h2>
+                        @endforelse
                         </div>
                     </div>
                 </div>

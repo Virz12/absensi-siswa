@@ -20,24 +20,32 @@ class UserSeeder extends Seeder
                 'username' => 'rifqi',
                 'Role' => 'siswa',
                 'telefone' => '',
+                'jenis_kelamin' => '',
+                'status' => '',
                 'password' => bcrypt('rfq1611')
             ],[
                 'id' => '2',
                 'username' => 'virgi',
                 'Role' => 'siswa',
                 'telefone' => '',
+                'jenis_kelamin' => '',
+                'status' => '',
                 'password' => bcrypt('virz')
             ],[
                 'id' => '3',
                 'username' => 'fajar',
                 'Role' => 'siswa',
                 'telefone' => '',
+                'jenis_kelamin' => '',
+                'status' => '',
                 'password' => bcrypt('fazar')
             ],[
                 'id' => '4',
                 'username' => 'zulfan',
                 'Role' => 'siswa',
                 'telefone' => '',
+                'jenis_kelamin' => '',
+                'status' => '',
                 'password' => bcrypt('panjul')
             ]
         ];
@@ -48,6 +56,8 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'Role' => 'admin',
                 'telefone' => '',
+                'jenis_kelamin' => '',
+                'status' => '',
                 'password' => bcrypt('admin')
             ]
         ];

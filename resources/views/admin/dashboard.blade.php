@@ -54,7 +54,7 @@
                                             <td>Rifqi Sigma</td>
                                             <td>10.00</td>
                                             <td>00.00</td>
-                                            <td>Izin Malas</td>
+                                            <td>Hadir</td>
                                         </tr>
                                     </tbody>
                                 </table>

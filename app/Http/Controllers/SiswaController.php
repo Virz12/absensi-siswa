@@ -58,11 +58,12 @@ class SiswaController extends Controller
         $request->validate([
             'username' => 'required',
             'telefone' => 'required',
+            'jenis_kelamin' => 'required',
             'passwordOld' => 'required',
             'password' => 'nullable',
             'passwordConfirm' => 'nullable',
         ],$messages);
- 
+
         $data_user = user::findOrFail(Auth::id());
         $verify_password = Hash::check($request->input('passwordOld'),$data_user->password);
 
@@ -72,7 +73,8 @@ class SiswaController extends Controller
             {
                 $data_user->update([
                     'username' => $request->input('username'),
-                    'telefone' => $request->input('telefone')
+                    'telefone' => $request->input('telefone'),
+                    'jenis_kelamin' => $request->input('jenis_kelamin')
                 ]);
             }else {
                 if($request->input('password') == $request->input('passwordConfirm'))
@@ -80,7 +82,8 @@ class SiswaController extends Controller
                     $data_user->update([
                         'username' => $request->input('username'),
                         'password' => $request->input('password'),
-                        'telefone' => $request->input('telefone')
+                        'telefone' => $request->input('telefone'),
+                        'jenis_kelamin' => $request->input('jenis_kelamin')
                     ]);
                 }
             }

@@ -17,7 +17,7 @@
                 <h1 class="navbar-brand">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                   {{ Auth::user()->username }}
+                    {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
@@ -33,16 +33,24 @@
             <form class="row g-3 justify-content-center m-auto" action="" method="POST">
             @csrf
             @method('PUT')
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2" id="username" autocomplete="off">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="telefone" class="form-label">Nomor Telfon</label>
                     <input type="text" value="{{ $data_user->telefone }}" name="telefone" class="form-control border-2" id="telefone" autocomplete="off">
                 </div>
+                <div class="col-md-2">
+                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" class="form-select border-2" id="jenis_kelamin" aria-label="Default select example">
+                        <option value="{{ $data_user->jenis_kelamin }}" selected hidden>{{ $data_user->jenis_kelamin }}</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
                 <div class="col-md-8">
-                    <label for="passwordOld" class="form-label">Password Lama</label>
+                    <label for="passwordOld" class="form-label">Password</label>
                     <input type="password" name="passwordOld" class="form-control border-2" id="passwordOld">
                 </div>
                 <div class="col-md-8">

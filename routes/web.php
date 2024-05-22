@@ -15,8 +15,9 @@ Route::middleware(['preventBackHistory','auth'])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
+//Admin
 Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(function () {
-    //Admin
+    
     Route::get('/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
     Route::get('/admin_profile', [AdminController::class, 'profile']);
     Route::put('/admin_profile', [AdminController::class, 'updateprofile']);
