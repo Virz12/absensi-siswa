@@ -18,7 +18,7 @@ class AdminController extends Controller
     function data()
     {
         // Mengambil semua data user yang role-nya 'siswa'
-        $datasiswa = user::where('role', 'siswa')->get();
+        $datasiswa = user::where('role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
         return view('admin.datasiswa')->with('datasiswa',$datasiswa);
     }
 
