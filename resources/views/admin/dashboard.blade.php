@@ -70,15 +70,18 @@
                                 <h5 class="mb-0">Tahun 2024</h5>
                                 <form action="" method="GET ">
                                     @csrf
-                                    <select name="" class="form-select" onchange="form.submit()">
-                                        <option value="" selected hidden>bulan</option>
+                                    <select name="bulan" class="form-select" onchange="form.submit()">
+                                        <option value="" selected hidden>Bulan</option>
                                             <option value="">Januari</option>
                                             <option value="">Februari</option>
                                             <option value="">Maret</option>
                                     </select>
                                 </form>
                             </div>
-                            {{-- chart --}}
+                            {{-- Chart --}}
+                            <div class="w-100">
+                                {!! $chartAbsen->render() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
