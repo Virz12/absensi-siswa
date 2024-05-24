@@ -17,10 +17,10 @@
                     <h1 class="navbar-brand">Data Kehadiran</h1>
                     <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin
+                        {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="/admin_profile">Profile</a></li>
                         <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                     </ul>
                     </div>
@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="bg-body-secondary text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
+                                <a href="/datasiswa" class="text-decoration-none fs-4"><submit class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
                                 <form class=" d-flex  m-3"> {{-- Form Navbar --}}
                                     <input class="form-control border-1" type="search" placeholder="Search">
                                 </form>
@@ -54,7 +54,7 @@
                                             <td>Rifqi Sigma</td>
                                             <td>10.00</td>
                                             <td>00.00</td>
-                                            <td>Izin Malas</td>
+                                            <td>Hadir</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -70,15 +70,18 @@
                                 <h5 class="mb-0">Tahun 2024</h5>
                                 <form action="" method="GET ">
                                     @csrf
-                                    <select name="" class="form-select" onchange="form.submit()">
-                                        <option value="" selected hidden>bulan</option>
+                                    <select name="bulan" class="form-select" onchange="form.submit()">
+                                        <option value="" selected hidden>Bulan</option>
                                             <option value="">Januari</option>
                                             <option value="">Februari</option>
                                             <option value="">Maret</option>
                                     </select>
                                 </form>
                             </div>
-                            {{-- chart --}}
+                            {{-- Chart --}}
+                            <div class="w-100">
+                                {!! $chartAbsen->render() !!}
+                            </div>
                         </div>
                     </div>
                 </div>

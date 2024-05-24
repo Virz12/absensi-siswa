@@ -17,10 +17,10 @@
                 <h1 class="navbar-brand">Absen</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Fajar
+                    {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="/siswa_profile">Profile</a></li>
                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                 </ul>
                 </div>
@@ -33,7 +33,7 @@
                     <div class="card text-center">
                         <div class="card-header">Absen Hadir</div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-success">Absen</a>
+                            <a href="/infoAbsen" class="btn btn-success">Absen</a>
                         </div>
                     </div>
                 </div>

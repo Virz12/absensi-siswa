@@ -20,14 +20,14 @@
                     <form class="" action="" method="POST">
                         @csrf
                         <div class="form-floating">
-                            <input type="text" class="form-control mb-3" id="username" name="" placeholder="" value="" autocomplete="off">
+                            <input type="text" class="form-control mb-3" id="username" name="username" placeholder="" value="" autocomplete="off">
                             <label for="username">Username</label>
                         </div>
                         <div class="form-floating">
-                            <input type="password" class="form-control mb-3" id="password" name="" placeholder="" value="" autocomplete="off">
+                            <input type="password" class="form-control mb-3" id="password" name="password" placeholder="" value="" autocomplete="off">
                             <label for="password">Password</label>
                         </div>
-                        <button type="button" class="btn btn-primary w-100 p-2 mb-3">Sign In</button>
+                        <button type="submit" class="btn btn-primary w-100 p-2 mb-3">Sign In</button>
                     </form>
                 </div>
             </div>
