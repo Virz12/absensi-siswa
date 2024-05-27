@@ -35,7 +35,10 @@
                         <div class="card-body">
                             <h5 class="card-title">Anda Sudah Absen hari ini</h5>
                             <p class="card-text">08:00 - 16:00</p>
-                            <a href="/pulang" class="btn btn-primary">Pulang</a>
+                            <form action="{{route('siswa.pulang')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Absen</button>
+                            </form>
                         </div>
                     </div>
                 </div>

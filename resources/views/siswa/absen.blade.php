@@ -33,7 +33,10 @@
                     <div class="card text-center">
                         <div class="card-header">Absen Hadir</div>
                         <div class="card-body">
-                            <a href="/infoAbsen" class="btn btn-success">Absen</a>
+                            <form action="{{route('siswa.masuk')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Absen</button></a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -42,7 +45,10 @@
                     <div class="card text-center">
                         <div class="card-header">Absen Sakit</div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-secondary">Absen</a>
+                            <form action="{{route('siswa.sakit')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-secondary">Absen</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -51,12 +57,37 @@
                     <div class="card text-center">
                         <div class="card-header">Absen Izin</div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-warning">Absen</a>
+                            <form action="{{route('siswa.izin')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-warning">Absen</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+    <div class="position-fixed bottom-0 end-0 p-3 z-3">
+        <div class="alert alert-success" role="alert">
+            <i class="fa-solid fa-check me-2"></i>
+            {{ session('notification') }}
+            <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    @endif
+    {{-- Alert --}}
+    @if($errors->any())
+        <div class="position-fixed bottom-0 end-0 p-3">
+            @foreach ($errors->all() as $item)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    {{ $item }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endforeach
+        </div>
+    @endif
 </body>
 </html>

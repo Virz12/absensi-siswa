@@ -37,6 +37,11 @@ Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(funct
     Route::get('/absen', [SiswaController::class, 'siswa'])->name('siswa.absen');
     Route::get('/siswa_profile', [SiswaController::class, 'profile']);
     Route::put('/siswa_profile', [SiswaController::class, 'updateprofile']);
+
+    Route::post('/absen/masuk', [SiswaController::class, 'absenMasuk'])->name('siswa.masuk');
+    Route::post('/absen/pulang', [SiswaController::class, 'absenPulang'])->name('siswa.pulang');
+    Route::post('/absen/izin', [SiswaController::class, 'absenIzin'])->name('siswa.izin');
+    Route::post('/absen/sakit', [SiswaController::class, 'absenSakit'])->name('siswa.sakit');
 });
 
 Route::get('/datasiswa', [AdminController::class, 'data'])->name('admin.datasiswa');
