@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class data_absen extends Model
 {
     use HasFactory;
+
+    protected $table = 'data_absen';
+
     protected $fillable = [
         'id',
         'hari',
