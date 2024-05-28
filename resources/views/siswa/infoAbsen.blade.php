@@ -20,7 +20,7 @@
                     {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="/siswa_profile">Profile</a></li>
                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
                 </ul>
                 </div>
@@ -34,7 +34,12 @@
                         <div class="card-header">Info Absen</div>
                         <div class="card-body">
                             <h5 class="card-title">Anda Sudah Absen hari ini</h5>
-                            <p class="card-text">08:00 - 16:00</p>
+                            @forelse ( $infoabsen as $iabsen )
+                                <p class="card-text">{{ $iabsen->waktu_masuk }} - {{ $iabsen->waktu_pulang }}</p>
+                            @empty
+                                
+                            @endforelse
+                                
                             <form action="{{route('siswa.pulang')}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Absen</button>

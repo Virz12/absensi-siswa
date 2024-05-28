@@ -38,7 +38,19 @@ class AdminController extends Controller
             ->pluck('count', 'week')
             ->all();
 
-        $total = array_values($absensi);
+        // Chart
+        foreach ($siswas as $siswa) {
+            $absensi = DB::table('data_absen')
+                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
+                ->whereMonth('created_at', 5)
+                ->where('username', $siswa)
+                ->groupBy('month', 'week')
+                ->get()
+                ->pluck('count', 'week')
+                ->all();
+            
+            ${'absensi' . $siswa} = array_values($absensi);
+        }
         
         $chartAbsen = app()->chartjs
             ->name('barChart')
@@ -53,7 +65,7 @@ class AdminController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => [65, 59, 80, 81, 56, 55, 40],
+                    "data" => $absensifajar,
                     "fill" => false,
                 ],
                 [
@@ -64,7 +76,7 @@ class AdminController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => [12, 33, 44, 44, 55, 23, 40],
+                    "data" => $absensirifqi,
                     "fill" => false,
                 ],
                 [
@@ -75,7 +87,7 @@ class AdminController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => [12, 33, 44, 44, 55, 23, 40],
+                    "data" => $absensivirgi,
                     "fill" => false,
                 ],
                 [
@@ -86,11 +98,19 @@ class AdminController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => [12, 33, 44, 44, 55, 23, 40],
+                    "data" => $absensizulfan,
                     "fill" => false,
                 ],
             ])
-            ->options([]);
+            ->optionsRaw("{
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }");
 
         return view('admin.dashboard')
             ->with('chartAbsen', $chartAbsen)
@@ -161,6 +181,18 @@ class AdminController extends Controller
 
         return redirect('/dashboard')
                 ->with('notification', 'Data Berhasil Diubah.');
+    }
+
+    public function activate(string $id)
+    {
+        user::where('id',$id)->update(['status' => 'aktif']);
+        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi aktif.');
+    }
+
+    public function deactivate(string $id)
+    {
+        user::where('id',$id)->update(['status' => 'nonaktif']);
+        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi nonaktif.');
     }
 
 }

@@ -47,3 +47,5 @@ Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(funct
 });
 
 
+Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
+Route::get('/deactivate/{user:id}',[AdminController::class, 'deactivate']);
