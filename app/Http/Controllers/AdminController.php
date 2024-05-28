@@ -161,6 +161,18 @@ class AdminController extends Controller
                 ->with('notification', 'Data Berhasil Diubah.');
     }
 
+    public function activate(string $id)
+    {
+        user::where('id',$id)->update(['status' => 'aktif']);
+        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi aktif.');
+    }
+
+    public function deactivate(string $id)
+    {
+        user::where('id',$id)->update(['status' => 'nonaktif']);
+        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi nonaktif.');
+    }
+
 }
 
 

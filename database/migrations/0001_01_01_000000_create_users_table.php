@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('Role');  
             $table->string('telefone');
             $table->string('jenis_kelamin');
-            $table->string('status');
+            $table->enum('status',['aktif','nonaktif'])->default('aktif');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

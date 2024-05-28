@@ -48,3 +48,5 @@ Route::get('/datasiswa', [AdminController::class, 'data'])->name('admin.datasisw
 Route::get('/infoAbsen', [SiswaController::class, 'info'])->name('siswa.infoAbsen');
 Route::get('/pulang', [SiswaController::class, 'pulang'])->name('pulang');
 
+Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
+Route::get('/deactivate/{user:id}',[AdminController::class, 'deactivate']);

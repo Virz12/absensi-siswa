@@ -45,12 +45,15 @@
                                         <li class="list-group-item ">No Hp : {{$dsiswa->telefone}} </li>
                                         <li class="list-group-item fw-bold">Status : {{$dsiswa->status}}</li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <a href="" class="text-decoration-none  ">
-                                                <button type="submit" value="Aktif" class="btn btn-success ">Aktif</button>
-                                            </a>
-                                            <a href="" class="text-decoration-none ">                                                
-                                                <button class="btn btn-warning ">Non Aktif</button>
-                                            </a>
+                                            @if($dsiswa->status == 'nonaktif')
+                                                <a href="/activate/{{ $dsiswa->id }}" class="text-decoration-none  ">
+                                                    <button type="submit" value="Aktif" class="btn btn-success ">Aktif</button>
+                                                </a>
+                                            @elseif($dsiswa->status == 'aktif')
+                                                <a href="/deactivate/{{ $dsiswa->id }}" class="text-decoration-none ">                                                
+                                                    <button class="btn btn-warning ">Non Aktif</button>
+                                                </a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
