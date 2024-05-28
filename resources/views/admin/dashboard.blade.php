@@ -49,13 +49,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <td>Senin <br> 01/01/2024</td>
-                                            <td>Rifqi Sigma</td>
-                                            <td>10.00</td>
-                                            <td>00.00</td>
-                                            <td>Hadir</td>
-                                        </tr>
+                                        @forelse ( $absen as $dabsen )
+                                            <tr class="align-middle">
+                                                <td>{{ $dabsen->hari }} <br> {{ $dabsen->tanggal }}</td>
+                                                <td>{{ $dabsen->username }}</td>
+                                                <td>{{ $dabsen->waktu_masuk }}</td>
+                                                <td>{{ $dabsen->waktu_pulang }}</td>
+                                                <td>{{ $dabsen->status_kehadiran }}</td>
+                                            </tr>
+                                            @empty
+                                            <h2>Data Kososng</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

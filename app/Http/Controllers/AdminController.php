@@ -9,11 +9,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
     function admin(Request $request)
     {   
+        //data absen 
+        $absen = data_absen::orderBy('updated_at','DESC')->paginate(10);
+        
+        //format tanggal
+        $absen->getCollection()->transform(function ($dabsen) {
+            $dabsen->tanggal = Carbon::parse($dabsen->tanggal)->format('d/m/Y');
+            return $dabsen;
+        });
+        
+        // List user
+        $siswas = ['fajar', 'rifqi', 'virgi', 'zulfan'];
+
+
         // Chart
         $absensi = DB::table('data_absen')
             ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
@@ -79,7 +93,8 @@ class AdminController extends Controller
             ->options([]);
 
         return view('admin.dashboard')
-            ->with('chartAbsen', $chartAbsen);
+            ->with('chartAbsen', $chartAbsen)
+            ->with('absen', $absen);
     }
 
     function data()

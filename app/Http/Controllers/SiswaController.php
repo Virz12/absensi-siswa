@@ -14,8 +14,7 @@ class SiswaController extends Controller
 {
     function siswa()
     {  
-        $absen = data_absen::where('username', Auth::user()->username)->get();
-        return view('siswa.absen')->with('absen', $absen);
+        return view('siswa.absen');
     }
 
     function profilesiswa()
@@ -43,7 +42,7 @@ class SiswaController extends Controller
         $end_morning = Carbon::createFromTimeString('11:59', 'Asia/Jakarta');
 
         if ($current_time->between($start_morning, $end_morning)) {
-            $tanggal = $current_time->toDateString();
+            $tanggal = $current_time->format('Y-m-d');
             $hari = $current_time->isoFormat('dddd');
 
             data_absen::create([
@@ -53,7 +52,7 @@ class SiswaController extends Controller
                 'waktu_masuk' => $current_time->toTimeString(),
                 'status_kehadiran' => 'masuk',
             ]);
-            return redirect('/absen')->with('success', 'Absen masuk berhasil!');
+            return redirect('/infoAbsen')->with('notification', 'Absen masuk berhasil!');
         } else {
             return redirect('/absen')->withErrors(['msg' => 'Waktu absen masuk hanya diizinkan dari jam 08:00 sampai 11:59.']);
         }
@@ -66,7 +65,7 @@ class SiswaController extends Controller
         $end_afternoon = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_afternoon, $end_afternoon)) {
-            $tanggal = $current_time->toDateString();
+            $tanggal = $current_time->format('Y-m-d');
 
             $absensi = data_absen::where('username', Auth::user()->username)
                                 ->where('tanggal', $tanggal)
@@ -79,19 +78,19 @@ class SiswaController extends Controller
                     'status_kehadiran' => 'pulang',
                 ]);
 
-                return redirect('/absen')->with('success', 'Absen pulang berhasil!');
+                return redirect('/infoAbsen')->with('notification', 'Absen pulang berhasil!');
             } else {
                 return redirect('/absen')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
             }
         } else {
-            return redirect('/absen')->withErrors(['msg' => 'Waktu absen pulang hanya diizinkan dari jam 12:00 sampai 17:00.']);
+            return redirect('/infoAbsen')->withErrors(['msg' => 'Waktu absen pulang hanya diizinkan dari jam 12:00 sampai 17:00.']);
         }
     }
 
     public function absenIzin(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
-        $tanggal = $current_time->toDateString();
+        $tanggal = $current_time->format('Y-m-d');
         $hari = $current_time->isoFormat('dddd');
 
         data_absen::create([
@@ -101,13 +100,13 @@ class SiswaController extends Controller
             'status_kehadiran' => 'izin',
         ]);
 
-        return redirect('/absen')->with('success', 'Absen izin berhasil!');
+        return redirect('/infoAbsen')->with('notification', 'Absen izin berhasil!');
     }
 
     public function absenSakit(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
-        $tanggal = $current_time->toDateString();
+        $tanggal = $current_time->format('Y-m-d');
         $hari = $current_time->isoFormat('dddd');
 
         data_absen::create([
@@ -117,7 +116,7 @@ class SiswaController extends Controller
             'status_kehadiran' => 'sakit',
         ]);
 
-        return redirect('/absen')->with('success', 'Absen sakit berhasil!');
+        return redirect('/infoAbsen')->with('notification', 'Absen sakit berhasil!');
     }
 
     function profile()
