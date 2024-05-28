@@ -24,7 +24,8 @@ class SiswaController extends Controller
 
     function info()
     {
-        return view('siswa.infoAbsen');
+        $infoabsen = data_absen::where('username', Auth::user()->username)->get();
+        return view('siswa.infoAbsen')->with('infoabsen', $infoabsen);
     }
 
     public function __construct()
@@ -50,7 +51,7 @@ class SiswaController extends Controller
                 'hari' => $hari,
                 'tanggal' => $tanggal,
                 'waktu_masuk' => $current_time->toTimeString(),
-                'status_kehadiran' => 'masuk',
+                'status_kehadiran' => 'Hadir',
             ]);
             return redirect('/infoAbsen')->with('notification', 'Absen masuk berhasil!');
         } else {
@@ -69,13 +70,12 @@ class SiswaController extends Controller
 
             $absensi = data_absen::where('username', Auth::user()->username)
                                 ->where('tanggal', $tanggal)
-                                ->where('status_kehadiran', 'masuk')
+                                ->where('status_kehadiran', 'Hadir')
                                 ->first();
 
             if ($absensi) {
                 $absensi->update([
                     'waktu_pulang' => $current_time->toTimeString(),
-                    'status_kehadiran' => 'pulang',
                 ]);
 
                 return redirect('/infoAbsen')->with('notification', 'Absen pulang berhasil!');
@@ -97,7 +97,7 @@ class SiswaController extends Controller
             'username' => Auth::user()->username,
             'hari' => $hari,
             'tanggal' => $tanggal,
-            'status_kehadiran' => 'izin',
+            'status_kehadiran' => 'Izin',
         ]);
 
         return redirect('/infoAbsen')->with('notification', 'Absen izin berhasil!');
@@ -113,7 +113,7 @@ class SiswaController extends Controller
             'username' => Auth::user()->username,
             'hari' => $hari,
             'tanggal' => $tanggal,
-            'status_kehadiran' => 'sakit',
+            'status_kehadiran' => 'Sakit',
         ]);
 
         return redirect('/infoAbsen')->with('notification', 'Absen sakit berhasil!');
