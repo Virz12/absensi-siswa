@@ -27,7 +27,6 @@ class AdminController extends Controller
         // List user
         $siswas = ['fajar', 'rifqi', 'virgi', 'zulfan'];
 
-
         // Chart
         $absensi = DB::table('data_absen')
             ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
@@ -51,57 +50,31 @@ class AdminController extends Controller
             
             ${'absensi' . $siswa} = array_values($absensi);
         }
+
+        // Data chart
+        $data = [];
+
+        foreach ($siswas as $siswa => $username) {
+            $data[] = [
+                "label" => "$username",
+                'backgroundColor' => $this->generateRandomHexColor(),
+                'borderColor' => "",
+                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                "data" => ${'absensi' . $username},
+                "fill" => false,
+            ];
+        };
+
+        // dd($data);
         
         $chartAbsen = app()->chartjs
             ->name('barChart')
             ->type('bar')
-            ->labels(['Minggu ke-1', 'Minggu ke-2', 'Minggu ke-3', 'Minggu ke-4'])
-            ->datasets([
-                [
-                    "label" => "Fajar",
-                    'backgroundColor' => "#FFC55A",
-                    'borderColor' => "#ed9542",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensifajar,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Rifqi",
-                    'backgroundColor' => "#6F4E37",
-                    'borderColor' => "#523124",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensirifqi,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Virgi",
-                    'backgroundColor' => "#E1AFD1",
-                    'borderColor' => "#b57f8d",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensivirgi,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Zulfan",
-                    'backgroundColor' => "#25073d",
-                    'borderColor' => "#08021c",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensizulfan,
-                    "fill" => false,
-                ],
-            ])
+            ->labels(['Minggu ke-1', 'Minggu ke-2', 'Minggu ke-3', 'Minggu ke-4', 'Minggu ke-5'])
+            ->datasets($data)
             ->optionsRaw("{
                 scales: {
                     yAxes: [{
@@ -195,6 +168,10 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi nonaktif.');
     }
 
+    private function generateRandomHexColor()
+    {
+        return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+    }
 }
 
 
