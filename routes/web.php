@@ -31,6 +31,9 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::get('/admin_profile', [AdminController::class, 'profile']);
     Route::get('/datasiswa', [AdminController::class, 'data'])->name('admin.datasiswa');
     Route::put('/admin_profile', [AdminController::class, 'updateprofile']);
+    
+    Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
+    Route::get('/deactivate/{user:id}',[AdminController::class, 'deactivate']);
 });
 
 //siswa
@@ -47,5 +50,3 @@ Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(funct
 });
 
 
-Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
-Route::get('/deactivate/{user:id}',[AdminController::class, 'deactivate']);

@@ -31,10 +31,10 @@ class SiswaController extends Controller
     public function __construct()
     {
         // Set locale ke Indonesia
-        config(['app.locale' => 'id']);
         Carbon::setLocale('id');
-        date_default_timezone_set('Asia/Jakarta');
     }
+
+    
 
     function absenMasuk(Request $request)
     {
@@ -118,6 +118,7 @@ class SiswaController extends Controller
 
         return redirect('/infoAbsen')->with('notification', 'Absen sakit berhasil!');
     }
+
 
     function profile()
     {
