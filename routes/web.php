@@ -38,7 +38,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
 
 //siswa
 Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(function () {
-    Route::get('/absen', [SiswaController::class, 'siswa'])->name('siswa.absen');
+    Route::get('/absen', [SiswaController::class, 'siswa'])->name('siswa.absen')->middleware('preventBackAbsen');
     Route::get('/siswa_profile', [SiswaController::class, 'profile']);
     Route::get('/infoAbsen', [SiswaController::class, 'info'])->name('siswa.infoAbsen');
     Route::put('/siswa_profile', [SiswaController::class, 'updateprofile']);
