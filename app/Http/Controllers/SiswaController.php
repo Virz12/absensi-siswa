@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class SiswaController extends Controller
 {
     function siswa()
-    {  
+    {
         return view('siswa.absen');
     }
 
@@ -22,8 +22,10 @@ class SiswaController extends Controller
         return view('siswa.profile');
     }
 
-    function info()
+    function info(Request $request)
     {
+        $request->session()->put('forwarded', true);
+        
         $infoabsen = data_absen::where('username', Auth::user()->username)->get();
         return view('siswa.infoAbsen')->with('infoabsen', $infoabsen);
     }
