@@ -76,6 +76,7 @@ class SiswaController extends Controller
             if ($absensi) {
                 $absensi->update([
                     'waktu_pulang' => $current_time->toTimeString(),
+                    'status_kehadiran' => 'Hadir',
                 ]);
 
                 return redirect('/infoAbsen')->with('notification', 'Absen pulang berhasil!');
