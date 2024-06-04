@@ -16,7 +16,7 @@ class AdminController extends Controller
     function admin(Request $request)
     {   
         //data absen 
-        $absen = data_absen::orderBy('updated_at','DESC')->paginate(10);
+        $absen = data_absen::orderBy('updated_at','DESC')->paginate(4);
         
         //format tanggal
         $absen->getCollection()->transform(function ($dabsen) {
@@ -26,16 +26,6 @@ class AdminController extends Controller
         
         // List user
         $siswas = ['fajar', 'rifqi', 'virgi', 'zulfan'];
-
-        // Chart
-        $absensi = DB::table('data_absen')
-            ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
-            ->whereMonth('created_at', 5)
-            ->where('username', 'virgi')
-            ->groupBy('month', 'week')
-            ->get()
-            ->pluck('count', 'week')
-            ->all();
 
         // Chart
         foreach ($siswas as $siswa) {

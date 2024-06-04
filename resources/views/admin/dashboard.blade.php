@@ -63,7 +63,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>{{-- pagination --}}</div>
+                            <div>{!! $absen->links() !!}</div>
                         </div>
                     </div>
                 </div>
