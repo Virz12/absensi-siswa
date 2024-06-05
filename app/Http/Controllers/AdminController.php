@@ -25,7 +25,7 @@ class AdminController extends Controller
         });
         
         // List user
-        $siswas = ['fajar', 'rifqi', 'virgi', 'zulfan'];
+        $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
 
         // Chart
         foreach ($siswas as $siswa) {
