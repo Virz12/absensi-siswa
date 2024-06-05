@@ -143,19 +143,19 @@ class AdminController extends Controller
         }
 
         return redirect('/dashboard')
-                ->with('notification', 'Data Berhasil Diubah.');
+                ->with('notification', 'Profil Berhasil Diubah.');
     }
 
     public function activate(string $id)
     {
         user::where('id',$id)->update(['status' => 'aktif']);
-        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi aktif.');
+        return redirect()->back()->with('notification', 'Status pengguna berhasil diubah menjadi aktif.');
     }
 
     public function deactivate(string $id)
     {
         user::where('id',$id)->update(['status' => 'nonaktif']);
-        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi nonaktif.');
+        return redirect()->back()->with('notification', 'Status pengguna berhasil diubah menjadi nonaktif.');
     }
 
     private function generateRandomHexColor()
