@@ -15,7 +15,7 @@ class AdminController extends Controller
     function admin(Request $request)
     {   
         // List user
-        $siswas = ['fajar', 'rifqi', 'virgi', 'zulfan'];
+        $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
 
         // Chart
         foreach ($siswas as $siswa) {
