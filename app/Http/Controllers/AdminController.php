@@ -82,7 +82,6 @@ class AdminController extends Controller
 
     function data()
     {
-        // Mengambil semua data user yang role-nya 'siswa'
         $datasiswa = user::where('Role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
         return view('admin.datasiswa')->with('datasiswa',$datasiswa);
     }
@@ -144,6 +143,15 @@ class AdminController extends Controller
 
         return redirect('/dashboard')
                 ->with('notification', 'Profil Berhasil Diubah.');
+    }
+
+    function deletesiswa($id) 
+    {   
+        $dsiswa = user::findOrFail($id);
+        $dsiswa->delete();
+        
+        return redirect('/datasiswa')
+                ->with('notification', 'Data Siswa Berhasil Dihapus.');
     }
 
     public function activate(string $id)

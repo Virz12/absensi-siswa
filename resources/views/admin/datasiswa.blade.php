@@ -49,7 +49,11 @@
                                                         <div class="d-flex justify-content-between gap-2">
                                                             <a href="/activate/{{ $dsiswa->id }}" class="text-decoration-none  w-100">
                                                             <button type="submit" value="Aktif" class="btn btn-success w-100">Aktif</button></a>
-                                                            <a href="" class="text-decoration-none  w-100"><button type="submit" value="" class="btn btn-danger w-100">Hapus</button></a>
+                                                            <form action="/hapussiswa/{{ $dsiswa->id }}"  class=" w-100">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger w-100"><i class="fa-solid fa-trash p-1"></i>Hapus</button>
+                                                            </form>
                                                         </div>
                                             @elseif($dsiswa->status == 'aktif')
                                                 <a href="/deactivate/{{ $dsiswa->id }}" class="text-decoration-none">                                                
