@@ -26,12 +26,33 @@ class AdminController extends Controller
         
         // List user
         $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
+        
+        // Logika bulan
+        $dataBulan = data_absen::selectRaw('MONTH(updated_at) as month')
+            ->groupBy('month')
+            ->pluck('month');
+
+        if ($dataBulan->isEmpty()) {
+            $dataBulan = collect([]);
+        } else {
+            $dataBulan = $dataBulan->map(function ($nomorBulan) {
+                return Carbon::create()->month($nomorBulan)->format('F');
+            });
+        }
+
+        if ($request->bulan) {
+            $bulan = Carbon::parse($request->bulan)->month;
+            $bulanSekarang = Carbon::parse($request->bulan)->format('F');
+        } else {
+            $bulan = Carbon::now()->month;
+            $bulanSekarang = Carbon::now()->format('F');
+        }
 
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
                 ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
-                ->whereMonth('created_at', 5)
+                ->whereMonth('created_at', $bulan)
                 ->where('username', $siswa)
                 ->groupBy('month', 'week')
                 ->get()
@@ -57,8 +78,6 @@ class AdminController extends Controller
                 "fill" => false,
             ];
         };
-
-        // dd($data);
         
         $chartAbsen = app()->chartjs
             ->name('barChart')
@@ -76,6 +95,8 @@ class AdminController extends Controller
             }");
 
         return view('admin.dashboard')
+            ->with('bulanSekarang', $bulanSekarang)
+            ->with('dataBulan', $dataBulan)
             ->with('chartAbsen', $chartAbsen)
             ->with('absen', $absen);
     }
