@@ -72,13 +72,18 @@
                         <div class="bg-body-secondary text-center rounded p-4 ">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h5 class="mb-0">Tahun 2024</h5>
-                                <form action="" method="GET ">
+                                <form action="" method="GET">
                                     @csrf
                                     <select name="bulan" class="form-select" onchange="form.submit()">
-                                        <option value="" selected hidden>Bulan</option>
-                                            <option value="">Januari</option>
-                                            <option value="">Februari</option>
-                                            <option value="">Maret</option>
+                                        <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
+                                        @if ($dataBulan->isEmpty())
+                                        @else
+                                            @forelse($dataBulan as $bulan)
+                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                            @empty
+                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                            @endforelse
+                                        @endif
                                     </select>
                                 </form>
                             </div>
