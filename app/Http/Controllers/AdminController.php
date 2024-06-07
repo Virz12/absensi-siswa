@@ -55,6 +55,7 @@ class AdminController extends Controller
                 ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) + 1 as week, COUNT(*) as count')
                 ->whereMonth('tanggal', $bulan)
                 ->where('username', $siswa)
+                ->whereNot('status_kehadiran', '=', 'Alpha')
                 ->groupBy('month', 'week')
                 ->get()
                 ->pluck('count', 'week')

@@ -80,6 +80,8 @@ class SiswaController extends Controller
                     'status_kehadiran' => 'Hadir',
                 ]);
 
+                user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
+
                 return redirect('/infoAbsen')->with('notification', 'Absen pulang berhasil!');
             } else {
                 return redirect('/absen')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
