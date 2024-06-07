@@ -11,7 +11,7 @@ Route::middleware(['preventBackHistory','guest'])->group(function () {
         return redirect('/login');
     });
     Route::get('/login', [LoginController::class, 'login'])->name('login');
-    Route::post('/login', [LoginController::class, 'storelogin']);
+    Route::post('/login', [LoginController::class, 'storelogin'])->middleware('resetDaily');
 });
 
 Route::middleware(['preventBackHistory','auth'])->group(function () {
