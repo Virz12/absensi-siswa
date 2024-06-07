@@ -32,7 +32,6 @@ class SiswaController extends Controller
 
     public function __construct()
     {
-        // Set locale ke Indonesia
         Carbon::setLocale('id');
     }
 

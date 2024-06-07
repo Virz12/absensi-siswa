@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use App\Models\data_absen;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class TandaAlpha extends Command
 {

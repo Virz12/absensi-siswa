@@ -28,10 +28,11 @@ class AdminController extends Controller
         $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
         
         // Logika bulan
-        $dataBulan = data_absen::selectRaw('MONTH(updated_at) as month')
+        Carbon::setLocale('id');
+        $dataBulan = data_absen::selectRaw('MONTH(tanggal) as month')
             ->groupBy('month')
             ->pluck('month');
-
+        
         if ($dataBulan->isEmpty()) {
             $dataBulan = collect([]);
         } else {
@@ -51,8 +52,8 @@ class AdminController extends Controller
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
-                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
-                ->whereMonth('created_at', $bulan)
+                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) + 1 as week, COUNT(*) as count')
+                ->whereMonth('tanggal', $bulan)
                 ->where('username', $siswa)
                 ->groupBy('month', 'week')
                 ->get()
@@ -100,6 +101,7 @@ class AdminController extends Controller
             ->with('chartAbsen', $chartAbsen)
             ->with('absen', $absen);
     }
+
 
     function data()
     {
@@ -178,13 +180,13 @@ class AdminController extends Controller
     public function activate(string $id)
     {
         user::where('id',$id)->update(['status' => 'aktif']);
-        return redirect()->back()->with('notification', 'Status pengguna berhasil diubah menjadi aktif.');
+        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi aktif.');
     }
 
     public function deactivate(string $id)
     {
         user::where('id',$id)->update(['status' => 'nonaktif']);
-        return redirect()->back()->with('notification', 'Status pengguna berhasil diubah menjadi nonaktif.');
+        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi nonaktif.');
     }
 
     private function generateRandomHexColor()
