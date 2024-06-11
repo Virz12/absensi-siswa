@@ -56,6 +56,7 @@ class LoginController extends Controller
     function logout(Request $request)
     {
         Auth::logout();
+        // $request->session()->forget('forwarded');
         return redirect('/login');
     }
 }

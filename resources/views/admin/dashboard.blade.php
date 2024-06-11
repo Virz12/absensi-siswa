@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="bg-body-secondary text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a href="/datasiswa" class="text-decoration-none fs-4"><submit class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
+                                <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
                                 <form class=" d-flex  m-3"> {{-- Form Navbar --}}
                                     <input class="form-control border-1" type="search" placeholder="Search">
                                 </form>
