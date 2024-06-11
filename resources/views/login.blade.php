@@ -32,6 +32,16 @@
                 </div>
             </div>
         </div>
+        {{-- Toast --}}
+        @if (session()->has('notification'))
+            <div class="position-fixed bottom-0 end-0 p-3 z-3">
+                <div class="alert alert-danger" role="alert">
+                    <i class="fa-solid fa-check me-2"></i>
+                    {{ session('notification') }}
+                    <button type="button" class="btn-close danger" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
         {{-- Alert --}}
         @if($errors->any())
             <div class="position-fixed bottom-0 end-0 p-3">

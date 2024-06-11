@@ -7,14 +7,14 @@
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Absen | Absen Siswa</title>
+    <title>Kehadiran | Kehadiran Siswa</title>
 </head>
 <body>
     <div class="container-fluid bg-white p-0">
         {{-- Navbar --}}
-        <nav class="navbar bg-body-secondary px-3" style="--bs-bg-opacity: .5;">
+        <nav class="navbar bg-body-secondary px-3" style="--bs-bg-opacity: 1;">
             <div class="container-fluid">
-                <h1 class="navbar-brand">Absen</h1>
+                <h1 class="navbar-brand m-0 fs-4">Kehadiran</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ Auth::user()->username }}
@@ -26,47 +26,103 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid overflow-hidden">
-            <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 58px)">
+        <div class="container-fluid overflow-hidden ">
+            
+            <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 100px)">
+                @foreach ( $statussiswa as  $status)
                 {{-- Card Hadir --}}
-                <div class="col-8 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-header">Absen Hadir</div>
-                        <div class="card-body">
-                            <form action="{{route('siswa.masuk')}}" method="POST">
+                <div class="col-9 col-lg-3">
+                    <div class="shadow-lg card border-3 border-success text-center">
+                        <div class="p-2">
+                            @if ($status->kehadiran == 'belum')
+                            <form action="{{route('siswa.masuk')}}" method="POST" class="p-2" >
                                 @csrf
-                                <button type="submit" class="btn btn-success">Absen</button></a>
+                                <button type="submit" class="btn btn-success w-50 fs-5" style="height: 50px">Hadir</button>
                             </form>
+                            @else
+                                <button class="btn btn-success w-50 fs-5"  style="height: 50px" disabled>Hadir</button>
+                            @endif
                         </div>
                     </div>
                 </div>
+
                 {{-- Card Sakit --}}
-                <div class="col-8 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-header">Absen Sakit</div>
-                        <div class="card-body">
-                            <form action="{{route('siswa.sakit')}}" method="POST">
+                <div class="col-9 col-lg-3">
+                    <div class="shadow-lg card border-3 border-secondary text-center">
+                        <div class="p-2">
+                            @if ($status->kehadiran == 'belum')
+                            <form action="{{route('siswa.sakit')}}" method="POST" class=" p-2">
                                 @csrf
-                                <button type="submit" class="btn btn-secondary">Absen</button>
+                                <button type="submit" class="btn btn-secondary w-50 fs-5" style="height: 50px">Sakit</button>                            
                             </form>
+                            @else
+                                <button class="btn btn-secondary w-50 fs-5"  style="height: 50px" disabled>Sakit</button>
+                            @endif
                         </div>
                     </div>
                 </div>
+
                 {{-- Card Izin --}}
-                <div class="col-8 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-header">Absen Izin</div>
-                        <div class="card-body">
-                            <form action="{{route('siswa.izin')}}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-warning">Absen</button>
+                <div class="col-9 col-lg-3">
+                    <div class="shadow-lg card border-3 border border-warning text-center">
+                        <div class="p-2">
+                            @if ($status->kehadiran == 'belum') 
+                            <form action="{{route('siswa.izin')}}" method="POST" class=" p-2">
+                                @csrf                                               
+                                <button type="submit" class="btn btn-warning w-50 fs-5" style="height: 50px">Izin</button>
+                                
                             </form>
+                            @else
+                                <button class="btn btn-warning w-50 fs-5"  style="height: 50px" disabled>Izin</button>
+                            @endif
                         </div>
                     </div>
                 </div>
+                @endforeach
+            </div>
+        </div>
+        
+        <div class="container-fluid text-center mb-4">
+        
+            <div class="shadow-lg card  text-center rounded p-4" style="--bs-bg-opacity: 1;">
+                <div class="d-flex  justify-content-between mb-4">
+                    <h5 class="fs-3 ">Data Kehadiran {{ Auth::user()->username }}</h5>
+                    <a href="/infoAbsen" class="text-decoration-none text-black"><button class=" btn btn-info fw-medium">
+                        <i class="fa-solid fa-circle-info me-2 "></i>Info Kehadiran</button></a>
+                </div>
+                
+                <div class="table-responsive pb-4">
+                    <table class="table-hover table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Masuk</th>
+                                <th scope="col">Pulang</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($kehadiran as $datahadir)
+                                <tr class="align-middle">
+                                    <td>{{ $datahadir->hari }} <br> {{ $datahadir->tanggal }}</td>
+                                    <td>{{ $datahadir->username }}</td>
+                                    <td>{{ $datahadir->waktu_masuk }}</td>
+                                    <td>{{ $datahadir->waktu_pulang }}</td>
+                                    <td>{{ $datahadir->status_kehadiran }}</td>
+                                </tr>
+                            @empty
+                                
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div>{!! $kehadiran->links() !!}</div>
             </div>
         </div>
     </div>
+
+
     {{-- Toast --}}
     @if (session()->has('notification'))
     <div class="position-fixed bottom-0 end-0 p-3 z-3">
@@ -90,4 +146,6 @@
         </div>
     @endif
 </body>
+{{-- Icon --}}
+<script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\User;
 
 class Reset extends Command
 {
@@ -14,6 +15,12 @@ class Reset extends Command
      */
     public function handle()
     {
-        
+        $siswas = User::where('Role','siswa')->get();
+
+        foreach ($siswas as $siswa) {
+            if ($siswa->kehadiran == 'sudah') {
+                $siswa->update(['kehadiran' => 'belum']);
+            }
+        }
     }
 }
