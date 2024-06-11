@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
                 'telefone' => '',
                 'jenis_kelamin' => '',
                 'status' => 'aktif',
-                'password' => bcrypt('rfq1611')
+                'password' => bcrypt('rafiq')
             ],[
                 'id' => '2',
                 'username' => 'virgi',
