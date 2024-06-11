@@ -9,20 +9,53 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
     function admin(Request $request)
     {   
+        //data absen 
+        $absen = data_absen::orderBy('updated_at','DESC')->paginate(4);
+        
+        //format tanggal
+        $absen->getCollection()->transform(function ($dabsen) {
+            $dabsen->tanggal = Carbon::parse($dabsen->tanggal)->format('d/m/Y');
+            return $dabsen;
+        });
+        
         // List user
         $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
+        
+        // Logika bulan
+        Carbon::setLocale('id');
+        $dataBulan = data_absen::selectRaw('MONTH(tanggal) as month')
+            ->groupBy('month')
+            ->pluck('month');
+        
+        if ($dataBulan->isEmpty()) {
+            $dataBulan = collect([]);
+        } else {
+            $dataBulan = $dataBulan->map(function ($nomorBulan) {
+                return Carbon::create()->month($nomorBulan)->format('F');
+            });
+        }
+
+        if ($request->bulan) {
+            $bulan = Carbon::parse($request->bulan)->month;
+            $bulanSekarang = Carbon::parse($request->bulan)->format('F');
+        } else {
+            $bulan = Carbon::now()->month;
+            $bulanSekarang = Carbon::now()->format('F');
+        }
 
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
-                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(created_at) - 1) / 7) + 1 as week, COUNT(*) as count')
-                ->whereMonth('created_at', 5)
+                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) + 1 as week, COUNT(*) as count')
+                ->whereMonth('tanggal', $bulan)
                 ->where('username', $siswa)
+                ->whereNot('status_kehadiran', '=', 'Alpha')
                 ->groupBy('month', 'week')
                 ->get()
                 ->pluck('count', 'week')
@@ -30,57 +63,29 @@ class AdminController extends Controller
             
             ${'absensi' . $siswa} = array_values($absensi);
         }
+
+        // Data chart
+        $data = [];
+
+        foreach ($siswas as $siswa => $username) {
+            $data[] = [
+                "label" => "$username",
+                'backgroundColor' => $this->generateRandomHexColor(),
+                'borderColor' => "",
+                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                "data" => ${'absensi' . $username},
+                "fill" => false,
+            ];
+        };
         
         $chartAbsen = app()->chartjs
             ->name('barChart')
             ->type('bar')
-            ->labels(['Minggu ke-1', 'Minggu ke-2', 'Minggu ke-3', 'Minggu ke-4'])
-            ->datasets([
-                [
-                    "label" => "Fajar",
-                    'backgroundColor' => "#FFC55A",
-                    'borderColor' => "#ed9542",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensifajar,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Rifqi",
-                    'backgroundColor' => "#6F4E37",
-                    'borderColor' => "#523124",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensirifqi,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Virgi",
-                    'backgroundColor' => "#E1AFD1",
-                    'borderColor' => "#b57f8d",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensivirgi,
-                    "fill" => false,
-                ],
-                [
-                    "label" => "Zulfan",
-                    'backgroundColor' => "#25073d",
-                    'borderColor' => "#08021c",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $absensizulfan,
-                    "fill" => false,
-                ],
-            ])
+            ->labels(['Minggu ke-1', 'Minggu ke-2', 'Minggu ke-3', 'Minggu ke-4', 'Minggu ke-5'])
+            ->datasets($data)
             ->optionsRaw("{
                 scales: {
                     yAxes: [{
@@ -92,13 +97,16 @@ class AdminController extends Controller
             }");
 
         return view('admin.dashboard')
-            ->with('chartAbsen', $chartAbsen);
+            ->with('bulanSekarang', $bulanSekarang)
+            ->with('dataBulan', $dataBulan)
+            ->with('chartAbsen', $chartAbsen)
+            ->with('absen', $absen);
     }
+
 
     function data()
     {
-        // Mengambil semua data user yang role-nya 'siswa'
-        $datasiswa = user::where('role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
+        $datasiswa = user::where('Role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
         return view('admin.datasiswa')->with('datasiswa',$datasiswa);
     }
 
@@ -158,21 +166,34 @@ class AdminController extends Controller
         }
 
         return redirect('/dashboard')
-                ->with('notification', 'Data Berhasil Diubah.');
+                ->with('notification', 'Profil Berhasil Diubah.');
+    }
+
+    function deletesiswa($id) 
+    {   
+        $dsiswa = user::findOrFail($id);
+        $dsiswa->delete();
+        
+        return redirect('/datasiswa')
+                ->with('notification', 'Data Siswa Berhasil Dihapus.');
     }
 
     public function activate(string $id)
     {
         user::where('id',$id)->update(['status' => 'aktif']);
-        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi aktif.');
+        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi aktif.');
     }
 
     public function deactivate(string $id)
     {
         user::where('id',$id)->update(['status' => 'nonaktif']);
-        return redirect()->back()->with('success', 'Status pengguna berhasil diubah menjadi nonaktif.');
+        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi nonaktif.');
     }
 
+    private function generateRandomHexColor()
+    {
+        return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+    }
 }
 
 

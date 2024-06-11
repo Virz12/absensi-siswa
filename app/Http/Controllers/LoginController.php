@@ -26,7 +26,7 @@ class LoginController extends Controller
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf.'
         ];
 
-        $request->validateWithBag('errors',[
+        $request->validate ([
             'username' => 'required|regex:/^[\pL\s]+$/u',
             'password' => 'required' 
         ],$messages);
@@ -37,19 +37,26 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($inputeddata)) {
-            if (Auth::user()->Role == 'admin') {
-                return redirect('/dashboard');
-            }elseif (Auth::user()->Role == 'siswa') {
-                return redirect('/absen');
+            $user = Auth::user();
+            if ($user->Role == 'admin') {
+                return redirect('/dashboard'); 
+            }elseif ($user->Role == 'siswa') {
+                if ($user->status == 'aktif'){
+                    return redirect('/absen');
+                }else{
+                    Auth::logout();
+                    return redirect('/login')->withErrors(['username' => 'Akun siswa Anda tidak aktif'])->withInput();
+                }
             }
         }else {
             return redirect('/login')->withErrors(['username' => 'Nama Pengguna dan Sandi Tidak Sesuai'])->withInput();
         }
     }
 
-    function logout()
+    function logout(Request $request)
     {
         Auth::logout();
+        // $request->session()->forget('forwarded');
         return redirect('/login');
     }
 }

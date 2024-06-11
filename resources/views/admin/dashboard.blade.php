@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="bg-body-secondary text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a href="/datasiswa" class="text-decoration-none fs-4"><submit class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
+                                <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
                                 <form class=" d-flex  m-3"> {{-- Form Navbar --}}
                                     <input class="form-control border-1" type="search" placeholder="Search">
                                 </form>
@@ -49,17 +49,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <td>Senin <br> 01/01/2024</td>
-                                            <td>Rifqi Sigma</td>
-                                            <td>10.00</td>
-                                            <td>00.00</td>
-                                            <td>Hadir</td>
-                                        </tr>
+                                        @forelse ( $absen as $dabsen )
+                                            <tr class="align-middle">
+                                                <td>{{ $dabsen->hari }} <br> {{ $dabsen->tanggal }}</td>
+                                                <td>{{ $dabsen->username }}</td>
+                                                <td>{{ $dabsen->waktu_masuk }}</td>
+                                                <td>{{ $dabsen->waktu_pulang }}</td>
+                                                <td>{{ $dabsen->status_kehadiran }}</td>
+                                            </tr>
+                                            @empty
+                                            <h2>Data Kososng</h2>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
-                            <div>{{-- pagination --}}</div>
+                            <div>{!! $absen->links() !!}</div>
                         </div>
                     </div>
                 </div>
@@ -68,13 +72,18 @@
                         <div class="bg-body-secondary text-center rounded p-4 ">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h5 class="mb-0">Tahun 2024</h5>
-                                <form action="" method="GET ">
+                                <form action="" method="GET">
                                     @csrf
                                     <select name="bulan" class="form-select" onchange="form.submit()">
-                                        <option value="" selected hidden>Bulan</option>
-                                            <option value="">Januari</option>
-                                            <option value="">Februari</option>
-                                            <option value="">Maret</option>
+                                        <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
+                                        @if ($dataBulan->isEmpty())
+                                        @else
+                                            @forelse($dataBulan as $bulan)
+                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                            @empty
+                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                            @endforelse
+                                        @endif
                                     </select>
                                 </form>
                             </div>
@@ -87,6 +96,16 @@
                 </div>
             </main>
         </div>
+        {{-- Toast --}}
+        @if (session()->has('notification'))
+        <div class="position-fixed bottom-0 end-0 p-3 z-3">
+            <div class="alert alert-success" role="alert">
+                <i class="fa-solid fa-check me-2"></i>
+                {{ session('notification') }}
+                <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
     </body>
     {{-- Icon --}}
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>

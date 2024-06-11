@@ -67,6 +67,18 @@
             </form>
         </div>
     </div>
+    {{-- Alert --}}
+    @if($errors->any())
+        <div class="position-fixed bottom-0 end-0 p-3">
+            @foreach ($errors->all() as $item)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    {{ $item }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endforeach
+        </div>
+    @endif
 </body>
 {{-- Icon --}}
 <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>

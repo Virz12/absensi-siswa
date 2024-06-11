@@ -49,7 +49,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'userAccess'=> \App\Http\Middleware\UserAccess::class,
-            'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class
+            'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
+            'preventBackAbsen' => \App\Http\Middleware\PreventBackAbsen::class,
+            'resetDaily' => \App\Http\Middleware\ResetDaily::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
