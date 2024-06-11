@@ -98,13 +98,19 @@
                     {{-- Form --}}
                     <form class="" action="" method="POST">
                         @csrf
-                        <div class="form-floating">
-                            <input type="text" class="form-control mb-3" id="username" name="username" placeholder="" value="" autocomplete="off">
-                            <label for="username">Username</label>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="" value="" autocomplete="off">
+                            <label for="username form-label">Username</label>
+                            @error('username')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control mb-3" id="password" name="password" placeholder="" value="" autocomplete="off">
-                            <label for="password">Password</label>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="" value="" autocomplete="off">
+                            <label for="password form-label">Password</label>
+                            @error('password')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary w-100 p-2 mb-3">Sign In</button>
                     </form>
@@ -126,13 +132,11 @@
         {{-- Alert --}}
         @if($errors->any())
             <div class="position-fixed bottom-0 end-0 p-3">
-                @foreach ($errors->all() as $item)
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                        {{ $item }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endforeach
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    Username atau Password tidak cocok!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         @endif
         <footer>
