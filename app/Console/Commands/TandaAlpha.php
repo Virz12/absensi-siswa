@@ -31,6 +31,7 @@ class TandaAlpha extends Command
                     'tanggal' => $current_date,
                     'status_kehadiran' => 'Alpha',
                 ]);
+                user::where('username', $user->username)->update(['kehadiran' => 'sudah']);
             }
             
         }

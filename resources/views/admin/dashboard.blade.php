@@ -29,7 +29,7 @@
             <main class="content">
                 <div class="container-fluid pt-3 px-3 pb-4 ">
                     <div class="col-12">
-                        <div class="bg-body-secondary text-center rounded p-4">
+                        <div class="shadow-lg card text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
                                 <form class=" d-flex  m-3"> {{-- Form Navbar --}}
@@ -53,8 +53,20 @@
                                             <tr class="align-middle">
                                                 <td>{{ $dabsen->hari }} <br> {{ $dabsen->tanggal }}</td>
                                                 <td>{{ $dabsen->username }}</td>
-                                                <td>{{ $dabsen->waktu_masuk }}</td>
-                                                <td>{{ $dabsen->waktu_pulang }}</td>
+                                                <td>
+                                                    @if ( $dabsen->waktu_masuk == false )
+                                                        -
+                                                    @else                                                                                    
+                                                        {{ $dabsen->waktu_masuk }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ( $dabsen->waktu_pulang == false )
+                                                        -
+                                                    @else
+                                                        {{ $dabsen->waktu_pulang }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $dabsen->status_kehadiran }}</td>
                                             </tr>
                                             @empty
@@ -69,12 +81,12 @@
                 </div>
                 <div class="container-fluid pt-3 px-3 pb-4 ">
                     <div class="col-12">
-                        <div class="bg-body-secondary text-center rounded p-4 ">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h5 class="mb-0">Tahun 2024</h5>
-                                <form action="" method="GET">
+                        <div class="shadow-lg card text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap">
+                                <h5 class="mb-0 w-auto">Chart Kehadiran Tahun {{ $tahun }}</h5>
+                                <form action="" method="GET" class="d-flex mt-2 mt-sm-0">
                                     @csrf
-                                    <select name="bulan" class="form-select" onchange="form.submit()">
+                                    <select name="bulan" class="form-select me-2" onchange="form.submit()">
                                         <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
                                         @if ($dataBulan->isEmpty())
                                         @else
@@ -82,6 +94,17 @@
                                                 <option value="{{ $bulan }}">{{ $bulan }}</option>
                                             @empty
                                                 <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                            @endforelse
+                                        @endif
+                                    </select>
+                                    <select name="tahun" class="form-select" onchange="form.submit()">
+                                        <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
+                                        @if ($dataTahun->isEmpty())
+                                        @else
+                                            @forelse($dataTahun as $tahun)
+                                                <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                            @empty
+                                                <option value="{{ $tahun }}">{{ $tahun }}</option>
                                             @endforelse
                                         @endif
                                     </select>

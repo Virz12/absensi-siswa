@@ -45,7 +45,7 @@ class LoginController extends Controller
                     return redirect('/absen');
                 }else{
                     Auth::logout();
-                    return redirect('/login')->withErrors(['username' => 'Akun siswa Anda tidak aktif'])->withInput();
+                    return redirect('/login')->withErrors(['username' => 'Akun Anda Ditangguhkan'])->withInput();
                 }
             }
         }else {

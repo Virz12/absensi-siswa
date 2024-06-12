@@ -49,11 +49,28 @@ class AdminController extends Controller
             $bulanSekarang = Carbon::now()->format('F');
         }
 
+        // Logika tahun
+        Carbon::setLocale('id');
+        $dataTahun = data_absen::selectRaw('YEAR(tanggal) as year')
+            ->groupBy('year')
+            ->pluck('year');
+        
+        if ($dataTahun->isEmpty()) {
+            $dataTahun = collect([]);
+        }
+
+        if ($request->tahun) {
+            $tahun = $request->tahun;
+        } else {
+            $tahun = Carbon::now()->year;
+        }
+
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
                 ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) + 1 as week, COUNT(*) as count')
                 ->whereMonth('tanggal', $bulan)
+                ->whereYear('tanggal', $tahun)
                 ->where('username', $siswa)
                 ->whereNot('status_kehadiran', '=', 'Alpha')
                 ->groupBy('month', 'week')
@@ -99,6 +116,8 @@ class AdminController extends Controller
         return view('admin.dashboard')
             ->with('bulanSekarang', $bulanSekarang)
             ->with('dataBulan', $dataBulan)
+            ->with('tahun', $tahun)
+            ->with('dataTahun', $dataTahun)
             ->with('chartAbsen', $chartAbsen)
             ->with('absen', $absen);
     }

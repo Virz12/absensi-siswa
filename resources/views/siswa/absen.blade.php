@@ -29,13 +29,14 @@
         <div class="container-fluid overflow-hidden ">
             
             <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 100px)">
+            
                 @foreach ( $statussiswa as  $status)
                 {{-- Card Hadir --}}
                 <div class="col-9 col-lg-3">
                     <div class="shadow-lg card border-3 border-success text-center">
-                        <div class="p-2">
+                        <div class="bg-success-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                            <form action="{{route('siswa.masuk')}}" method="POST" class="p-2" >
+                            <form action="{{route('siswa.masuk')}}" method="POST"  >
                                 @csrf
                                 <button type="submit" class="btn btn-success w-50 fs-5" style="height: 50px">Hadir</button>
                             </form>
@@ -49,9 +50,9 @@
                 {{-- Card Sakit --}}
                 <div class="col-9 col-lg-3">
                     <div class="shadow-lg card border-3 border-secondary text-center">
-                        <div class="p-2">
+                        <div class="bg-secondary-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                            <form action="{{route('siswa.sakit')}}" method="POST" class=" p-2">
+                            <form action="{{route('siswa.sakit')}}" method="POST" >
                                 @csrf
                                 <button type="submit" class="btn btn-secondary w-50 fs-5" style="height: 50px">Sakit</button>                            
                             </form>
@@ -65,9 +66,9 @@
                 {{-- Card Izin --}}
                 <div class="col-9 col-lg-3">
                     <div class="shadow-lg card border-3 border border-warning text-center">
-                        <div class="p-2">
+                        <div class="bg-warning-subtle p-2">
                             @if ($status->kehadiran == 'belum') 
-                            <form action="{{route('siswa.izin')}}" method="POST" class=" p-2">
+                            <form action="{{route('siswa.izin')}}" method="POST" >
                                 @csrf                                               
                                 <button type="submit" class="btn btn-warning w-50 fs-5" style="height: 50px">Izin</button>
                                 
@@ -86,7 +87,7 @@
         
             <div class="shadow-lg card  text-center rounded p-4" style="--bs-bg-opacity: 1;">
                 <div class="d-flex  justify-content-between mb-4">
-                    <h5 class="fs-3 ">Data Kehadiran {{ Auth::user()->username }}</h5>
+                    <h5 class="fs-3 ">Kehadiran {{ Auth::user()->username }}</h5>
                     <a href="/infoAbsen" class="text-decoration-none text-black"><button class=" btn btn-info fw-medium">
                         <i class="fa-solid fa-circle-info me-2 "></i>Info Kehadiran</button></a>
                 </div>
@@ -107,8 +108,20 @@
                                 <tr class="align-middle">
                                     <td>{{ $datahadir->hari }} <br> {{ $datahadir->tanggal }}</td>
                                     <td>{{ $datahadir->username }}</td>
-                                    <td>{{ $datahadir->waktu_masuk }}</td>
-                                    <td>{{ $datahadir->waktu_pulang }}</td>
+                                    <td>
+                                        @if ( $datahadir->waktu_masuk == false )
+                                            -
+                                        @else                                                                                    
+                                            {{ $datahadir->waktu_masuk }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ( $datahadir->waktu_pulang == false )
+                                            -
+                                        @else
+                                            {{ $datahadir->waktu_pulang }}
+                                        @endif
+                                    </td>
                                     <td>{{ $datahadir->status_kehadiran }}</td>
                                 </tr>
                             @empty
