@@ -36,10 +36,13 @@ class SiswaController extends Controller
 
     function info(Request $request)
     {
+        $statussiswa = user::where('username', Auth::user()->username)->get();
+
         $infoabsen = data_absen::where('username', Auth::user()->username)
                                 ->orderBy('created_at', 'desc')
                                 ->paginate(1);
-        return view('siswa.infoAbsen')->with('infoabsen', $infoabsen);
+        return view('siswa.infoAbsen')->with('infoabsen', $infoabsen)
+                                        ->with('statussiswa', $statussiswa);
     }
 
     public function __construct()
@@ -66,9 +69,9 @@ class SiswaController extends Controller
             ]);
             user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
             
-            return redirect('/infoAbsen')->with('notification', 'Absen masuk berhasil!');
+            return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
         } else {
-            return redirect('/absen')->withErrors(['msg' => 'Waktu absen masuk hanya diizinkan dari jam 08:00 sampai 12:00.']);
+            return redirect('/absen')->withErrors(['msg' => 'Waktu Masuk Diizinkan jam 08:00 - 12:00.']);
         }
     }
 
@@ -93,12 +96,12 @@ class SiswaController extends Controller
                     'status_kehadiran' => 'Hadir',
                 ]);
 
-                return redirect('/infoAbsen')->with('notification', 'Absen pulang berhasil!');
+                return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
             } else {
                 return redirect('/infoAbsen')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
             }
         } else {
-            return redirect('/infoAbsen')->withErrors(['msg' => 'Waktu absen pulang hanya diizinkan dari jam 12:00 sampai 17:00.']);
+            return redirect('/infoAbsen')->withErrors(['msg' => 'Waktu Pulang Diizinkan Jam 12:00 - 17:00.']);
         }
     }
 
@@ -116,7 +119,7 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/infoAbsen')->with('notification', 'Absen izin berhasil!');
+        return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
     }
 
     public function absenSakit(Request $request)
@@ -133,7 +136,7 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/infoAbsen')->with('notification', 'Absen sakit berhasil!');
+        return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
     }
 
 

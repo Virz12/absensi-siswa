@@ -31,14 +31,14 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                         <form class=" d-flex "> {{-- Form Navbar --}}
-                            <input class="form-control border-1 border-black" type="search" placeholder="Search">
+                            <input class="form-control border-1 border-black shadow-lg " type="search" placeholder="Search">
                         </form>
                     </div>
                     <div class="col-12">
                         <div class="row g-4 text-left">
                         @forelse ($datasiswa as $dsiswa)            
                             <div class="col-md-3 ">
-                                <div class="card ">
+                                <div class="shadow-lg card ">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item ">Nama : {{$dsiswa->username}}</li>
                                         <li class="list-group-item ">Jenis Kelamin : {{$dsiswa->jenis_kelamin}} </li>
