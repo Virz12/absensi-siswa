@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('telefone');
             $table->string('jenis_kelamin');
             $table->enum('status',['aktif','nonaktif'])->default('aktif');
+            $table->enum('kehadiran',['sudah','belum'])->default('belum');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

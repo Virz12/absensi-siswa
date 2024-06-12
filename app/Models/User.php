@@ -17,6 +17,7 @@ class User extends Authenticatable
         'telefone',
         'jenis_kelamin',
         'status',
+        'kehadiran',
     ];
 
     protected $hidden = [

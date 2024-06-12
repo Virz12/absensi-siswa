@@ -57,7 +57,7 @@
                                                         </div>
                                             @elseif($dsiswa->status == 'aktif')
                                                 <a href="/deactivate/{{ $dsiswa->id }}" class="text-decoration-none">                                                
-                                                    <button class="btn btn-warning w-100">Non Aktif</button>
+                                                    <button class="btn btn-secondary w-100">Non Aktif</button>
                                                 </a>
                                             @endif
                                         </li>
