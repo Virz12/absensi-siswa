@@ -7,7 +7,7 @@
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Sign In | Absensi Siswa</title>
+    <title>Sign In | Website Kehadiran</title>
 </head>
 <body class="vh-100" >
     <style>
