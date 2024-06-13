@@ -48,8 +48,8 @@
                         <div class="shadow-lg card text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
-                                <form class=" d-flex  m-3"> {{-- Form Navbar --}}
-                                    <input class="form-control border-1" type="search" placeholder="Search">
+                                <form class=" d-flex  m-3" action="" method="GET"> {{-- Form Navbar --}}
+                                    <input class="form-control border-2" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search" autocomplete="off">
                                 </form>
                             </div>
                             {{-- Table Absen --}}

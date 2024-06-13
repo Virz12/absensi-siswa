@@ -23,7 +23,7 @@
                 background-repeat: no-repeat;
                 margin: 0;
                 padding: 0;
-              }
+            }
         </style>
     <body>
         <div class="container-fluid p-0">
@@ -46,8 +46,8 @@
                 <div class="container-fluid pt-4 px-4 pb-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
-                        <form class=" d-flex "> {{-- Form Navbar --}}
-                            <input class="form-control border-1 border-black shadow-lg " type="search" placeholder="Search">
+                        <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
+                            <input class="form-control border-2 " type="search" name="keyword" value="{{ $keyword }}" placeholder="Search" autocomplete="off">
                         </form>
                     </div>
                     <div class="col-12">
