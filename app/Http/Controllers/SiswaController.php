@@ -39,7 +39,7 @@ class SiswaController extends Controller
         $statussiswa = user::where('username', Auth::user()->username)->get();
 
         $infoabsen = data_absen::where('username', Auth::user()->username)
-                                ->orderBy('created_at', 'desc')
+                                ->orderBy('created_at', 'DESC')
                                 ->paginate(1);
         return view('siswa.infoAbsen')->with('infoabsen', $infoabsen)
                                         ->with('statussiswa', $statussiswa);
