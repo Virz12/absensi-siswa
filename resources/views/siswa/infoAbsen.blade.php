@@ -30,28 +30,34 @@
             <div class="row justify-content-center align-content-center gy-5" style="height: calc(100vh - 58px)">
                 {{-- Card --}}
                 <div class="col-11 col-lg-4">
-                    <div class="card text-center">
+                    <div class="shadow-lg card border-3 border-info text-center">
                         <div class="d-flex justify-content-between card-header p-2">
                             <a href="/absen" class="text-decoration-none  text-black"><button class=" btn btn-info fw-medium ms-2 mt-2">
                                 <i class="fa-solid fa-arrow-left me-2"></i>Kembali</button></a>
-                            <i class="fa-solid fa-circle-info fs-2 mt-lg-2 mt-3 me-2"></i>
+                            <i class="fa-solid fa-circle-info fs-2 mt-lg-2 mt-3 me-2 " ></i>
                         </div>
-                        <div class="card-body"> 
-                            @forelse ( $infoabsen as $iabsen )
-                                <h5 class="card-title">Anda {{$iabsen->status_kehadiran}} hari ini</h5>
-                                <p class="card-text">{{ $iabsen->waktu_masuk }} - {{ $iabsen->waktu_pulang }}</p>
-                            @empty
-                                
-                            @endforelse
-                            @if ( $iabsen->waktu_pulang == true )    
-                                <button class="btn btn-primary" disabled>Pulang</button>
-                            @else
-                            <form action="{{route('siswa.pulang')}}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Pulang</button>
-                            </form>
-                            @endif
-                        </div>
+                        @foreach ( $statussiswa as $status )
+                        @if ( $status->kehadiran == 'sudah')
+                            <div class="card-body"> 
+                                @foreach ( $infoabsen as $iabsen )
+                                    <h5 class="card-title">Anda {{$iabsen->status_kehadiran}} Hari Ini</h5>
+                                    <p class="card-text">{{ $iabsen->waktu_masuk }} - {{ $iabsen->waktu_pulang }}</p>                            
+                                @if ( $iabsen->waktu_pulang == true )    
+                                    <button class="btn btn-primary " disabled>Pulang</button>
+                                @elseif ( $iabsen->status_kehadiran == 'Hadir')
+                                    <form action="{{route('siswa.pulang')}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Pulang</button>
+                                    </form>
+                                @endif                                
+                                @endforeach                                                                                   
+                            </div>
+                        @elseif ( $status->kehadiran == 'belum' )
+                            <div class="card-body">
+                                <h5 class="card-title">Anda Belum Mengisi Kehadiran Hari Ini</h5>
+                            </div>
+                        @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
