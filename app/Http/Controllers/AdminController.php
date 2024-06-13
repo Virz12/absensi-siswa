@@ -16,7 +16,20 @@ class AdminController extends Controller
     function admin(Request $request)
     {   
         //data absen 
-        $absen = data_absen::orderBy('updated_at','DESC')->paginate(4);
+        $absen = data_absen::orderBy('updated_at','DESC')->orderBy('id', 'DESC')->paginate(4);
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $absen = DB::table('data_absen')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('id', 'DESC')
+                ->whereAny([
+                    'hari',
+                    'tanggal',
+                    'username',
+                    'status_kehadiran',
+                ], 'LIKE', "%$keyword%")
+                ->paginate(4);
+        }
         
         //format tanggal
         $absen->getCollection()->transform(function ($dabsen) {
@@ -119,14 +132,34 @@ class AdminController extends Controller
             ->with('tahun', $tahun)
             ->with('dataTahun', $dataTahun)
             ->with('chartAbsen', $chartAbsen)
-            ->with('absen', $absen);
+            ->with('absen', $absen)
+            ->with('keyword', $keyword);
     }
 
 
-    function data()
+    function data(Request $request)
     {
-        $datasiswa = user::where('Role', 'siswa')->orderBy('updated_at','DESC')->paginate(8);
-        return view('admin.datasiswa')->with('datasiswa',$datasiswa);
+        $datasiswa = user::where('Role', 'siswa')->orderBy('updated_at','DESC')
+                                                ->orderBy('id', 'DESC')->paginate(8);
+
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $datasiswa = DB::table('Users')
+                ->where('Role', 'siswa')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('id', 'DESC')
+                ->whereAny([
+                    'username',
+                    'telefone',
+                    'jenis_kelamin',
+                    'status',
+                ], 'LIKE', "%$keyword%")
+                ->paginate(8);
+        }
+
+        return view('admin.datasiswa')
+                    ->with('datasiswa',$datasiswa)
+                    ->with('keyword', $keyword);
     }
 
     function profile()
@@ -199,14 +232,14 @@ class AdminController extends Controller
 
     public function activate(string $id)
     {
-        user::where('id',$id)->update(['status' => 'aktif']);
-        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi aktif.');
+        user::where('id',$id)->update(['status' => 'Aktif']);
+        return redirect()->back()->with('notification', 'Status Siswa Berhasil Diubah Menjadi Aktif.');
     }
 
     public function deactivate(string $id)
     {
-        user::where('id',$id)->update(['status' => 'nonaktif']);
-        return redirect()->back()->with('notification', 'Status Siswa berhasil diubah menjadi nonaktif.');
+        user::where('id',$id)->update(['status' => 'Nonaktif']);
+        return redirect()->back()->with('notification', 'Status Siswa Berhasil Diubah Menjadi Nonaktif.');
     }
 
     private function generateRandomHexColor()
