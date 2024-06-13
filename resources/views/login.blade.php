@@ -9,13 +9,12 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>Sign In | Absensi Siswa</title>
 </head>
-<body class="vh-100">
+<body class="vh-100" >
     <style>
         body {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask19831%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='rgba(255%2c 255%2c 255%2c 1)'%3e%3c/rect%3e%3crect width='263.04' height='263.04' clip-path='url(%26quot%3b%23SvgjsClipPath19832%26quot%3b)' x='1347.64' y='694.63' fill='url(%26quot%3b%23SvgjsPattern19833%26quot%3b)' transform='rotate(7.98%2c 1479.16%2c 826.15)'%3e%3c/rect%3e%3crect width='329.76' height='329.76' clip-path='url(%26quot%3b%23SvgjsClipPath19834%26quot%3b)' x='1115.97' y='271.15' fill='url(%26quot%3b%23SvgjsPattern19835%26quot%3b)' transform='rotate(143.58%2c 1280.85%2c 436.03)'%3e%3c/rect%3e%3crect width='432' height='432' clip-path='url(%26quot%3b%23SvgjsClipPath19836%26quot%3b)' x='1350.52' y='-187.28' fill='url(%26quot%3b%23SvgjsPattern19837%26quot%3b)' transform='rotate(205.44%2c 1566.52%2c 28.72)'%3e%3c/rect%3e%3crect width='509.6' height='509.6' clip-path='url(%26quot%3b%23SvgjsClipPath19838%26quot%3b)' x='173.59' y='-49.13' fill='url(%26quot%3b%23SvgjsPattern19839%26quot%3b)' transform='rotate(84.84%2c 428.39%2c 205.67)'%3e%3c/rect%3e%3cpath d='M1453.27 1033.48 L1443.3899999999999 1139.8600000000001L1516.6483581169762 1154.9883581169763z' stroke='rgba(252%2c 255%2c 13%2c 1)' stroke-width='1' stroke-dasharray='2%2c 2'%3e%3c/path%3e%3ccircle r='155.40755327033855' cx='1566.06' cy='958.15' fill='rgba(255%2c 0%2c 64%2c 1)'%3e%3c/circle%3e%3crect width='696.96' height='696.96' clip-path='url(%26quot%3b%23SvgjsClipPath19840%26quot%3b)' x='-240.3' y='-22.15' fill='url(%26quot%3b%23SvgjsPattern19841%26quot%3b)' transform='rotate(151.67%2c 108.18%2c 326.33)'%3e%3c/rect%3e%3crect width='494.76' height='494.76' clip-path='url(%26quot%3b%23SvgjsClipPath19842%26quot%3b)' x='340.77' y='655.28' fill='url(%26quot%3b%23SvgjsPattern19843%26quot%3b)' transform='rotate(126.18%2c 588.15%2c 902.66)'%3e%3c/rect%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask19831'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cpattern x='0' y='0' width='8.22' height='8.22' patternUnits='userSpaceOnUse' id='SvgjsPattern19833'%3e%3cpath d='M0 8.22L4.11 0L8.22 8.22' stroke='rgba(169%2c 0%2c 178%2c 1)' fill='none'%3e%3c/path%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19832'%3e%3ccircle r='65.76' cx='1479.16' cy='826.15'%3e%3c/circle%3e%3c/clipPath%3e%3cpattern x='0' y='0' width='9.16' height='9.16' patternUnits='userSpaceOnUse' id='SvgjsPattern19835'%3e%3cpath d='M0 9.16L4.58 0L9.16 9.16' stroke='rgba(8%2c 175%2c 129%2c 1)' fill='none'%3e%3c/path%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19834'%3e%3ccircle r='82.44' cx='1280.85' cy='436.03'%3e%3c/circle%3e%3c/clipPath%3e%3cpattern x='0' y='0' width='432' height='6' patternUnits='userSpaceOnUse' id='SvgjsPattern19837'%3e%3crect width='432' height='3' x='0' y='0' fill='rgba(35%2c 187%2c 203%2c 1)'%3e%3c/rect%3e%3crect width='432' height='3' x='0' y='3' fill='rgba(0%2c 0%2c 0%2c 0)'%3e%3c/rect%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19836'%3e%3ccircle r='108' cx='1566.52' cy='28.72'%3e%3c/circle%3e%3c/clipPath%3e%3cpattern x='0' y='0' width='9.1' height='9.1' patternUnits='userSpaceOnUse' id='SvgjsPattern19839'%3e%3cpath d='M4.55 1L4.55 8.1M1 4.55L8.1 4.55' stroke='rgba(255%2c 0%2c 64%2c 1)' fill='none' stroke-width='2.33'%3e%3c/path%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19838'%3e%3ccircle r='127.4' cx='428.39' cy='205.67'%3e%3c/circle%3e%3c/clipPath%3e%3cpattern x='0' y='0' width='696.96' height='9.68' patternUnits='userSpaceOnUse' id='SvgjsPattern19841'%3e%3crect width='696.96' height='4.84' x='0' y='0' fill='rgba(35%2c 187%2c 203%2c 1)'%3e%3c/rect%3e%3crect width='696.96' height='4.84' x='0' y='4.84' fill='rgba(0%2c 0%2c 0%2c 0)'%3e%3c/rect%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19840'%3e%3ccircle r='174.24' cx='108.18' cy='326.33'%3e%3c/circle%3e%3c/clipPath%3e%3cpattern x='0' y='0' width='13.02' height='13.02' patternUnits='userSpaceOnUse' id='SvgjsPattern19843'%3e%3cpath d='M6.51 1L6.51 12.02M1 6.51L12.02 6.51' stroke='rgba(0%2c 243%2c 84%2c 1)' fill='none' stroke-width='1.21'%3e%3c/path%3e%3c/pattern%3e%3cclipPath id='SvgjsClipPath19842'%3e%3ccircle r='123.69' cx='588.15' cy='902.66'%3e%3c/circle%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e");            left: 0;
             background-size: cover;
-            position: fixed;
-            top: 0;
-            left: 0;
+            background-position: fixed;
             width: 100%;
             height: 100%;
             overflow: hidden; /* Mencegah scroll pada wrapper */
@@ -27,67 +26,6 @@
             padding: 0;
           }
     </style>
-    <svg class="z-n1 position-absolute object-fit-xxl-contain " xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1920" height="1080" preserveAspectRatio="none" viewBox="0 0 1920 1080">
-        <g mask="url(&quot;#SvgjsMask32596&quot;)" fill="none">
-            <rect width="1920" height="1080" x="0" y="0" fill="url(&quot;#SvgjsLinearGradient32597&quot;)"></rect>
-            <rect width="60" height="60" clip-path="url(&quot;#SvgjsClipPath32598&quot;)" x="1194.36" y="72.63" fill="url(&quot;#SvgjsPattern32599&quot;)" transform="rotate(138.99, 1224.36, 102.63)"></rect>
-            <rect width="300" height="300" clip-path="url(&quot;#SvgjsClipPath32600&quot;)" x="1337.34" y="-6.13" fill="url(&quot;#SvgjsPattern32601&quot;)" transform="rotate(348.19, 1487.34, 143.87)"></rect>
-            <rect width="716.32" height="716.32" clip-path="url(&quot;#SvgjsClipPath32602&quot;)" x="529.7" y="583.88" fill="url(&quot;#SvgjsPattern32603&quot;)" transform="rotate(312.4, 887.86, 942.04)"></rect>
-            <rect width="543.36" height="543.36" clip-path="url(&quot;#SvgjsClipPath32604&quot;)" x="220.55" y="-218.35" fill="url(&quot;#SvgjsPattern32605&quot;)" transform="rotate(127.34, 492.23, 53.33)"></rect>
-            <rect width="192.48" height="192.48" clip-path="url(&quot;#SvgjsClipPath32606&quot;)" x="322.25" y="576.4" fill="url(&quot;#SvgjsPattern32607&quot;)" transform="rotate(71.89, 418.49, 672.64)"></rect>
-            <path d="M969.05 60.14L980.8 65.22 978.43 77.81 990.19 82.88 987.81 95.47 999.57 100.55 997.2 113.13" stroke="rgba(255, 0, 64, 1)" stroke-width="1.36"></path>
-            <path d="M1566.1999999999998 798.35 L1444.96 739.73L1443.3257728514316 831.2942271485683z" stroke="rgba(35, 187, 203, 1)" stroke-width="1" stroke-dasharray="2, 2"></path>
-            <rect width="456" height="456" clip-path="url(&quot;#SvgjsClipPath32608&quot;)" x="262.79" y="590.43" fill="url(&quot;#SvgjsPattern32609&quot;)" transform="rotate(11.24, 490.79, 818.43)"></rect>
-        </g>
-        <defs>
-            <mask id="SvgjsMask32596">
-                <rect width="1920" height="1080" fill="#ffffff"></rect>
-            </mask>
-            <linearGradient x1="10.94%" y1="119.44%" x2="89.06%" y2="-19.44%" gradientUnits="userSpaceOnUse" id="SvgjsLinearGradient32597">
-                <stop stop-color="rgba(244, 200, 119, 1)" offset="0"></stop>
-                <stop stop-color="rgba(255, 255, 255, 1)" offset="0.86"></stop>
-            </linearGradient>
-            <pattern x="0" y="0" width="60" height="6" patternUnits="userSpaceOnUse" id="SvgjsPattern32599">
-                <rect width="60" height="3" x="0" y="0" fill="rgba(169, 0, 178, 1)"></rect>
-                <rect width="60" height="3" x="0" y="3" fill="rgba(0, 0, 0, 0)"></rect>
-            </pattern>
-            <clipPath id="SvgjsClipPath32598">
-                <circle r="15" cx="1224.36" cy="102.63"></circle>
-            </clipPath>
-            <pattern x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" id="SvgjsPattern32601">
-                <path d="M3 1L3 5M1 3L5 3" stroke="rgba(8, 175, 129, 1)" fill="none" stroke-width="1.53"></path>
-            </pattern>
-            <clipPath id="SvgjsClipPath32600">
-                <circle r="75" cx="1487.34" cy="143.87"></circle>
-            </clipPath>
-            <pattern x="0" y="0" width="9.68" height="9.68" patternUnits="userSpaceOnUse" id="SvgjsPattern32603">
-                <path d="M4.84 1L4.84 8.68M1 4.84L8.68 4.84" stroke="rgba(255, 0, 64, 1)" fill="none" stroke-width="2.74"></path>
-            </pattern>
-            <clipPath id="SvgjsClipPath32602">
-                <circle r="179.08" cx="887.86" cy="942.04"></circle>
-            </clipPath>
-            <pattern x="0" y="0" width="11.32" height="11.32" patternUnits="userSpaceOnUse" id="SvgjsPattern32605">
-                <path d="M0 11.32L5.66 0L11.32 11.32" stroke="rgba(252, 255, 13, 1)" fill="none"></path>
-            </pattern>
-            <clipPath id="SvgjsClipPath32604">
-                <circle r="135.84" cx="492.23" cy="53.33"></circle>
-            </clipPath>
-            <pattern x="0" y="0" width="192.48" height="8.02" patternUnits="userSpaceOnUse" id="SvgjsPattern32607">
-                <rect width="192.48" height="4.01" x="0" y="0" fill="rgba(255, 0, 64, 1)"></rect>
-                <rect width="192.48" height="4.01" x="0" y="4.01" fill="rgba(0, 0, 0, 0)"></rect>
-            </pattern>
-            <clipPath id="SvgjsClipPath32606">
-                <circle r="48.12" cx="418.49" cy="672.64"></circle>
-            </clipPath>
-            <pattern x="0" y="0" width="456" height="6" patternUnits="userSpaceOnUse" id="SvgjsPattern32609">
-                <rect width="456" height="3" x="0" y="0" fill="rgba(8, 175, 129, 1)"></rect>
-                <rect width="456" height="3" x="0" y="3" fill="rgba(0, 0, 0, 0)"></rect>
-            </pattern>
-            <clipPath id="SvgjsClipPath32608">
-                <circle r="114" cx="490.79" cy="818.43"></circle>
-            </clipPath>
-        </defs>
-    </svg>
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center">
             {{-- Card --}}
