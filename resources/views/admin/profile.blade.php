@@ -7,14 +7,14 @@
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Profile Admin | Absen Siswa</title>
+    <title>Profile Admin | Kehadiran Siswa</title>
 </head>
 <body>
     <div class="container-fluid bg-white p-0">
         {{-- Navbar --}}
         <nav class="navbar bg-body-secondary px-3" style="--bs-bg-opacity: .5;">
             <div class="container-fluid">
-                <h1 class="navbar-brand">Profile</h1>
+                <h1 class="navbar-brand m-0 fs-4">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ Auth::user()->username }}
