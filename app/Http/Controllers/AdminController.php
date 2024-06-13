@@ -153,7 +153,7 @@ class AdminController extends Controller
                     'telefone',
                     'jenis_kelamin',
                     'status',
-                ], 'LIKE', "%$keyword%")
+                ], 'LIKE', "$keyword%")
                 ->paginate(8);
         }
 
