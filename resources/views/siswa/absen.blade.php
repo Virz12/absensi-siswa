@@ -23,7 +23,7 @@
             background-repeat: no-repeat;
             margin: 0;
             padding: 0;
-          }
+        }
     </style>
 <body>
     <div class="container-fluid p-0">
@@ -99,7 +99,7 @@
             </div>
         </div>
         
-        <div class="container-fluid text-center mb-4">
+        <div class="container-fluid text-center pb-4">
         
             <div class="shadow-lg card  text-center rounded p-4" style="--bs-bg-opacity: 1;">
                 <div class="d-flex  justify-content-between mb-4">

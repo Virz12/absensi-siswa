@@ -23,7 +23,7 @@
             background-repeat: no-repeat;
             margin: 0;
             padding: 0;
-          }
+        }
     </style>
 <body>
     <div class="container-fluid p-0">

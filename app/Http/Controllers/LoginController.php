@@ -24,6 +24,7 @@ class LoginController extends Controller
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf.'
+            
         ];
 
         $request->validate ([
@@ -49,7 +50,8 @@ class LoginController extends Controller
                 }
             }
         }else {
-            return redirect('/login')->withErrors(['username' => 'Nama Pengguna dan Sandi Tidak Sesuai'])->withInput();
+            return redirect('/login')  
+                    ->withErrors(['password' => 'Ussername Atau Password Tidak Sesuai'])->withInput();
         }
     }
 

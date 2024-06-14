@@ -24,25 +24,26 @@
             background-repeat: no-repeat;
             margin: 0;
             padding: 0;
-          }
+        }
     </style>
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center">
             {{-- Card --}}
             <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3">
-                <h1 class="text-center mb-4 fw-bold text-black">Website Kehadiran</h1>
+                <h1 class="text-center mb-4 fw-bold text-black">Kehadiran PKL </h1>
                 <div class="bg-body-secondary rounded mx-2 p-4 px-xl-5" style="--bs-bg-opacity: .5;">
-                    <h1 class="text-center mb-4, fw-bold">Sign in</h1>
+                    <h1 class="text-center mb-4, fw-bold">Sign In</h1>
                     {{-- Form --}}
-                    <form class="" action="" method="POST">
+                    <form class="needs-validation" action="" method="POST" novalidate>
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="username" name="username" placeholder="" value="" autocomplete="off">
-                            <label for="username form-label">Username</label>
+                            <label for="username" class="form-label">Username</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
+
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="password" name="password" placeholder="" value="" autocomplete="off">
                             <label for="password form-label">Password</label>
@@ -50,6 +51,7 @@
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
+
                         <button type="submit" class="btn btn-primary w-100 p-2 mb-3">Sign In</button>
                     </form>
                 </div>
@@ -72,7 +74,7 @@
             <div class="position-fixed bottom-0 end-0 p-3">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    Username atau Password tidak cocok!
+                    Sign In Gagal!
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>

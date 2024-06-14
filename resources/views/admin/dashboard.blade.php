@@ -23,7 +23,7 @@
                 background-repeat: no-repeat;
                 margin: 0;
                 padding: 0;
-              }
+            }
         </style>
     <body>
         <div class="container-fluid p-0">
@@ -86,7 +86,7 @@
                                                 <td>{{ $dabsen->status_kehadiran }}</td>
                                             </tr>
                                             @empty
-                                            <h2>Data Kososng</h2>
+                                            <h2>Data Tidak Ditemukan</h2>
                                         @endforelse
                                     </tbody>
                                 </table>

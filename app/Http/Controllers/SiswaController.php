@@ -54,7 +54,7 @@ class SiswaController extends Controller
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $start_morning = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
-        $end_morning = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
+        $end_morning = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_morning, $end_morning)) {
             $tanggal = $current_time->format('Y-m-d');
@@ -78,7 +78,7 @@ class SiswaController extends Controller
     function absenPulang(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
-        $start_afternoon = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
+        $start_afternoon = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
         $end_afternoon = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_afternoon, $end_afternoon)) {
