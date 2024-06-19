@@ -65,11 +65,7 @@
                                                         <div class="d-flex justify-content-between gap-2">
                                                             <a href="/activate/{{ $dsiswa->id }}" class="text-decoration-none  w-100">
                                                             <button type="submit" value="Aktif" class="btn btn-success w-100">Aktif</button></a>
-                                                            <form action="/hapussiswa/{{ $dsiswa->id }}"  class=" w-100">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger w-100"><i class="fa-solid fa-trash p-1"></i>Hapus</button>
-                                                            </form>
+                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $dsiswa->id }}">Hapus</button>
                                                         </div>
                                             @elseif($dsiswa->status == 'aktif')
                                                 <a href="/deactivate/{{ $dsiswa->id }}" class="text-decoration-none">                                                
@@ -78,6 +74,29 @@
                                             @endif
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+                            {{-- Confirmation Modal --}}
+                            <div class="modal fade" id="Hapus{{ $dsiswa->id }}" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="HapusLabel">Hapus Data</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Apakah anda yakin ingin menghapus data ini?<br>
+                                            <b>{{ $dsiswa->username }}</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="/hapussiswa/{{ $dsiswa->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @empty
