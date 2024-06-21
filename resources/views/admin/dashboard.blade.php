@@ -49,7 +49,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <a href="/datasiswa" class="text-decoration-none fs-4"><button class="btn btn-sm btn-primary p-2 fs-6">Data Siswa <i class="fa-solid fa-folder"></i></button></a>
                                 <form class=" d-flex  m-3" action="" method="GET"> {{-- Form Navbar --}}
-                                    <input class="form-control border-2" type="search" name="keyword" value="{{ $keyword }}" placeholder="Search" autocomplete="off">
+                                    <input class="form-control border-2 border-primary" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
                                 </form>
                             </div>
                             {{-- Table Absen --}}
@@ -85,8 +85,8 @@
                                                 </td>
                                                 <td>{{ $dabsen->status_kehadiran }}</td>
                                             </tr>
-                                            @empty
-                                            <h2>Data Tidak Ditemukan</h2>
+                                        @empty
+                                            
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -102,7 +102,7 @@
                                 <h5 class="mb-0 w-auto">Chart Kehadiran Tahun {{ $tahun }}</h5>
                                 <form action="" method="GET" class="d-flex mt-2 mt-sm-0">
                                     @csrf
-                                    <select name="bulan" class="form-select me-2" onchange="form.submit()">
+                                    <select name="bulan" class="form-select me-2 border-2 border-primary" onchange="form.submit()">
                                         <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
                                         @if ($dataBulan->isEmpty())
                                         @else
@@ -113,7 +113,7 @@
                                             @endforelse
                                         @endif
                                     </select>
-                                    <select name="tahun" class="form-select" onchange="form.submit()">
+                                    <select name="tahun" class="form-select border-2 border-primary" onchange="form.submit()">
                                         <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
                                         @if ($dataTahun->isEmpty())
                                         @else

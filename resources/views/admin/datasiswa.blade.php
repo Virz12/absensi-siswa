@@ -47,7 +47,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                         <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
-                            <input class="form-control border-2 " type="search" name="keyword" value="{{ $keyword }}" placeholder="Search" autocomplete="off">
+                            <input class="form-control border-2 " type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
                         </form>
                     </div>
                     <div class="col-12">
