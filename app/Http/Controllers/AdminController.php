@@ -81,17 +81,27 @@ class AdminController extends Controller
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
-                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) + 1 as week, COUNT(*) as count')
+                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) as week, COUNT(*) as count')
                 ->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
                 ->where('username', $siswa)
                 ->whereNot('status_kehadiran', '=', 'Alpha')
+                ->whereNot('status_kehadiran', '=', 'Sakit')
+                ->whereNot('status_kehadiran', '=', 'Izin')
                 ->groupBy('month', 'week')
                 ->get()
                 ->pluck('count', 'week')
                 ->all();
             
-            ${'absensi' . $siswa} = array_values($absensi);
+            $data = [0, 0, 0, 0, 0];
+            $minggu = array_keys($absensi);
+            $datas = array_values($absensi);
+
+            for ($i=0; $i < count($minggu); $i++) { 
+                array_splice($data, $minggu[$i], 1, $datas[$i]);
+            }
+
+            ${'absensi' . $siswa} = $data;
         }
 
         // Data chart
