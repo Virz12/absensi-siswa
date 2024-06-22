@@ -52,10 +52,7 @@
                     <div class="shadow-lg card border-3 border-success text-center">
                         <div class="bg-success-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                            <form action="{{route('siswa.masuk')}}" method="POST"  >
-                                @csrf
-                                <button type="submit" class="btn btn-success w-50 fs-5" style="height: 50px">Hadir</button>
-                            </form>
+                                <button type="button" class="btn btn-success w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Hadir">Hadir</button>
                             @else
                                 <button class="btn btn-success w-50 fs-5"  style="height: 50px" disabled>Hadir</button>
                             @endif
@@ -68,10 +65,7 @@
                     <div class="shadow-lg card border-3 border-secondary text-center">
                         <div class="bg-secondary-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                            <form action="{{route('siswa.sakit')}}" method="POST" >
-                                @csrf
-                                <button type="submit" class="btn btn-secondary w-50 fs-5" style="height: 50px">Sakit</button>                            
-                            </form>
+                                <button type="button" class="btn btn-secondary w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Sakit">Sakit</button>
                             @else
                                 <button class="btn btn-secondary w-50 fs-5"  style="height: 50px" disabled>Sakit</button>
                             @endif
@@ -84,13 +78,9 @@
                     <div class="shadow-lg card border-3 border border-warning text-center">
                         <div class="bg-warning-subtle p-2">
                             @if ($status->kehadiran == 'belum') 
-                            <form action="{{route('siswa.izin')}}" method="POST" >
-                                @csrf                                               
-                                <button type="submit" class="btn btn-warning w-50 fs-5" style="height: 50px">Izin</button>
-                                
-                            </form>
+                                <button type="button" class="btn btn-warning w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Izin">Izin</button>
                             @else
-                                <button class="btn btn-warning w-50 fs-5"  style="height: 50px" disabled>Izin</button>
+                                <button class="btn btn-warning w-50 fs-5" style="height: 50px" disabled>Izin</button>
                             @endif
                         </div>
                     </div>
@@ -150,8 +140,60 @@
             </div>
         </div>
     </div>
-
-
+    {{-- Confirmation Hadir --}}
+    <div class="modal fade" id="Hadir" tabindex="-1" aria-labelledby="HadirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="HadirLabel">Apakah Anda Yakin?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{route('siswa.masuk')}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Ya</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Confirmation Sakit --}}
+    <div class="modal fade" id="Sakit" tabindex="-1" aria-labelledby="SakitLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="SakitLabel">Apakah Anda Yakin?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{route('siswa.sakit')}}" method="POST" >
+                        @csrf
+                        <button type="submit" class="btn btn-success">Ya</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Confirmation Izin --}}
+    <div class="modal fade" id="Izin" tabindex="-1" aria-labelledby="IzinLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="IzinLabel">Apakah Anda Yakin?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{route('siswa.izin')}}" method="POST" >
+                        @csrf                                               
+                        <button type="submit" class="btn btn-success">Ya</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Toast --}}
     @if (session()->has('notification'))
     <div class="position-fixed bottom-0 end-0 p-3 z-3">
