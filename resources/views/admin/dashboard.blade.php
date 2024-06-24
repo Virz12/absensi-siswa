@@ -36,8 +36,8 @@
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/admin_profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                        <li><a class="dropdown-item" href="/admin_profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
                     </ul>
                     </div>
                 </div>

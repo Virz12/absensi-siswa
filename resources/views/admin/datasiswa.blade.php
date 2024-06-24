@@ -36,8 +36,8 @@
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/admin_profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                        <li><a class="dropdown-item" href="/admin_profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
                     </ul>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                         <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
-                            <input class="form-control border-2 " type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
+                            <input class="form-control border-2 border-primary" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
                         </form>
                     </div>
                     <div class="col-12">
@@ -63,9 +63,9 @@
                                         <li class="list-group-item ">
                                             @if($dsiswa->status == 'nonaktif')
                                                         <div class="d-flex justify-content-between gap-2">
-                                                            <a href="/activate/{{ $dsiswa->id }}" class="text-decoration-none  w-100">
+                                                            <a href="/activate/{{ $dsiswa->id }}" class="text-decoration-none  w-50">
                                                             <button type="submit" value="Aktif" class="btn btn-success w-100">Aktif</button></a>
-                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Hapus{{ $dsiswa->id }}">Hapus</button>
+                                                            <button type="button" class="btn btn-danger w-50" data-bs-toggle="modal" data-bs-target="#Hapus{{ $dsiswa->id }}"><i class="fa-solid fa-trash-can"></i> Hapus</button>
                                                         </div>
                                             @elseif($dsiswa->status == 'aktif')
                                                 <a href="/deactivate/{{ $dsiswa->id }}" class="text-decoration-none">                                                
@@ -92,7 +92,7 @@
                                             <form action="/hapussiswa/{{ $dsiswa->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Hapus</button>
                                             </form>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                                         </div>

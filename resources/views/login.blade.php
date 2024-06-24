@@ -7,7 +7,7 @@
 
     {{-- Bootstrap --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Sign In | Website Kehadiran</title>
+    <title>Sign In | Kehadiran PKL</title>
 </head>
 <body class="vh-100" >
     <style>
@@ -38,7 +38,7 @@
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="username" name="username" placeholder="" value="" autocomplete="off">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label"><i class="fa-solid fa-circle-user"></i> Username</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -46,7 +46,7 @@
 
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="password" name="password" placeholder="" value="" autocomplete="off">
-                            <label for="password form-label">Password</label>
+                            <label for="password form-label"><i class="fa-solid fa-key"></i> Password</label>
                             @error('password')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -83,4 +83,6 @@
     </footer>
     </div>
 </body>
+{{-- Icon --}}
+<script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </html>

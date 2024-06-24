@@ -23,7 +23,7 @@
             background-repeat: no-repeat;
             margin: 0;
             padding: 0;
-          }
+        }
     </style>
 <body>
     <div class="container-fluid p-0">
@@ -36,8 +36,8 @@
                     {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/siswa_profile">Profile</a></li>
-                    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                    <li><a class="dropdown-item" href="/siswa_profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
                 </ul>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                             </div>
                         @elseif ( $status->kehadiran == 'belum' )
                             <div class="card-body">
-                                <h5 class="card-title">Anda Belum Mengisi Kehadiran Hari Ini</h5>
+                                <h5 class="card-title">Anda Belum Mengisi Kehadiran Hari Ini!</h5>
                             </div>
                         @endif
                         @endforeach

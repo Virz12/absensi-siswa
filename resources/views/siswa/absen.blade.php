@@ -36,8 +36,8 @@
                     {{ Auth::user()->username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/siswa_profile">Profile</a></li>
-                    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                    <li><a class="dropdown-item" href="/siswa_profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
                 </ul>
                 </div>
             </div>
@@ -52,9 +52,9 @@
                     <div class="shadow-lg card border-3 border-success text-center">
                         <div class="bg-success-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                                <button type="button" class="btn btn-success w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Hadir">Hadir</button>
+                                <button type="button" class="btn btn-success w-100 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Hadir"><i class="fa-solid fa-user-check"></i> Hadir</button>
                             @else
-                                <button class="btn btn-success w-50 fs-5"  style="height: 50px" disabled>Hadir</button>
+                                <button class="btn btn-success w-100 fs-5"  style="height: 50px" disabled><i class="fa-solid fa-user-check"></i> Hadir</button>
                             @endif
                         </div>
                     </div>
@@ -65,9 +65,9 @@
                     <div class="shadow-lg card border-3 border-secondary text-center">
                         <div class="bg-secondary-subtle p-2">
                             @if ($status->kehadiran == 'belum')
-                                <button type="button" class="btn btn-secondary w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Sakit">Sakit</button>
+                                <button type="button" class="btn btn-secondary w-100 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Sakit"><i class="fa-solid fa-head-side-mask"></i> Sakit</button>
                             @else
-                                <button class="btn btn-secondary w-50 fs-5"  style="height: 50px" disabled>Sakit</button>
+                                <button class="btn btn-secondary w-100 fs-5"  style="height: 50px" disabled><i class="fa-solid fa-head-side-mask"></i> Sakit</button>
                             @endif
                         </div>
                     </div>
@@ -78,9 +78,9 @@
                     <div class="shadow-lg card border-3 border border-warning text-center">
                         <div class="bg-warning-subtle p-2">
                             @if ($status->kehadiran == 'belum') 
-                                <button type="button" class="btn btn-warning w-50 fs-5" style="height: 50px" data-bs-toggle="modal" data-bs-target="#Izin">Izin</button>
+                                <button type="button" class="btn btn-warning w-100 fs-5 " style="height: 50px" data-bs-toggle="modal" data-bs-target="#Izin"><i class="fa-solid fa-user-minus"></i> Izin</button>
                             @else
-                                <button class="btn btn-warning w-50 fs-5" style="height: 50px" disabled>Izin</button>
+                                <button class="btn btn-warning w-100 fs-5" style="height: 50px" disabled><i class="fa-solid fa-user-minus"></i> Izin</button>
                             @endif
                         </div>
                     </div>
@@ -93,7 +93,7 @@
         
             <div class="shadow-lg card  text-center rounded p-4" style="--bs-bg-opacity: 1;">
                 <div class="d-flex  justify-content-between mb-4">
-                    <h5 class="fs-3 ">Kehadiran {{ Auth::user()->username }}</h5>
+                    <h5 class="fs-3 "><i class="fa-solid fa-clock-rotate-left"></i> Kehadiran </h5>
                     <a href="/infoAbsen" class="text-decoration-none text-black"><button class=" btn btn-info fw-medium">
                         <i class="fa-solid fa-circle-info me-2 "></i>Info Kehadiran</button></a>
                 </div>
