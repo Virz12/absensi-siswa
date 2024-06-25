@@ -199,13 +199,13 @@ class AdminController extends Controller
 
         $request->validate([
             'username' => 'required',
-            'passwordOld' => 'required',
+            'passwordLama' => 'required',
             'password' => 'nullable',
             'passwordConfirm' => 'nullable',
         ],$messages);
 
         $data_user = user::findOrFail(Auth::id());
-        $verify_password = Hash::check($request->input('passwordOld'),$data_user->password);
+        $verify_password = Hash::check($request->input('passwordLama'),$data_user->password);
 
         if($verify_password == true)
         {

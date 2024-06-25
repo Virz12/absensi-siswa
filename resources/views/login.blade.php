@@ -31,13 +31,13 @@
             {{-- Card --}}
             <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3">
                 <h1 class="text-center mb-4 fw-bold text-black">Kehadiran PKL </h1>
-                <div class="bg-body-secondary rounded mx-2 p-4 px-xl-5" style="--bs-bg-opacity: .5;">
+                <div class="bg-body-secondary rounded mx-2 p-4 px-xl-5" style="--bs-bg-opacity: .7;">
                     <h1 class="text-center mb-4, fw-bold">Sign In</h1>
                     {{-- Form --}}
                     <form action="" method="POST">
                         @csrf
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="" value="" autocomplete="off">
+                            <input type="text" class="form-control border-2 @error('username') is-invalid @enderror" id="username" name="username" placeholder="" value="" autocomplete="off">
                             <label for="username" class="form-label"><i class="fa-solid fa-circle-user"></i> Username</label>
                             @error('username')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="" value="" autocomplete="off">
+                            <input type="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password" name="password" placeholder="" value="" autocomplete="off">
                             <label for="password form-label"><i class="fa-solid fa-key"></i> Password</label>
                             @error('password')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
@@ -57,25 +57,17 @@
                 </div>
             </div>
         </div>
-        
-        {{-- Toast --}}
-        @if (session()->has('notification'))
-            <div class="position-fixed bottom-0 end-0 p-3 z-3">
-                <div class="alert alert-danger" role="alert">
-                    <i class="fa-solid fa-check me-2"></i>
-                    {{ session('notification') }}
-                    <button type="button" class="btn-close danger" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
         {{-- Alert --}}
         @if($errors->any())
             <div class="position-fixed bottom-0 end-0 p-3">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    Sign In Gagal!
+                    Sign In Gagal
+                    @if($errors->has('error'))
+                        {{ $errors->first('error') }}
+                    @endif
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                </div>                
             </div>
         @endif
         <footer>

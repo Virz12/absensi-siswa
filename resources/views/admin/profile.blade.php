@@ -51,34 +51,34 @@
             @method('PUT')
                 <div class="col-md-7">
                     <label for="username" class="form-label">Username<span class="text-danger">*</span></label>
-                    <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2" id="username" autocomplete="off">
+                    <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2 @error('username') is-invalid @enderror" id="username" autocomplete="off">
                     @error('username')
                         <div class="text-danger"><small>{{ $message }}</small></div>
                     @enderror
                 </div>
                 <div class="col-md-7">
-                    <label for="passwordOld" class="form-label">Password Lama<span class="text-danger">*</span></label>
-                    <input type="password" name="passwordOld" class="form-control border-2" id="passwordOld">
-                    @error('passwordOld')
+                    <label for="passwordLama" class="form-label">Password Lama<span class="text-danger">*</span></label>
+                    <input type="password" name="passwordLama" class="form-control border-2 @error('passwordLama') is-invalid @enderror" id="passwordLama">
+                    @error('passwordLama')
                         <div class="text-danger"><small>{{ $message }}</small></div>
                     @enderror
                 </div>
                 <div class="col-md-7">
                     <label for="password" class="form-label">Password Baru</label>
-                    <input type="password" name="password" class="form-control border-2" id="password">
+                    <input type="password" name="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password">
                     @error('password')
                         <div class="text-danger"><small>{{ $message }}</small></div>
                     @enderror
                 </div>
                 <div class="col-md-7">
                     <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru</label>
-                    <input type="password" name="passwordConfirm" class="form-control border-2" id="passwordConfirm">
+                    <input type="password" name="passwordConfirm" class="form-control border-2 @error('passwordConfirm') is-invalid @enderror" id="passwordConfirm">
                     @error('passwordConfirm')
                         <div class="text-danger"><small>{{ $message }}</small></div>
                     @enderror
                 </div>
                 <div class="col-md-7">
-                    <button type="submit" class="btn btn-primary">Ganti</button>
+                    <button type="submit" class="btn btn-primary mb-2">Ganti</button>
                 </div>
             </form>
         </div>

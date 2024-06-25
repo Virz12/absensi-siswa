@@ -23,12 +23,12 @@ class LoginController extends Controller
             'size' => 'Kolom :attribute tidak boleh lebih dari 10 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf'
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf',
             
         ];
 
         $request->validate ([
-            'username' => 'required|regex:/^[\pL\s]+$/u',
+            'username' => 'required|alpha|regex:/^[\pL\s]+$/u',
             'password' => 'required' 
         ],$messages);
 
@@ -46,13 +46,13 @@ class LoginController extends Controller
                     return redirect('/absen');
                 }else{
                     Auth::logout();
-                    return redirect('/login')->withErrors(['username' => 'Akun Anda Ditangguhkan'])->withInput();
+                    return redirect('/login')->withErrors(['error' => 'Akun Anda Ditangguhkan'])->withInput();
                 }
             }
         }else {
             return redirect('/login')  
-                    ->withErrors(['password' => 'Ussername Atau Password Tidak Sesuai'])->withInput();
-        }
+                    ->withErrors(['username' => 'Username Tidak Sesuai', 'password' => 'Password Tidak Sesuai'])->withInput();
+        } 
     }
 
     function logout(Request $request)

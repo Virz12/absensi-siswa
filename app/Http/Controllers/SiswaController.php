@@ -54,7 +54,7 @@ class SiswaController extends Controller
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $start_morning = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
-        $end_morning = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
+        $end_morning = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_morning, $end_morning)) {
             $tanggal = $current_time->format('Y-m-d');
@@ -78,7 +78,7 @@ class SiswaController extends Controller
     function absenPulang(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
-        $start_afternoon = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
+        $start_afternoon = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
         $end_afternoon = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_afternoon, $end_afternoon)) {
@@ -169,13 +169,13 @@ class SiswaController extends Controller
             'username' => 'required',
             'telefone' => 'required',
             'jenis_kelamin' => 'required',
-            'passwordOld' => 'required',
+            'passwordLama' => 'required',
             'password' => 'nullable',
             'passwordConfirm' => 'nullable',
         ],$messages);
 
         $data_user = user::findOrFail(Auth::id());
-        $verify_password = Hash::check($request->input('passwordOld'),$data_user->password);
+        $verify_password = Hash::check($request->input('passwordLama'),$data_user->password);
 
         if($verify_password == true)
         {

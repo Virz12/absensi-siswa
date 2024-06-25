@@ -30,7 +30,7 @@
         {{-- Navbar --}}
         <nav class="navbar bg-body-secondary px-3" style="--bs-bg-opacity: 1;">
             <div class="container-fluid">
-                <h1 class="navbar-brand m-0 fs-4">Kehadiran</h1>
+                <h1 class="navbar-brand m-0 fs-4">Kehadiran PKL</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ Auth::user()->username }}
@@ -93,7 +93,7 @@
         
             <div class="shadow-lg card  text-center rounded p-4" style="--bs-bg-opacity: 1;">
                 <div class="d-flex  justify-content-between mb-4">
-                    <h5 class="fs-3 "><i class="fa-solid fa-clock-rotate-left"></i> Kehadiran </h5>
+                    <h5 class="fs-3" ><i class="fa-solid fa-clock-rotate-left"></i> Kehadiran </h5>
                     <a href="/infoAbsen" class="text-decoration-none text-black"><button class=" btn btn-info fw-medium">
                         <i class="fa-solid fa-circle-info me-2 "></i>Info Kehadiran</button></a>
                 </div>
