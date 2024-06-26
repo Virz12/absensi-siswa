@@ -19,14 +19,19 @@ class SiswaController extends Controller
         $kehadiran = data_absen::where('username', Auth::user()->username)
                                     ->orderBy('updated_at','DESC')
                                     ->paginate(5);
+
+        $infoabsen = data_absen::where('username', Auth::user()->username)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(1);
         
         // format tanggal
         $kehadiran->getCollection()->transform(function ($datahadir) {
             $datahadir->tanggal = Carbon::parse($datahadir->tanggal)->format('d/m/Y');
             return $datahadir;
         });
-        return view('siswa.absen')->with('kehadiran', $kehadiran)
-                                    ->with('statussiswa', $statussiswa);
+        return view('siswa.kehadiran')->with('kehadiran', $kehadiran)
+                                    ->with('statussiswa', $statussiswa)
+                                    ->with('infoabsen', $infoabsen);
     }
 
     function profilesiswa()
@@ -34,23 +39,12 @@ class SiswaController extends Controller
         return view('siswa.profile');
     }
 
-    function info(Request $request)
-    {
-        $statussiswa = user::where('username', Auth::user()->username)->get();
-
-        $infoabsen = data_absen::where('username', Auth::user()->username)
-                                ->orderBy('created_at', 'DESC')
-                                ->paginate(1);
-        return view('siswa.infoAbsen')->with('infoabsen', $infoabsen)
-                                        ->with('statussiswa', $statussiswa);
-    }
-
     public function __construct()
     {
         Carbon::setLocale('id');
     }
 
-    function absenMasuk(Request $request)
+    function kehadiranMasuk(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $start_morning = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
@@ -69,13 +63,13 @@ class SiswaController extends Controller
             ]);
             user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
             
-            return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+            return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
         } else {
-            return redirect('/absen')->withErrors(['msg' => 'Waktu Masuk Diizinkan jam 08:00 - 12:00.']);
+            return redirect('/kehadiran')->withErrors(['msg' => 'Waktu Masuk Diizinkan jam 08:00 - 12:00.']);
         }
     }
 
-    function absenPulang(Request $request)
+    function kehadiranPulang(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $start_afternoon = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
@@ -96,16 +90,16 @@ class SiswaController extends Controller
                     'status_kehadiran' => 'Hadir',
                 ]);
 
-                return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+                return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
             } else {
-                return redirect('/infoAbsen')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
+                return redirect('/kehadiran')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
             }
         } else {
-            return redirect('/infoAbsen')->withErrors(['msg' => 'Waktu Pulang Diizinkan Jam 12:00 - 17:00.']);
+            return redirect('/kehadiran')->withErrors(['msg' => 'Waktu Pulang Diizinkan Jam 12:00 - 17:00.']);
         }
     }
 
-    public function absenIzin(Request $request)
+    public function kehadiranIzin(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $tanggal = $current_time->format('Y-m-d');
@@ -119,10 +113,10 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+        return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
     }
 
-    public function absenSakit(Request $request)
+    public function kehadiranSakit(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $tanggal = $current_time->format('Y-m-d');
@@ -136,7 +130,7 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/infoAbsen')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+        return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
     }
 
 
@@ -148,7 +142,62 @@ class SiswaController extends Controller
                 ->with('data_user',$data_user);
     }
 
-    function updateprofile(Request $request)
+    function updateFotoProfil(Request $request)
+    {
+        $messages = [
+            'image' => 'File Harus Berupa Gambar.',
+            'max:2048' => 'Ukuran file maksimal 2MB.',
+        ];
+
+        $request->validate([
+            'foto_profil' => 'required|image|max:2048',
+        ],$messages);
+
+        $data_user = user::findOrFail(Auth::id());
+
+        return redirect('/kehadiran')
+                ->with('notification', 'Data Berhasil Diubah.');
+    }  
+
+    function updateIdentitas(Request $request)
+    {
+        $messages = [
+            'required' => 'Kolom :attribute belum terisi.',
+            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
+            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
+            'unique' => ':attribute sudah digunakan',
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+        ];
+
+        $request->validate([
+            'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
+            'nama_belakang' => 'required|regex:/^[\pL\s]+$/u',
+            'telepon' => 'required|numeric',
+            'nama_sekolah' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
+            'jenis_kelamin' => 'required',
+        ],$messages);
+
+        $data_user = user::findOrFail(Auth::id());
+        $data_user->update([
+            'nama_depan' => $request->input('nama_depan'),
+            'nama_belakang' => $request->input('nama_belakang'),
+            'telepon' => $request->input('telepon'),
+            'nama_sekolah' => $request->input('nama_sekolah'),
+            'jenis_kelamin' => $request->input('jenis_kelamin')
+        ]);
+    
+        return redirect()
+                ->route('siswa.profile')
+                ->with('notification', 'Data Berhasil Diubah.');
+    }
+
+    function updatePassword(Request $request)
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
@@ -167,11 +216,9 @@ class SiswaController extends Controller
 
         $request->validate([
             'username' => 'required',
-            'telefone' => 'required',
-            'jenis_kelamin' => 'required',
             'passwordLama' => 'required',
-            'password' => 'nullable',
-            'passwordConfirm' => 'nullable',
+            'password' => 'required',
+            'passwordConfirm' => 'required',
         ],$messages);
 
         $data_user = user::findOrFail(Auth::id());
@@ -183,8 +230,6 @@ class SiswaController extends Controller
             {
                 $data_user->update([
                     'username' => $request->input('username'),
-                    'telefone' => $request->input('telefone'),
-                    'jenis_kelamin' => $request->input('jenis_kelamin')
                 ]);
             }else {
                 if($request->input('password') == $request->input('passwordConfirm'))
@@ -192,8 +237,6 @@ class SiswaController extends Controller
                     $data_user->update([
                         'username' => $request->input('username'),
                         'password' => $request->input('password'),
-                        'telefone' => $request->input('telefone'),
-                        'jenis_kelamin' => $request->input('jenis_kelamin')
                     ]);
                 }
             }
@@ -201,7 +244,7 @@ class SiswaController extends Controller
             return redirect('/siswa_profile')->withErrors('Password tidak sesuai');
         }
 
-        return redirect('/absen')
+        return redirect('/kehadiran')
                 ->with('notification', 'Data Berhasil Diubah.');
     }
 }

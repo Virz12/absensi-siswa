@@ -33,6 +33,8 @@
                     <h1 class="navbar-brand">Data Kehadiran</h1>
                     <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="rounded-circle me-lg-2" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile picture"
+                        style="width: 40px; height: 40px;">
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">

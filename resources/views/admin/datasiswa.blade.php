@@ -33,6 +33,8 @@
                     <h1 class="navbar-brand">Data Siswa</h1>
                     <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="rounded-circle me-lg-2" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile picture"
+                        style="width: 40px; height: 40px;">
                         {{ Auth::user()->username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -46,9 +48,12 @@
                 <div class="container-fluid pt-4 px-4 pb-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
-                        <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
-                            <input class="form-control border-2 border-primary" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
-                        </form>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class=""><button class="shadow-lg btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i> Tambah Siswa</button></a>
+                            <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
+                                <input class="shadow-lg form-control border-2 border-primary" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
+                            </form>
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="row g-4 text-left">
@@ -56,9 +61,13 @@
                             <div class="col-md-3 ">
                                 <div class="shadow-lg card ">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item ">Nama : {{$dsiswa->username}}</li>
+                                        <li class="list-group-item d-flex justify-content-center"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" 
+                                                    class=" rounded-circle p-1 bg-dark" width="110"></li>
+                                        <li class="list-group-item ">Username : {{$dsiswa->username}}</li>
+                                        <li class="list-group-item ">Nama : {{$dsiswa->nama_depan}} {{$dsiswa->nama_belakang}}</li>
                                         <li class="list-group-item ">Jenis Kelamin : {{$dsiswa->jenis_kelamin}} </li>
-                                        <li class="list-group-item ">No Hp : {{$dsiswa->telefone}} </li>
+                                        <li class="list-group-item ">No Tlp : {{$dsiswa->telepon}} </li>
+                                        <li class="list-group-item ">Nama Sekolah : {{$dsiswa->nama_sekolah}} </li>
                                         <li class="list-group-item fw-bold">Status : {{$dsiswa->status}}</li>
                                         <li class="list-group-item ">
                                             @if($dsiswa->status == 'nonaktif')

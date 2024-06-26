@@ -43,7 +43,7 @@ class LoginController extends Controller
                 return redirect('/dashboard'); 
             }elseif ($user->Role == 'siswa') {
                 if ($user->status == 'aktif'){
-                    return redirect('/absen');
+                    return redirect('/kehadiran');
                 }else{
                     Auth::logout();
                     return redirect('/login')->withErrors(['error' => 'Akun Anda Ditangguhkan'])->withInput();

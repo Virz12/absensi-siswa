@@ -160,7 +160,10 @@ class AdminController extends Controller
                 ->orderBy('id', 'DESC')
                 ->whereAny([
                     'username',
-                    'telefone',
+                    'nama_depan' ,
+                    'nama_belakang',
+                    'telepon',
+                    'nama_sekolah',
                     'jenis_kelamin',
                     'status',
                 ], 'LIKE', "$keyword%")

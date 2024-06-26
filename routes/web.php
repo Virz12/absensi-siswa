@@ -19,7 +19,7 @@ Route::middleware(['preventBackHistory','auth'])->group(function () {
         if (Auth::user()->Role == 'admin') {
             return redirect('/dashboard');
         }elseif (Auth::user()->Role == 'siswa') {
-            return redirect('/absen');
+            return redirect('/kehadiran');
         }
     });
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -39,15 +39,17 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
 
 //siswa
 Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(function () {
-    Route::get('/absen', [SiswaController::class, 'siswa'])->name('siswa.absen')->middleware('preventBackAbsen');
-    Route::get('/siswa_profile', [SiswaController::class, 'profile']);
-    Route::get('/infoAbsen', [SiswaController::class, 'info'])->name('siswa.infoAbsen');
-    Route::put('/siswa_profile', [SiswaController::class, 'updateprofile']);
+    Route::get('/kehadiran', [SiswaController::class, 'siswa'])->name('siswa.kehadiran');
+    Route::get('/siswa_profile', [SiswaController::class, 'profile'])->name('siswa.profile');
+    
+    Route::put('/siswa_profile/fotoprofil', [SiswaController::class, 'updateFotoProfil'])->name('siswa.fotoprofil');
+    Route::put('/siswa_profile/identitas', [SiswaController::class, 'updateIdentitas'])->name('siswa.identitas');
+    Route::put('/siswa_profile/ubahpassword', [SiswaController::class, 'updatePassword'])->name('siswa.ubahpassword');
 
-    Route::post('/absen/masuk', [SiswaController::class, 'absenMasuk'])->name('siswa.masuk');
-    Route::post('/absen/pulang', [SiswaController::class, 'absenPulang'])->name('siswa.pulang');
-    Route::post('/absen/izin', [SiswaController::class, 'absenIzin'])->name('siswa.izin');
-    Route::post('/absen/sakit', [SiswaController::class, 'absenSakit'])->name('siswa.sakit');
+    Route::post('/kehadiran/masuk', [SiswaController::class, 'kehadiranMasuk'])->name('siswa.masuk');
+    Route::post('/kehadiran/pulang', [SiswaController::class, 'kehadiranPulang'])->name('siswa.pulang');
+    Route::post('/kehadiran/izin', [SiswaController::class, 'kehadiranIzin'])->name('siswa.izin');
+    Route::post('/kehadiran/sakit', [SiswaController::class, 'kehadiranSakit'])->name('siswa.sakit');
 });
 
 
