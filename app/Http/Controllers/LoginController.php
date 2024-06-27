@@ -17,6 +17,7 @@ class LoginController extends Controller
 
     function storelogin(Request $request)
     {
+
         $messages = [
             'required' => 'Kolom :attribute wajib diisi',
             'alpha' => 'Kolom :attribute hanya boleh berisi huruf',
@@ -24,12 +25,11 @@ class LoginController extends Controller
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf',
-            
         ];
 
         $request->validate ([
             'username' => 'required|alpha|regex:/^[\pL\s]+$/u',
-            'password' => 'required' 
+            'password' => 'required'
         ],$messages);
 
         $inputeddata = [
@@ -58,7 +58,6 @@ class LoginController extends Controller
     function logout(Request $request)
     {
         Auth::logout();
-        // $request->session()->forget('forwarded');
         return redirect('/login');
     }
 }

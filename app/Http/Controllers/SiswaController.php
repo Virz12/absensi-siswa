@@ -64,9 +64,21 @@ class SiswaController extends Controller
             ]);
             user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
             
-            return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->success('Anda berhasil mengisi kehadiran.');
+
+            return redirect('/kehadiran');
         } else {
-            return redirect('/kehadiran')->withErrors(['msg' => 'Waktu Masuk Diizinkan jam 08:00 - 12:00.']);
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('Waktu masuk diizinkan jam 08:00 - 12:00.');
+
+            return redirect('/kehadiran');
         }
     }
 
@@ -91,12 +103,30 @@ class SiswaController extends Controller
                     'status_kehadiran' => 'Hadir',
                 ]);
 
-                return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->success('Anda berhasil mengisi kehadiran');
+
+                return redirect('/kehadiran');
             } else {
-                return redirect('/kehadiran')->withErrors(['msg' => 'Tidak ditemukan absen masuk untuk hari ini.']);
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->error('Tidak ditemukan absen masuk untuk hari ini.');
+
+                return redirect('/kehadiran');
             }
         } else {
-            return redirect('/kehadiran')->withErrors(['msg' => 'Waktu Pulang Diizinkan Jam 12:00 - 17:00.']);
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('Waktu pulang diizinkan jam 12:00 - 17:00.');
+
+            return redirect('/kehadiran');
         }
     }
 
@@ -114,7 +144,13 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Anda Berhasil Mengisi Kehadiran!');
+
+        return redirect('/kehadiran');
     }
 
     public function kehadiranSakit(Request $request)
@@ -131,7 +167,13 @@ class SiswaController extends Controller
         ]);
         user::where('username', Auth::user()->username)->update(['kehadiran' => 'sudah']);
 
-        return redirect('/kehadiran')->with('notification', 'Anda Berhasil Mengisi Kehadiran');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Anda Berhasil Mengisi Kehadiran!');
+
+        return redirect('/kehadiran');
     }
 
 
@@ -150,6 +192,12 @@ class SiswaController extends Controller
             'foto_profil.max' => 'Ukuran file maksimal 2MB.',
             'foto_profil.dimensions' => 'Gambar Harus Memiliki tinggi dan lebar antara 200px - 2000px',
         ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Foto Gagal Di upload');
     
         $request->validate([
             'foto_profil' => 'nullable|image|max:2048|dimensions:min_width=200,min_height=200,max_width=2000,max_height=2000',
@@ -167,10 +215,22 @@ class SiswaController extends Controller
             $imagePath = 'images/' . $imageName;
 
             $data_user->update(['foto_profil' => $imagePath]);
+            
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->success('Foto Berhasil Di upload');
 
-            return redirect('/siswa_profile')->with('notification', 'Foto Berhasil Di Upload');
+            return redirect('/siswa_profile');
         }
-        return redirect('/siswa_profile')->withError('foto_profil', 'Foto Gagal Di upload');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Foto Gagal Di upload');
+
+        return redirect('/siswa_profile');
     }  
 
     function updateIdentitas(Request $request)
@@ -189,6 +249,12 @@ class SiswaController extends Controller
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Profil gagal diubah.');
+
         $request->validate([
             'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'required|regex:/^[\pL\s]+$/u',
@@ -205,9 +271,14 @@ class SiswaController extends Controller
             'nama_sekolah' => $request->input('nama_sekolah'),
             'jenis_kelamin' => $request->input('jenis_kelamin')
         ]);
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Profil berhasil diubah.');
     
-        return redirect('/siswa_profile')
-                ->with('notification', 'Data Berhasil Diubah.');
+        return redirect('/siswa_profile');
     }
 
     function updatePassword(Request $request)
@@ -225,6 +296,12 @@ class SiswaController extends Controller
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Password gagal diubah');
+
         $request->validate([
             'passwordLama' => 'required',
             'password' => 'required',
@@ -241,12 +318,33 @@ class SiswaController extends Controller
                 $data_user->update([
                     'password' => $request->input('password'),
                 ]);
+            } else {
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->error('Password gagal diubah');
+
+                return redirect('/siswa_profile')->withErrors([
+                    'password' => 'Password tidak sama',
+                    'passwordConfirm' => 'Password tidak sama'
+                ])->withInput();
             }
         }else {
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('Password gagal diubah');
+            
             return redirect('/siswa_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Password berhasil diubah');
 
-        return redirect('/siswa_profile')
-                ->with('notification', 'Password Berhasil Diubah.');
+        return redirect('/siswa_profile');
     }
 }

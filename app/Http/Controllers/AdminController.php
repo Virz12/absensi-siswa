@@ -190,6 +190,12 @@ class AdminController extends Controller
             'foto_profil.max' => 'Ukuran file maksimal 2MB.',
             'foto_profil.dimensions' => 'Gambar Harus Memiliki tinggi dan lebar antara 200px - 2000px',
         ];
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Foto Gagal Di upload');
     
         $request->validate([
             'foto_profil' => 'nullable|image|max:2048|dimensions:min_width=200,min_height=200,max_width=2000,max_height=2000',
@@ -208,9 +214,21 @@ class AdminController extends Controller
 
             $data_user->update(['foto_profil' => $imagePath]);
 
-            return redirect('/admin_profile')->with('notification', 'Foto Berhasil Di Upload');
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->success('Foto Berhasil Di upload');
+
+            return redirect('/admin_profile');
         }
-        return redirect('/admin_profile')->withError('foto_profil', 'Foto Gagal Di upload');
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Foto Gagal Di upload');
+
+        return redirect('/admin_profile');
     }  
 
     function updateIdentitas(Request $request)
@@ -229,6 +247,12 @@ class AdminController extends Controller
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Profil gagal diubah.');
+
         $request->validate([
             'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'required|regex:/^[\pL\s]+$/u',
@@ -239,9 +263,14 @@ class AdminController extends Controller
             'nama_depan' => $request->input('nama_depan'),
             'nama_belakang' => $request->input('nama_belakang'),
         ]);
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Profil berhasil diubah.');
     
-        return redirect('/admin_profile')
-                ->with('notification', 'Data Berhasil Diubah.');
+        return redirect('/admin_profile');
     }
 
     function updatePassword(Request $request)
@@ -261,6 +290,12 @@ class AdminController extends Controller
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Password gagal diubah');
+
         $request->validate([
             'passwordLama' => 'required',
             'password' => 'nullable',
@@ -277,34 +312,74 @@ class AdminController extends Controller
                 $data_user->update([
                     'password' => $request->input('password'),
                 ]);
+            } else {
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->error('Password gagal diubah');
+
+                return redirect('/admin_profile')->withErrors([
+                    'password' => 'Password tidak sama',
+                    'passwordConfirm' => 'Password tidak sama'
+                ])->withInput();
             }
         }else {
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('Password gagal diubah');
+            
             return redirect('/admin_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Password berhasil diubah');
 
-        return redirect('/admin_profile')
-                ->with('notification', 'Password Berhasil Diubah.');
+        return redirect('/admin_profile');
     }
 
     function deletesiswa($id) 
     {   
         $dsiswa = user::findOrFail($id);
         $dsiswa->delete();
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Data Siswa Berhasil Dihapus.');
         
-        return redirect('/datasiswa')
-                ->with('notification', 'Data Siswa Berhasil Dihapus.');
+        return redirect('/datasiswa');
     }
 
     public function activate(string $id)
     {
         user::where('id',$id)->update(['status' => 'Aktif']);
-        return redirect()->back()->with('notification', 'Status Siswa Berhasil Diubah Menjadi Aktif.');
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Status Siswa Berhasil Diubah Menjadi Aktif.');
+
+        return redirect()->back();
     }
 
     public function deactivate(string $id)
     {
         user::where('id',$id)->update(['status' => 'Nonaktif']);
-        return redirect()->back()->with('notification', 'Status Siswa Berhasil Diubah Menjadi Nonaktif.');
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('Status Siswa Berhasil Diubah Menjadi Nonaktif.');
+
+        return redirect()->back();
     }
 
     private function generateRandomHexColor()
