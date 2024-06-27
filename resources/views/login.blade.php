@@ -57,19 +57,6 @@
                 </div>
             </div>
         </div>
-        {{-- Alert --}}
-        @if($errors->any())
-            <div class="position-fixed bottom-0 end-0 p-3">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                    Sign In Gagal
-                    @if($errors->has('error'))
-                        {{ $errors->first('error') }}
-                    @endif
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>                
-            </div>
-        @endif
         <footer>
         <h1 class="text-center fs-6 fst-normal mt-5">© FRVZ</h1>
     </footer>
