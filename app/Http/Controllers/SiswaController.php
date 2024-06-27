@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
 class SiswaController extends Controller
@@ -145,18 +146,31 @@ class SiswaController extends Controller
     function updateFotoProfil(Request $request)
     {
         $messages = [
-            'image' => 'File Harus Berupa Gambar.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
+            'foto_profil.image' => 'File Harus Berupa Gambar.',
+            'foto_profil.max' => 'Ukuran file maksimal 2MB.',
+            'foto_profil.dimensions' => 'Gambar Harus Memiliki tinggi dan lebar antara 200px - 2000px',
         ];
-
+    
         $request->validate([
-            'foto_profil' => 'required|image|max:2048',
-        ],$messages);
-
+            'foto_profil' => 'nullable|image|max:2048|dimensions:min_width=200,min_height=200,max_width=2000,max_height=2000',
+        ], $messages);
+    
         $data_user = user::findOrFail(Auth::id());
+    
+        if ($request->hasFile('foto_profil')) {
+            if (File::exists($data_user->foto_profil)) {
+                File::delete($data_user->foto_profil);
+            }
+            $image = $request->file('foto_profil');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath = 'images/' . $imageName;
 
-        return redirect('/kehadiran')
-                ->with('notification', 'Data Berhasil Diubah.');
+            $data_user->update(['foto_profil' => $imagePath]);
+
+            return redirect('/siswa_profile')->with('notification', 'Foto Berhasil Di Upload');
+        }
+        return redirect('/siswa_profile')->withError('foto_profil', 'Foto Gagal Di upload');
     }  
 
     function updateIdentitas(Request $request)
@@ -192,8 +206,7 @@ class SiswaController extends Controller
             'jenis_kelamin' => $request->input('jenis_kelamin')
         ]);
     
-        return redirect()
-                ->route('siswa.profile')
+        return redirect('/siswa_profile')
                 ->with('notification', 'Data Berhasil Diubah.');
     }
 
@@ -208,14 +221,11 @@ class SiswaController extends Controller
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'image' => 'File Harus Berupa Gambar.',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'max:2048' => 'Ukuran file maksimal 2MB.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
         $request->validate([
-            'username' => 'required',
             'passwordLama' => 'required',
             'password' => 'required',
             'passwordConfirm' => 'required',
@@ -226,25 +236,17 @@ class SiswaController extends Controller
 
         if($verify_password == true)
         {
-            if($request->input('password') == null)
+            if($request->input('password') == $request->input('passwordConfirm'))
             {
                 $data_user->update([
-                    'username' => $request->input('username'),
+                    'password' => $request->input('password'),
                 ]);
-            }else {
-                if($request->input('password') == $request->input('passwordConfirm'))
-                {
-                    $data_user->update([
-                        'username' => $request->input('username'),
-                        'password' => $request->input('password'),
-                    ]);
-                }
             }
         }else {
-            return redirect('/siswa_profile')->withErrors('Password tidak sesuai');
+            return redirect('/siswa_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
 
-        return redirect('/kehadiran')
-                ->with('notification', 'Data Berhasil Diubah.');
+        return redirect('/siswa_profile')
+                ->with('notification', 'Password Berhasil Diubah.');
     }
 }

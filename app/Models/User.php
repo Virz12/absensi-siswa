@@ -19,6 +19,7 @@ class User extends Authenticatable
         'telepon',
         'nama_sekolah',
         'jenis_kelamin',
+        'foto_profil',
         'status',
         'kehadiran',
     ];

@@ -30,7 +30,11 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::get('/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
     Route::get('/admin_profile', [AdminController::class, 'profile']);
     Route::get('/datasiswa', [AdminController::class, 'data'])->name('admin.datasiswa');
-    Route::put('/admin_profile', [AdminController::class, 'updateprofile']);
+    
+
+    Route::post('/admin_profile/fotoprofil', [AdminController::class, 'updateFotoProfil'])->name('admin.fotoprofil');
+    Route::put('/admin_profile/identitas', [AdminController::class, 'updateIdentitas'])->name('admin.identitas');
+    Route::put('/admin_profile/bahpassword', [AdminController::class, 'updatePassword'])->name('admin.ubahpassword');
     
     Route::get('/hapussiswa/{user:id}',[AdminController::class, 'deletesiswa'])->name('admin.delete');
     Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
@@ -40,9 +44,9 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
 //siswa
 Route::middleware(['preventBackHistory','auth','userAccess:siswa'])->group(function () {
     Route::get('/kehadiran', [SiswaController::class, 'siswa'])->name('siswa.kehadiran');
-    Route::get('/siswa_profile', [SiswaController::class, 'profile'])->name('siswa.profile');
+    Route::get('/siswa_profile', [SiswaController::class, 'profile']);
     
-    Route::put('/siswa_profile/fotoprofil', [SiswaController::class, 'updateFotoProfil'])->name('siswa.fotoprofil');
+    Route::post('/siswa_profile/fotoprofil', [SiswaController::class, 'updateFotoProfil'])->name('siswa.fotoprofil');
     Route::put('/siswa_profile/identitas', [SiswaController::class, 'updateIdentitas'])->name('siswa.identitas');
     Route::put('/siswa_profile/ubahpassword', [SiswaController::class, 'updatePassword'])->name('siswa.ubahpassword');
 

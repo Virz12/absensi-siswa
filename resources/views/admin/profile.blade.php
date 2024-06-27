@@ -33,10 +33,17 @@
                 <h1 class="navbar-brand m-0 fs-4">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="rounded-circle me-lg-2 " src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile picture"
-                    style="width: 40px; height: 40px;">
-                    {{ Auth::user()->username }}
-                    
+                    @if(Auth::user()->foto_profil == null)
+                        <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                    @else
+                        @if(File::exists(Auth::user()->foto_profil))
+                            <img class="rounded-circle me-lg-2 " src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                            style="width: 40px; height: 40px;">
+                            <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                        @else
+                            <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                        @endif
+                    @endif                    
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
@@ -54,15 +61,25 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle p-1 bg-dark" width="110">
+                                @if (File::exists(Auth::user()->foto_profil))
+                                <div class="ratio ratio-1x1">
+                                    <img class="rounded-circle" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture">
+                                    <label for="foto_profil"></label>
+                                </div>
+                            @else
+                                <div class="ratio ratio-1x1">
+                                    <label class=" rounded-circle bg-body-secondary text-center" for="foto_profil">
+                                        <i class="fa-solid fa-image fs-1 position-absolute top-50 start-50 translate-middle"></i></label>
+                                </div>
+                            @endif
                                 <div class="mt-3">
                                     <h4>{{$data_user->nama_depan}} {{$data_user->nama_belakang}}</h4>
-                                <form action="" method="">
-                                @csrf
-                                    <input type="file" value=" " name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profi" aria-describedby="foto_profil" aria-label="Upload" onchange="form.submit()">
+                                <form action="{{ route('admin.fotoprofil') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profil" onchange="this.form.submit()">
                                     @error('foto_profil')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+                                        <div class=" text-danger "><small>{{ $message }}</small></div>
+                                    @enderror                                    
                                 </form>
                                 </div>
                             </div>
@@ -74,34 +91,31 @@
                     <div class="card">
                         <div class="card-body">
                         {{-- Form --}}        
-                        <form class="m-auto" action="" method="POST">
+                        <form  action="{{ route('admin.identitas') }}" method="POST">
                             @csrf
-                            @method('PUT')
-                        
+                            @method('PUT')                        
                             <div class="row mb-3">
 								<div class="col-sm-3">
 									<label for="nama_depan" class="form-label">Nama Depan<span class="text-danger">*</span></label>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                    <input type="text" value=" " name="nama_depan" class="form-control border-2 @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off">
+                                    <input type="text" value="{{ $data_user->nama_depan }}" name="nama_depan" class="form-control border-2 @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off">
                                     @error('nama_depan')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
 								</div>
 							</div>
-
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<label for="nama_belakang" class="form-label">Nama Belakang<span class="text-danger">*</span></label>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" value=" " name="nama_belakang" class="form-control border-2 @error('nama_belakang') is-invalid @enderror" id="nama_belakang" autocomplete="off">
+									<input type="text" value="{{ $data_user->nama_belakang }}" name="nama_belakang" class="form-control border-2 @error('nama_belakang') is-invalid @enderror" id="nama_belakang" autocomplete="off">
                                     @error('nama_belakang')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
 								</div>
 							</div>                           
-
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
@@ -115,21 +129,17 @@
                     <div class="row g-4 justify-content-center m-auto">                        
                         <div class="card mb-3">
                             <div class="card-body">
-                            <form class="m-auto" action="" method="POST"></form>
-                                @csrf
-                                @method('PUT')
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="username" class="form-label">Username<span class="text-danger">*</span></label>
+                                        <label for="username" class="form-label">Username</span></label>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2 @error('username') is-invalid @enderror" id="username" autocomplete="off">
-                                        @error('username')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                        @enderror
+                                        <input type="text" placeholder="{{ $data_user->username }}" class="form-control border-2" id="username" disabled>
                                     </div>
                                 </div>
-
+                            <form  action="{{route('admin.ubahpassword')}}" method="POST">
+                                @csrf
+                                @method('PUT')
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <label for="passwordLama" class="form-label">Password<span class="text-danger">*</span></label>
@@ -141,7 +151,7 @@
                                         @enderror
                                     </div>
                                 </div>
-
+    
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <label for="password" class="form-label">Password Baru<span class="text-danger">*</span></label>
@@ -153,7 +163,7 @@
                                         @enderror
                                     </div>
                                 </div>
-
+    
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru<span class="text-danger">*</span></label>
@@ -180,6 +190,16 @@
             </div>
         </div>>
     </div>
+    {{-- Toast --}}
+    @if (session()->has('notification'))
+    <div class="position-fixed bottom-0 end-0 p-3 z-3">
+        <div class="alert alert-success" role="alert">
+            <i class="fa-solid fa-check me-2"></i>
+            {{ session('notification') }}
+            <button type="button" class="btn-close success" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    @endif
     {{-- Alert --}}
     @if($errors->any())
         <div class="position-fixed bottom-0 end-0 p-3">

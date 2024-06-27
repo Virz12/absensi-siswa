@@ -183,7 +183,68 @@ class AdminController extends Controller
                 ->with('data_user',$data_user);
     }
 
-    function updateprofile(Request $request)
+    function updateFotoProfil(Request $request)
+    {
+        $messages = [
+            'foto_profil.image' => 'File Harus Berupa Gambar.',
+            'foto_profil.max' => 'Ukuran file maksimal 2MB.',
+            'foto_profil.dimensions' => 'Gambar Harus Memiliki tinggi dan lebar antara 200px - 2000px',
+        ];
+    
+        $request->validate([
+            'foto_profil' => 'nullable|image|max:2048|dimensions:min_width=200,min_height=200,max_width=2000,max_height=2000',
+        ], $messages);
+    
+        $data_user = user::findOrFail(Auth::id());
+    
+        if ($request->hasFile('foto_profil')) {
+            if (File::exists($data_user->foto_profil)) {
+                File::delete($data_user->foto_profil);
+            }
+            $image = $request->file('foto_profil');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath = 'images/' . $imageName;
+
+            $data_user->update(['foto_profil' => $imagePath]);
+
+            return redirect('/admin_profile')->with('notification', 'Foto Berhasil Di Upload');
+        }
+        return redirect('/admin_profile')->withError('foto_profil', 'Foto Gagal Di upload');
+    }  
+
+    function updateIdentitas(Request $request)
+    {
+        $messages = [
+            'required' => 'Kolom :attribute belum terisi.',
+            'alpha' => 'Kolom :attribute hanya boleh berisi huruf.',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
+            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
+            'unique' => ':attribute sudah digunakan',
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
+            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+        ];
+
+        $request->validate([
+            'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
+            'nama_belakang' => 'required|regex:/^[\pL\s]+$/u',
+        ],$messages);
+
+        $data_user = user::findOrFail(Auth::id());
+        $data_user->update([
+            'nama_depan' => $request->input('nama_depan'),
+            'nama_belakang' => $request->input('nama_belakang'),
+        ]);
+    
+        return redirect('/admin_profile')
+                ->with('notification', 'Data Berhasil Diubah.');
+    }
+
+    function updatePassword(Request $request)
     {
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
@@ -201,7 +262,6 @@ class AdminController extends Controller
         ];
 
         $request->validate([
-            'username' => 'required',
             'passwordLama' => 'required',
             'password' => 'nullable',
             'passwordConfirm' => 'nullable',
@@ -212,26 +272,18 @@ class AdminController extends Controller
 
         if($verify_password == true)
         {
-            if($request->input('password') == null)
+            if($request->input('password') == $request->input('passwordConfirm'))
             {
                 $data_user->update([
-                    'username' => $request->input('username')
+                    'password' => $request->input('password'),
                 ]);
-            }else {
-                if($request->input('password') == $request->input('passwordConfirm'))
-                {
-                    $data_user->update([
-                        'username' => $request->input('username'),
-                        'password' => $request->input('password')
-                    ]);
-                }
             }
         }else {
-            return redirect('/admin_profil')->withErrors('Password tidak sesuai');
+            return redirect('/admin_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
 
-        return redirect('/dashboard')
-                ->with('notification', 'Profil Berhasil Diubah.');
+        return redirect('/admin_profile')
+                ->with('notification', 'Password Berhasil Diubah.');
     }
 
     function deletesiswa($id) 

@@ -33,9 +33,17 @@
                     <h1 class="navbar-brand">Data Siswa</h1>
                     <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="rounded-circle me-lg-2" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile picture"
-                        style="width: 40px; height: 40px;">
-                        {{ Auth::user()->username }}
+                        @if(Auth::user()->foto_profil == null)
+                            <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                        @else
+                            @if(File::exists(Auth::user()->foto_profil))
+                                <img class="rounded-circle me-lg-2 " src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                                style="width: 40px; height: 40px;">
+                                <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @else
+                                <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                            @endif
+                        @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/admin_profile"><i class="fa-solid fa-user"></i> Profile</a></li>
@@ -45,24 +53,37 @@
                 </div>
             </nav>
             <main class="content">
-                <div class="container-fluid pt-4 px-4 pb-4">
+                <div class="container-fluid pt-3 px-md-4 pb-4">
+                    
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <a href="/dashboard" class="mb-0 text-decoration-none text-black"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class=""><button class="shadow-lg btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i> Tambah Siswa</button></a>
-                            <form class=" d-flex " action="" method="GET"> {{-- Form Navbar --}}
-                                <input class="shadow-lg form-control border-2 border-primary" type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
+                        <a href="/dashboard" class="mb-0 text-decoration-none btn btn-primary"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+                        <div class="d-sm-flex p-2">
+                            <a href="#" class="w-100 shadow-lg btn btn-primary me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Tambah Siswa</a>
+                            <form class=" d-flex w-100 mb-2" action="" method="GET"> {{-- Form Navbar --}}
+                                <input class="shadow-lg form-control border-2 border-primary " type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
                             </form>
                         </div>
+                        
                     </div>
                     <div class="col-12">
-                        <div class="row g-4 text-left">
+                        <div class="row g-3 text-left">
                         @forelse ($datasiswa as $dsiswa)            
                             <div class="col-md-3 ">
                                 <div class="shadow-lg card ">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item d-flex justify-content-center"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" 
-                                                    class=" rounded-circle p-1 bg-dark" width="110"></li>
+                                        <li class="list-group-item p-lg-2 p-5">
+                                                @if (File::exists($dsiswa->foto_profil))
+                                                <div class="ratio ratio-1x1 ">
+                                                    <img class="rounded-circle p-lg-5 " src="{{ asset($dsiswa->foto_profil) }}" alt="Profile picture">                                                    
+                                                </div>
+                                            @else
+                                                <div class="ratio ratio-1x1 ">
+                                                    <label class="rounded-circle ">
+                                                        <i class="fa-solid fa-image fs-1 position-absolute top-50 start-50 translate-middle"></i>
+                                                    </label>
+                                                </div>
+                                            @endif
+                                        </li>
                                         <li class="list-group-item ">Username : {{$dsiswa->username}}</li>
                                         <li class="list-group-item ">Nama : {{$dsiswa->nama_depan}} {{$dsiswa->nama_belakang}}</li>
                                         <li class="list-group-item ">Jenis Kelamin : {{$dsiswa->jenis_kelamin}} </li>

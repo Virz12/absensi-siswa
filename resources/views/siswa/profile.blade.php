@@ -33,9 +33,17 @@
                 <h1 class="navbar-brand m-0 fs-4">Profile</h1>
                 <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="rounded-circle me-lg-2" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile picture"
-                    style="width: 40px; height: 40px;">
-                    {{ Auth::user()->username }}
+                    @if(Auth::user()->foto_profil == null)
+                        <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                    @else
+                        @if(File::exists(Auth::user()->foto_profil))
+                            <img class="rounded-circle me-lg-2 " src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture"
+                            style="width: 40px; height: 40px;">
+                            <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                        @else
+                            <span class="d-lg-inline-flex">{{ Auth::user()->username }}</span>
+                        @endif
+                    @endif
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
@@ -53,15 +61,25 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-dark" width="110">
+                            @if (File::exists(Auth::user()->foto_profil))
+                                <div class="ratio ratio-1x1">
+                                    <img class="rounded-circle" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture">
+                                    <label for="foto_profil"></label>
+                                </div>
+                            @else
+                                <div class="ratio ratio-1x1">
+                                    <label class=" rounded-circle bg-body-secondary text-center" for="foto_profil">
+                                        <i class="fa-solid fa-image fs-1 position-absolute top-50 start-50 translate-middle"></i></label>
+                                </div>
+                            @endif
                                 <div class="mt-3">
                                     <h4>{{$data_user->nama_depan}} {{$data_user->nama_belakang}}</h4>
-                                <form action="" method="">
-                                @csrf
-                                    <input type="file" value=" " name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profi" aria-describedby="foto_profil" aria-label="Upload" onchange="form.submit()">
+                                <form action="{{ route('siswa.fotoprofil') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profil" onchange="this.form.submit()">
                                     @error('foto_profil')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+                                        <div class=" text-danger "><small>{{ $message }}</small></div>
+                                    @enderror                                    
                                 </form>
                                 </div>
                             </div>
@@ -148,63 +166,59 @@
                     <div class="row g-3 justify-content-center m-auto">                        
                         <div class="shadow-lg card mb-3">
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <label for="username" class="form-label">Username</span></label>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" placeholder="{{ $data_user->username }}" class="form-control border-2" id="username" disabled>
+                                </div>
+                            </div>
                         <form  action="{{route('siswa.ubahpassword')}}" method="POST">
                             @csrf
                             @method('PUT')
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="username" class="form-label">Username<span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" value="{{ $data_user->username }}" name="username" class="form-control border-2 @error('username') is-invalid @enderror" id="username" autocomplete="off">
-                                        @error('username')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                        @enderror
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <label for="passwordLama" class="form-label">Password<span class="text-danger">*</span></label>
                                 </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="password" name="passwordLama" class="form-control border-2 @error('passwordLama') is-invalid @enderror" id="passwordLama">
+                                    @error('passwordLama')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="passwordLama" class="form-label">Password<span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="passwordLama" class="form-control border-2 @error('passwordLama') is-invalid @enderror" id="passwordLama">
-                                        @error('passwordLama')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                        @enderror
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <label for="password" class="form-label">Password Baru<span class="text-danger">*</span></label>
                                 </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="password" name="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password">
+                                    @error('password')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="password" class="form-label">Password Baru<span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password">
-                                        @error('password')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                        @enderror
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru<span class="text-danger">*</span></label>
                                 </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="password" name="passwordConfirm" class="form-control border-2 @error('passwordConfirm') is-invalid @enderror" id="passwordConfirm">
+                                    @error('passwordConfirm')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru<span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="passwordConfirm" class="form-control border-2 @error('passwordConfirm') is-invalid @enderror" id="passwordConfirm">
-                                        @error('passwordConfirm')
-                                            <div class="text-danger"><small>{{ $message }}</small></div>
-                                        @enderror
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <button type="submit" class="btn btn-primary mb-2 px-4"><i class="fa-solid fa-arrow-up-from-bracket"></i> Ubah</button>
                                 </div>
-    
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <button type="submit" class="btn btn-primary mb-2 px-4"><i class="fa-solid fa-arrow-up-from-bracket"></i> Ubah</button>
-                                    </div>
-                                </div>
+                            </div>
                         </form>
                         </div>
                         </div>                        
