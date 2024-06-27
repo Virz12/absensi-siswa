@@ -11,6 +11,8 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "nesbot/carbon": "^3.3",
+        "php-flasher/flasher-laravel": "^2.0",
+        "php-flasher/flasher-noty-laravel": "^2.0",
         "symfony/translation": "^7.1"
     },
     "require-dev": {
