@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('username', 15)->unique();
             $table->string('password');
             $table->string('Role');
-            $table->string('nama_depan', 50);
-            $table->string('nama_belakang', 50);
-            $table->string('telepon');
-            $table->string('nama_sekolah', 50);
-            $table->string('jenis_kelamin');
+            $table->string('nama_depan', 50)->nullable();
+            $table->string('nama_belakang', 50)->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('nama_sekolah', 50)->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->string('foto_profil')->nullable();
             $table->enum('status',['aktif','nonaktif'])->default('aktif');
             $table->enum('kehadiran',['sudah','belum'])->default('belum');

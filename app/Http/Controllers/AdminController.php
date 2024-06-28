@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -380,6 +381,67 @@ class AdminController extends Controller
         ->success('Status Siswa Berhasil Diubah Menjadi Nonaktif.');
 
         return redirect()->back();
+    }
+
+    function tambahsiswa()
+    {
+        return view('admin.tambahsiswa');
+    }
+
+    function storesiswa(Request $request)
+    {
+        $messages = [
+            'required' => 'Kolom :attribute belum terisi.',
+            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
+            'unique' => ':attribute sudah digunakan',
+            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
+            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'lowercase' => 'Kolom :attribute hnaya boleh berisi huruf kecil',
+            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
+            'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
+            'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+        ];
+
+        $request->validate([
+            'username' => 'required|unique:users',
+            'password' => 'required',
+            'nama_depan' => 'nullable|regex:/^[\pL\s]+$/u',
+            'nama_belakang' => 'nullable|regex:/^[\pL\s]+$/u',
+            'telepon' => 'nullable|numeric',
+            'nama_sekolah' => 'nullable|regex:/^[a-zA-Z0-9\s]*$/',
+            'jenis_kelamin' => 'nullable',
+        ],$messages);
+
+        
+        $data = [   
+            'username' => $request->input('username'),
+            'password' => bcrypt($request->input('password')),
+            'nama_depan' => $request->input('nama_depan'),
+            'nama_belakang' => $request->input('nama_belakang'),
+            'telepon' => $request->input('telepon'),
+            'nama_sekolah' => $request->input('nama_sekolah'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+            'Role' => 'siswa',
+        ];
+
+        if($datasiswa = user::create($data)){
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->success('Tambah Siswa Berhasil.');
+
+            return redirect('/datasiswa')->withInput();
+        }else{
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('Tambah Siswa Gagal');
+            return redirect('/tambahsiswa');
+        }
     }
 
     private function generateRandomHexColor()

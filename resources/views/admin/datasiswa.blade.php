@@ -58,7 +58,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <a href="/dashboard" class="mb-0 text-decoration-none btn btn-primary"><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                         <div class="d-sm-flex p-2">
-                            <a href="#" class="w-100 shadow-lg btn btn-primary me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Tambah Siswa</a>
+                            <a href="/tambahsiswa" class="w-100 shadow-lg btn btn-primary me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Tambah Siswa</a>
                             <form class=" d-flex w-100 mb-2" action="" method="GET"> {{-- Form Navbar --}}
                                 <input class="shadow-lg form-control border-2 border-primary " type="search" name="keyword" value="{{ $keyword }}" placeholder="Cari" autocomplete="off">
                             </form>

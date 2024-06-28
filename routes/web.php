@@ -30,7 +30,8 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
     Route::get('/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
     Route::get('/admin_profile', [AdminController::class, 'profile']);
     Route::get('/datasiswa', [AdminController::class, 'data'])->name('admin.datasiswa');
-    
+    Route::get('/tambahsiswa', [AdminController::class, 'tambahsiswa'])->name('admin.tambahsiswa');
+    Route::post('/tambahsiswa',[AdminController::class, 'storesiswa']);
 
     Route::post('/admin_profile/fotoprofil', [AdminController::class, 'updateFotoProfil'])->name('admin.fotoprofil');
     Route::put('/admin_profile/identitas', [AdminController::class, 'updateIdentitas'])->name('admin.identitas');
