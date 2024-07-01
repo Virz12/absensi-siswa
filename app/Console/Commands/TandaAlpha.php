@@ -12,7 +12,7 @@ class TandaAlpha extends Command
 {
     
     protected $signature = 'mark:alpha';
-    protected $description = 'deskripsi alpha';
+    protected $description = 'menandai siswa tanpa keterangan atau tidak hadir';
 
     protected $client;
     protected $apiKey;
@@ -20,7 +20,7 @@ class TandaAlpha extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->client = new Client(['base_uri' => 'https://kalenderindonesia.com/api/fc9be4be87630496/libur/masehi/2024']);
+        $this->client = new Client(['base_uri' => 'https://kalenderindonesia.com/api/fc9be4be87630496/libur/masehi']);
         $this->apiKey = 'fc9be4be87630496'; // Ganti dengan API key Anda
     }
     
@@ -52,17 +52,17 @@ class TandaAlpha extends Command
 
     protected function getLibur($year)
     {
-        $response = $this->client->get("holiday", [
+        $response = $this->client->get("", [
             'query' => [
-                'api_key' => $this->apiKey,
-                'year' => $year,
+                'api_key' => $this->apiKey,                
                 'country' => 'ID',
+                'year' => $year,
             ]
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
 
-        return $data['holiday'] ?? [];
+        return $data[''] ?? [];
     }
 
     protected function isHoliday($date, $liburs)

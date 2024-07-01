@@ -69,7 +69,7 @@
                         <div class="row g-3 text-left">
                         @forelse ($datasiswa as $dsiswa)            
                             <div class="col-md-3 ">
-                                <div class="shadow-lg card ">
+                                <div class=" card ">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item p-lg-2 p-5">
                                                 @if (File::exists($dsiswa->foto_profil))
@@ -134,6 +134,7 @@
                         @endforelse
                         </div>
                     </div>
+                    <div class=" mt-2 ">{!! $datasiswa->links() !!}</div>
                 </div>
             </main>
         </div>

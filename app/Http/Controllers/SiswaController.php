@@ -247,6 +247,9 @@ class SiswaController extends Controller
             'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
+            'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
+            'nama_sekolah.regex' => 'Kolom Nama Sekolah tidak valid',
         ];
 
         flash()

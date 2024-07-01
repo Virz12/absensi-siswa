@@ -246,6 +246,8 @@ class AdminController extends Controller
             'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
+            'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
         ];
 
         flash()
@@ -402,6 +404,9 @@ class AdminController extends Controller
             'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
+            'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
+            'nama_sekolah.regex' => 'Kolom Nama Sekolah tidak valid',
         ];
 
         $request->validate([
@@ -431,7 +436,7 @@ class AdminController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->success('Tambah Siswa Berhasil.');
+            ->success('Siswa Berhasil Di Tambah.');
 
             return redirect('/datasiswa')->withInput();
         }else{

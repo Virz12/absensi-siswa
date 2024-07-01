@@ -55,7 +55,7 @@
             {{-- card foto profil --}}
             <div class="row g-4 justify-content-center " >
                 <div class="col-lg-3">
-                    <div class="card p-3">
+                    <div class="shadow-lg card p-3">
                         <div class="d-flex align-items-center m-0">
                             <a href="/kehadiran" class="btn btn-primary mb-0 text-decoration-none "><i class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                         </div>
@@ -88,7 +88,7 @@
                 </div>
                 {{-- card identitas --}}
                 <div class="col-lg-8">
-                    <div class="card">
+                    <div class="shadow-lg card">
                         <div class="card-body">
                         {{-- Form --}}        
                         <form  action="{{ route('admin.identitas') }}" method="POST">
@@ -99,7 +99,7 @@
 									<label for="nama_depan" class="form-label">Nama Depan<span class="text-danger">*</span></label>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                    <input type="text" value="{{ $data_user->nama_depan }}" name="nama_depan" class="form-control border-2 @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off">
+                                    <input type="text" value="{{ $data_user->nama_depan }}" name="nama_depan" class="form-control border-2  @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off">
                                     @error('nama_depan')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
@@ -127,7 +127,7 @@
                     </div>
                     {{-- Card Ubah Password --}}
                     <div class="row g-4 justify-content-center m-auto">                        
-                        <div class="card mb-3">
+                        <div class="shadow-lg card mb-3">
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-sm-3">

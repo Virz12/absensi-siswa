@@ -123,7 +123,7 @@
                                             @endforelse
                                         @endif
                                     </select>
-                                    <select name="tahun" class="form-select border-2 border-primary" onchange="form.submit()">
+                                    <select name="tahun" class="form-select border-2 border-primary " onchange="form.submit()">
                                         <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
                                         @if ($dataTahun->isEmpty())
                                         @else
