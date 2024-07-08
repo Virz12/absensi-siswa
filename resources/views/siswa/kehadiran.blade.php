@@ -63,7 +63,6 @@
                             <i class="fa-solid fa-circle-info fs-2 mt-lg-2 mt-3 me-2 " ></i>
                         </div>
                         @foreach ( $statussiswa as $status )
-                        @if ( $status->kehadiran == 'sudah')
                             <div class="card-body"> 
                                 @foreach ( $infoabsen as $iabsen )
                                     <h5 class="card-title">Anda {{$iabsen->status_kehadiran}} Hari Ini</h5>
@@ -78,11 +77,6 @@
                                 @endif                                
                                 @endforeach                                                                                   
                             </div>
-                        @elseif ( $status->kehadiran == 'belum' )
-                            <div class="card-body">
-                                <h5 class="card-title">Anda Belum Mengisi Kehadiran Hari Ini!</h5>
-                            </div>
-                        @endif
                         @endforeach
                     </div>
                 </div>
