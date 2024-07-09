@@ -8,7 +8,7 @@ use App\Models\User;
 class Reset extends Command
 {
     protected $signature = 'mark:reset';
-    protected $description = 'Command description';
+    protected $description = 'Mereset kehadiran menjadi belum';
 
     /**
      * Execute the console command.

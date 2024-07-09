@@ -288,7 +288,8 @@ class AdminController extends Controller
             'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'image' => 'File Harus Berupa Gambar.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',            
             'max:2048' => 'Ukuran file maksimal 2MB.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
@@ -301,8 +302,8 @@ class AdminController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => 'nullable',
-            'passwordConfirm' => 'nullable',
+            'password' => 'required|min:6|max:12',
+            'passwordConfirm' => 'required',
         ],$messages);
 
         $data_user = user::findOrFail(Auth::id());
@@ -403,15 +404,22 @@ class AdminController extends Controller
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'password.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',
             'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
             'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
             'nama_sekolah.regex' => 'Kolom Nama Sekolah tidak valid',
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('Tambah Siswa Gagal');
+
         $request->validate([
-            'username' => 'required|unique:users',
-            'password' => 'required',
+            'username' => 'required|max:15|unique:users',
+            'password' => 'required|min:6|max:12',
             'nama_depan' => 'nullable|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'nullable|regex:/^[\pL\s]+$/u',
             'telepon' => 'nullable|numeric',
