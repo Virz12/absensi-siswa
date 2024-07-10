@@ -24,6 +24,7 @@ class SiswaController extends Controller
         $infoabsen = data_absen::where('username', Auth::user()->username)
                                     ->orderBy('created_at', 'DESC')
                                     ->paginate(1);
+
         
         // format tanggal
         $kehadiran->getCollection()->transform(function ($datahadir) {
@@ -49,7 +50,7 @@ class SiswaController extends Controller
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
         $start_morning = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
-        $end_morning = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
+        $end_morning = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_morning, $end_morning)) {
             $tanggal = $current_time->format('Y-m-d');
@@ -85,7 +86,7 @@ class SiswaController extends Controller
     function kehadiranPulang(Request $request)
     {
         $current_time = Carbon::now()->setTimezone('Asia/Jakarta');
-        $start_afternoon = Carbon::createFromTimeString('08:00', 'Asia/Jakarta');
+        $start_afternoon = Carbon::createFromTimeString('12:00', 'Asia/Jakarta');
         $end_afternoon = Carbon::createFromTimeString('17:00', 'Asia/Jakarta');
 
         if ($current_time->between($start_afternoon, $end_afternoon)) {
@@ -102,6 +103,7 @@ class SiswaController extends Controller
                     'waktu_pulang' => $current_time->toTimeString(),
                     'status_kehadiran' => 'Hadir',
                 ]);
+                
 
                 flash()
                 ->killer(true)
@@ -295,7 +297,8 @@ class SiswaController extends Controller
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
+            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
+            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
         ];
 
@@ -307,7 +310,7 @@ class SiswaController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:6|max:12',
             'passwordConfirm' => 'required',
         ],$messages);
 
