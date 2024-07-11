@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use DateTime;
 
 class AdminController extends Controller
 {
@@ -41,40 +42,31 @@ class AdminController extends Controller
         // List user
         $siswas = User::select('username')->whereNot('username', '=', 'admin')->pluck('username');
         
-        // Logika bulan
-        Carbon::setLocale('id');
-        $dataBulan = data_absen::selectRaw('MONTH(tanggal) as month')
-            ->groupBy('month')
-            ->pluck('month');
-        
-        if ($dataBulan->isEmpty()) {
-            $dataBulan = collect([]);
-        } else {
-            $dataBulan = $dataBulan->map(function ($nomorBulan) {
-                return Carbon::create()->month($nomorBulan)->format('F');
-            });
+        // Logika Hari
+        $hariAwal = new DateTime($request->input('hariAwal'));
+        $hariAkhir = new DateTime($request->input('hariAkhir'));
+        $labels = [];
+
+        for ($hari = $hariAwal; $hari <= $hariAkhir; $hari->modify('+1 day')) {
+            $labels[] = $hari->format('M-d');
+            $tanggal[] = $hari->format('d');
         }
 
-        if ($request->bulan) {
-            $bulan = Carbon::parse($request->bulan)->month;
-            $bulanSekarang = Carbon::parse($request->bulan)->format('F');
+        $hariAwal = $request->input('hariAwal');
+        $hariAkhir = $request->input('hariAkhir');
+
+        // Logika bulan
+        if ($request->input('hariAwal')) {
+            $bulan = Carbon::parse($request->input('hariAwal'))->format('m');
+            settype($bulan, 'integer');
         } else {
             $bulan = Carbon::now()->month;
-            $bulanSekarang = Carbon::now()->format('F');
         }
 
         // Logika tahun
-        Carbon::setLocale('id');
-        $dataTahun = data_absen::selectRaw('YEAR(tanggal) as year')
-            ->groupBy('year')
-            ->pluck('year');
-        
-        if ($dataTahun->isEmpty()) {
-            $dataTahun = collect([]);
-        }
-
-        if ($request->tahun) {
-            $tahun = $request->tahun;
+        if ($request->input('hariAwal')) {
+            $tahun = Carbon::parse($request->input('hariAwal'))->format('Y');
+            settype($tahun, 'integer');
         } else {
             $tahun = Carbon::now()->year;
         }
@@ -82,34 +74,51 @@ class AdminController extends Controller
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
-                ->selectRaw('MONTH(created_at) as month, FLOOR((DAYOFMONTH(tanggal) - 1) / 7) as week, COUNT(*) as count')
+                ->selectRaw('MONTH(tanggal) as month, DAY(tanggal) as day, COUNT(*) as count')
                 ->whereMonth('tanggal', $bulan)
-                ->whereYear('tanggal', $tahun)
+                ->whereYear('tanggal', 2024)
                 ->where('username', $siswa)
-                ->whereNot('status_kehadiran', '=', 'Alpha')
-                ->whereNot('status_kehadiran', '=', 'Sakit')
-                ->whereNot('status_kehadiran', '=', 'Izin')
-                ->groupBy('month', 'week')
+                ->where('status_kehadiran', '=', 'Hadir')
+                ->whereBetween('tanggal', [$hariAwal, $hariAkhir])
+                ->groupBy('month', 'day')
                 ->get()
-                ->pluck('count', 'week')
+                ->pluck('count', 'day')
                 ->all();
-            
-            $data = [0, 0, 0, 0, 0];
-            $minggu = array_keys($absensi);
-            $datas = array_values($absensi);
 
-            for ($i=0; $i < count($minggu); $i++) { 
-                array_splice($data, $minggu[$i], 1, $datas[$i]);
+            $dataHari = [];
+            $hari = array_keys($absensi);
+            $data = array_values($absensi);
+
+            for ($i=count($hari); $i < count($labels); $i++) { 
+                array_splice($hari, $i, 0, 0);
+                array_splice($data, $i, 0, 0);
+            }
+            
+            for ($i=0; $i < count($labels); $i++) { 
+                $dataHari[] = 0;
+                for ($j=0; $j < count($tanggal); $j++) { 
+                    if ($hari[$j] == $tanggal[$i]) {
+                        array_splice($dataHari, $i, 1, $hari[$j]);
+                    }
+                }
+            }
+            
+            for ($i=0; $i < count($labels); $i++) {
+                for ($j=0; $j < count($tanggal); $j++) { 
+                    if ($dataHari[$j] == $hari[$i]) {
+                        array_splice($dataHari, $j, 1, $data[$i]);
+                    }
+                }
             }
 
-            ${'absensi' . $siswa} = $data;
+            ${'absensi' . $siswa} = $dataHari;
         }
 
         // Data chart
-        $data = [];
+        $datasets = [];
 
         foreach ($siswas as $siswa => $username) {
-            $data[] = [
+            $datasets[] = [
                 "label" => "$username",
                 'backgroundColor' => $this->generateRandomHexColor(),
                 'borderColor' => "",
@@ -125,8 +134,8 @@ class AdminController extends Controller
         $chartAbsen = app()->chartjs
             ->name('barChart')
             ->type('bar')
-            ->labels(['Minggu ke-1', 'Minggu ke-2', 'Minggu ke-3', 'Minggu ke-4', 'Minggu ke-5'])
-            ->datasets($data)
+            ->labels($labels)
+            ->datasets($datasets)
             ->optionsRaw("{
                 scales: {
                     yAxes: [{
@@ -138,10 +147,7 @@ class AdminController extends Controller
             }");
 
         return view('admin.dashboard')
-            ->with('bulanSekarang', $bulanSekarang)
-            ->with('dataBulan', $dataBulan)
             ->with('tahun', $tahun)
-            ->with('dataTahun', $dataTahun)
             ->with('chartAbsen', $chartAbsen)
             ->with('absen', $absen)
             ->with('keyword', $keyword);

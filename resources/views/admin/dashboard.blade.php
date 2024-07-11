@@ -7,6 +7,9 @@
         
         {{-- Bootstrap --}}
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+        {{-- jQuery --}}
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <title>Dashboard</title>
     </head>
     <body class="vh-100" >
@@ -105,35 +108,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid pt-3 px-3 pb-4 ">
+                <div class="container-fluid pt-3 px-3 pb-4">
                     <div class="col-12">
                         <div class="shadow-lg card text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap">
-                                <h5 class="mb-0 w-auto">Chart Kehadiran Tahun {{ $tahun }}</h5>
-                                <form action="" method="GET" class="d-flex mt-2 mt-sm-0">
+                            <div class="row align-items-baseline justify-content-between mb-4">
+                                <h5 class="mb-0 w-auto col-12 col-lg-4">Chart Kehadiran Tahun {{ $tahun }}</h5>
+                                <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
                                     @csrf
-                                    <select name="bulan" class="form-select me-2 border-2 border-primary" onchange="form.submit()">
-                                        <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
-                                        @if ($dataBulan->isEmpty())
-                                        @else
-                                            @forelse($dataBulan as $bulan)
-                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
-                                            @empty
-                                                <option value="{{ $bulan }}">{{ $bulan }}</option>
-                                            @endforelse
-                                        @endif
-                                    </select>
-                                    <select name="tahun" class="form-select border-2 border-primary " onchange="form.submit()">
-                                        <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                        @if ($dataTahun->isEmpty())
-                                        @else
-                                            @forelse($dataTahun as $tahun)
-                                                <option value="{{ $tahun }}">{{ $tahun }}</option>
-                                            @empty
-                                                <option value="{{ $tahun }}">{{ $tahun }}</option>
-                                            @endforelse
-                                        @endif
-                                    </select>
+                                    <div class="col-12 col-sm-6 col-md-3 col-lg-auto">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="" name="hariAwal" id="dateAwal">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-3 col-lg-auto">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="" name="hariAkhir" id="dateAkhir">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary ms-lg-1 col-12 col-sm-12 col-md-2 col-lg-auto">Ubah</button>
                                 </form>
                             </div>
                             {{-- Chart --}}
@@ -146,6 +134,25 @@
             </main>
         </div>
     </body>
+    <script>
+        $(document).ready(function(){
+            $('#dateAwal').on('change', function() {
+                let startDate = new Date($(this).val());
+                let month = ('0' + (startDate.getMonth() + 1)).slice(-2);
+                let year = startDate.getFullYear();
+
+                let firstDayOfMonth = new Date(year, startDate.getMonth(), 2);
+                let lastDayOfMonth = new Date(year, startDate.getMonth() + 1, 1);
+
+                let minDate = startDate.toISOString().split('T')[0];
+                let maxDate = lastDayOfMonth.toISOString().split('T')[0];
+
+                $('#dateAkhir').attr('min', minDate);
+                $('#dateAkhir').attr('max', maxDate);
+                $('#dateAkhir').val('');
+            });
+        });
+    </script>
     {{-- Icon --}}
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
 </html>
