@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Laravel\Facades\Image;
 use Carbon\Carbon;
 use DateTime;
 
@@ -195,8 +194,8 @@ class AdminController extends Controller
     {
         $messages = [
             'foto_profil.image' => 'File Harus Berupa Gambar.',
-            'foto_profil.max' => 'Ukuran file maksimal 2MB.',            
-            'foto_profil.mimes' => 'Format Harus JPEG, JPG Dan PNG',         
+            'foto_profil.max' => 'Ukuran file maksimal 2MB.',
+            'foto_profil.dimensions' => 'Gambar Harus Memiliki tinggi dan lebar antara 200px - 2000px',
         ];
 
         flash()
@@ -206,7 +205,7 @@ class AdminController extends Controller
         ->error('Foto Gagal Di upload');
     
         $request->validate([
-            'foto_profil' => 'nullable|image|max:2048|mimes:jpeg,jpg,png',
+            'foto_profil' => 'nullable|image|max:2048|dimensions:min_width=200,min_height=200,max_width=2000,max_height=2000',
         ], $messages);
     
         $data_user = user::findOrFail(Auth::id());
@@ -215,16 +214,13 @@ class AdminController extends Controller
             if (File::exists($data_user->foto_profil)) {
                 File::delete($data_user->foto_profil);
             }
-        
-            $image = Image::read($request->file('foto_profil'));
-            $imageName = time() . '.' . $request->file('foto_profil')->getClientOriginalExtension();
-            $imagePath = public_path('images/' . $imageName);
-            
-            $image->cover(900, 900); 
-            $image->save($imagePath);
-        
-            $data_user->update(['foto_profil' => ('images/'.$imageName)]);
-            
+            $image = $request->file('foto_profil');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath = 'images/' . $imageName;
+
+            $data_user->update(['foto_profil' => $imagePath]);
+
             flash()
             ->killer(true)
             ->layout('bottomRight')
@@ -233,15 +229,13 @@ class AdminController extends Controller
 
             return redirect('/admin_profile');
         }
-        
         flash()
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
         ->error('Foto Gagal Di upload');
 
-        return redirect('/admin_profile')
-                    ->with('imageName',$imageName);
+        return redirect('/admin_profile');
     }  
 
     function updateIdentitas(Request $request)

@@ -66,23 +66,22 @@
                                     <img class="rounded-circle" src="{{ asset(Auth::user()->foto_profil) }}" alt="Profile picture">
                                     <label for="foto_profil"></label>
                                 </div>
-                                @else
+                            @else
                                 <div class="ratio ratio-1x1">
                                     <label class=" rounded-circle bg-body-secondary text-center" for="foto_profil">
                                         <i class="fa-solid fa-image fs-1 position-absolute top-50 start-50 translate-middle"></i></label>
                                 </div>
-                                @endif
-
+                            @endif
                                 <div class="mt-3">
                                     <h4>{{$data_user->nama_depan}} {{$data_user->nama_belakang}}</h4>
-                                    <form action="{{ route('admin.fotoprofil') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="file" name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profil" onchange="this.form.submit()">                                                                                                                                                                                                                                                 
-                                        @error('foto_profil')
-                                            <div class=" text-danger "><small>{{ $message }}</small></div>
-                                        @enderror
-                                    </form>                                    
-                                </div>                                
+                                <form action="{{ route('admin.fotoprofil') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profil" onchange="this.form.submit()">
+                                    @error('foto_profil')
+                                        <div class=" text-danger "><small>{{ $message }}</small></div>
+                                    @enderror                                    
+                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
