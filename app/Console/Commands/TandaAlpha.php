@@ -19,8 +19,6 @@ class TandaAlpha extends Command
         $current_date = Carbon::now()->setTimezone('Asia/Jakarta');
         $year = $current_date->year;
 
-        $liburs = $this->AmbilLibur($year);
-
         $users = User::where('Role', 'siswa')->get();
 
         foreach ($users as $user) {
@@ -28,7 +26,7 @@ class TandaAlpha extends Command
                 ->whereDate('tanggal', $current_date->format('Y-m-d'))
                 ->first();
 
-            if (!$absensi && !$this->Libur($current_date, $liburs) && !$this->AkhirPekan($current_date)) {
+            if (!$absensi && !$this->Libur($current_date) && !$this->AkhirPekan($current_date)) {
                 data_absen::create([
                     'username' => $user->username,
                     'hari' => $current_date->isoFormat('dddd'),
@@ -40,14 +38,9 @@ class TandaAlpha extends Command
         }
     }
 
-    protected function AmbilLibur($year)
+    protected function Libur($year)
     {
         return data_libur::all()->pluck('tanggal')->toArray();
-    }
-
-    protected function Libur($date, $liburs)
-    {
-        return in_array($date->format('Y-m-d'), $liburs);
     }
 
     protected function AkhirPekan($date)
