@@ -108,18 +108,95 @@
                         </div>
                     </div>
                 </div>
+                <div class="container-fluid pt-3 px-3 pb-4 ">
+                    <div class="col-12">
+                        <div class="shadow-lg card text-center rounded p-4">
+                            <div class="row align-items-baseline justify-content-between mb-4">
+                                <h5 class="mb-0 w-auto col-12 col-lg-4">Rekap Kehadiran {{ $rekapTahun }}</h5>
+                                <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
+                                    @csrf
+                                    <div class="col-sm-6 col-lg-3 col-xl-2">
+                                        <select name="bulan" class="form-select border-2 border-primary" onchange="form.submit()">
+                                            <option value="{{ $bulanSekarang }}" selected hidden>{{ $bulanSekarang }}</option>
+                                            @if ($dataBulan->isEmpty())
+                                            @else
+                                                @forelse($dataBulan as $bulan)
+                                                    <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                                @empty
+                                                    <option value="{{ $bulan }}">{{ $bulan }}</option>
+                                                @endforelse
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3 col-xl-2">
+                                        <select name="tahun" class="form-select border-2 border-primary" onchange="form.submit()">
+                                            <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
+                                            @if ($dataTahun->isEmpty())
+                                            @else
+                                                @forelse($dataTahun as $Tahun)
+                                                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                                @empty
+                                                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                                @endforelse
+                                            @endif
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            {{-- Table --}}
+                            <div class="table-responsive pb-2">
+                                <table  class="table-hover table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Hadir</th>
+                                            <th scope="col">Sakit</th>
+                                            <th scope="col">Izin</th>
+                                            <th scope="col">Alpha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ( $rekap as $stat)
+                                            <tr class="align-middle">
+                                            @foreach ($stat as $item => $value)
+                                                <td>
+                                                    @if ( $value == NULL )
+                                                        -
+                                                    @else                                                                                    
+                                                        {{ $value }}
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                            </tr>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container-fluid pt-3 px-3 pb-4">
                     <div class="col-12">
                         <div class="shadow-lg card text-center rounded p-4">
                             <div class="row align-items-baseline justify-content-between mb-4">
-                                <h5 class="mb-0 w-auto col-12 col-lg-4">Chart Kehadiran Tahun {{ $tahun }}</h5>
+                                <h5 class="mb-0 w-auto col-12 col-lg-4">Chart {{ $status }} Tahun {{ $tahun }}</h5>
                                 <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
                                     @csrf
-                                    <div class="col-12 col-sm-6 col-md-3 col-lg-auto">
-                                        <input type="date" class="form-control me-2 border-2 border-primary" value="" name="hariAwal" id="dateAwal">
+                                    <div class="col-12 col-sm-4 col-md-2 col-lg-auto">
+                                        <select name="status" class="form-control form-select me-2 border-2 border-primary">
+                                            <option value="{{ $status }}" selected hidden>{{ $status }}</option>
+                                            <option value="Hadir">Hadir</option>
+                                            <option value="Sakit">Sakit</option>
+                                            <option value="Izin">Izin</option>
+                                        </select>
                                     </div>
-                                    <div class="col-12 col-sm-6 col-md-3 col-lg-auto">
-                                        <input type="date" class="form-control me-2 border-2 border-primary" value="" name="hariAkhir" id="dateAkhir">
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-auto">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAwal }}" name="hariAwal" id="dateAwal">
+                                    </div>
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-auto">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAkhir }}" name="hariAkhir" id="dateAkhir">
                                     </div>
                                     <button type="submit" class="btn btn-primary ms-lg-1 col-12 col-sm-12 col-md-2 col-lg-auto">Ubah</button>
                                 </form>

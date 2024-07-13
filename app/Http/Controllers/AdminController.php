@@ -72,14 +72,21 @@ class AdminController extends Controller
             $tahun = Carbon::now()->year;
         }
 
+        // Logika Status
+        if ($request->input('status')) {
+            $status = $request->input('status');
+        } else {
+            $status = 'Hadir';
+        }
+
         // Chart
         foreach ($siswas as $siswa) {
             $absensi = DB::table('data_absen')
                 ->selectRaw('MONTH(tanggal) as month, DAY(tanggal) as day, COUNT(*) as count')
                 ->whereMonth('tanggal', $bulan)
-                ->whereYear('tanggal', 2024)
+                ->whereYear('tanggal', $tahun)
                 ->where('username', $siswa)
-                ->where('status_kehadiran', '=', 'Hadir')
+                ->where('status_kehadiran', '=', $status)
                 ->whereBetween('tanggal', [$hariAwal, $hariAkhir])
                 ->groupBy('month', 'day')
                 ->get()
@@ -147,8 +154,74 @@ class AdminController extends Controller
                 }
             }");
 
+        // Logika Rekap Bulan
+        $dataBulan = data_absen::selectRaw('MONTH(tanggal) as month')
+        ->groupBy('month')
+        ->pluck('month');
+    
+        if ($dataBulan->isEmpty()) {
+            $dataBulan = collect([]);
+        } else {
+            $dataBulan = $dataBulan->map(function ($nomorBulan) {
+                return Carbon::create()->month($nomorBulan)->format('F');
+            });
+        }
+
+        if ($request->bulan) {
+            $bulan = Carbon::parse($request->bulan)->month;
+            $bulanSekarang = Carbon::parse($request->bulan)->format('F');
+
+        } else {
+            $bulan = Carbon::now()->month;
+            $bulanSekarang = Carbon::now()->format('F');
+        }
+
+        // Logika Rekap Tahun
+        $dataTahun = data_absen::selectRaw('YEAR(tanggal) as year')
+            ->groupBy('year')
+            ->pluck('year');
+        
+        if ($dataTahun->isEmpty()) {
+            $dataTahun = collect([]);
+        }
+
+        if ($request->tahun) {
+            $rekapTahun = $request->tahun;
+        } else {
+            $rekapTahun = Carbon::now()->year;
+        }
+
+        // Logika Rekap Kehadiran
+        foreach ($siswas as $siswa) {
+            $statusKehadiran = ['Hadir', 'Sakit', 'Izin', 'Alpha'];
+            $defaultStatus = array_fill_keys($statusKehadiran, 0);
+
+            ${'status' . $siswa} = DB::table('data_absen')
+                ->select('status_kehadiran', DB::raw('COUNT(*) as count'))
+                ->where('username', $siswa)
+                ->whereMonth('tanggal', $bulan)
+                ->whereYear('tanggal', $rekapTahun)
+                ->whereIn('status_kehadiran', $statusKehadiran)
+                ->groupBy('status_kehadiran')
+                ->get()
+                ->pluck('count', 'status_kehadiran')
+                ->all();
+            
+            ${'status' . $siswa} = array_merge($defaultStatus, ${'status' . $siswa});
+            ${'status' . $siswa} = array_merge(['nama' => $siswa], ${'status' . $siswa});
+            $rekap[] = ${'status' . $siswa};
+        }
+
         return view('admin.dashboard')
+            ->with('rekap', $rekap)
+            ->with('bulanSekarang', $bulanSekarang)
+            ->with('dataBulan', $dataBulan)
+            ->with('rekapTahun', $rekapTahun)
+            ->with('dataTahun', $dataTahun)
+            ->with('hariAwal', $hariAwal)
+            ->with('hariAkhir', $hariAkhir)
             ->with('tahun', $tahun)
+            ->with('status', $status)
             ->with('chartAbsen', $chartAbsen)
             ->with('absen', $absen)
             ->with('keyword', $keyword);
