@@ -20,16 +20,18 @@ class LoginController extends Controller
 
         $messages = [
             'required' => 'Kolom :attribute wajib diisi',
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf',
+            'username.alpha' => 'Kolom :attribute hanya boleh berisi huruf',
             'size' => 'Kolom :attribute tidak boleh lebih dari 10 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf',
+            'username.regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf',
+            'password.regex' => 'Password hanya boleh berisi huruf, angka, dan karakter khusus tanpa spasi.',
+            'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
         ];
 
         $request->validate ([
-            'username' => 'required|alpha|regex:/^[\pL\s]+$/u',
-            'password' => 'required'
+            'username' => 'required|alpha',
+            'password' => 'required|max:50',
         ],$messages);
 
         $inputeddata = [
@@ -46,7 +48,12 @@ class LoginController extends Controller
                     return redirect('/kehadiran');
                 }else{
                     Auth::logout();
-                    return redirect('/login')->withErrors(['error' => 'Akun Anda Ditangguhkan'])->withInput();
+                    flash()
+                    ->killer(true)
+                    ->layout('bottomRight')
+                    ->timeout(3000)
+                    ->error('Akun Anda Ditangguhkan !');
+                    return redirect('/login')->withInput();
                 }
             }
         }else {

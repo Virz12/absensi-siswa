@@ -254,9 +254,9 @@ class SiswaController extends Controller
             'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
-            'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
-            'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
-            'nama_sekolah.regex' => 'Kolom Nama Sekolah tidak valid',
+            'nama_depan.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'nama_belakang.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'nama_sekolah.regex' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
         ];
 
         flash()
@@ -302,9 +302,10 @@ class SiswaController extends Controller
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
-            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',
+            'password.min' => 'Kolom :attribute minimal berisi 8 karakter.',
+            'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi'
         ];
 
         flash()
@@ -315,7 +316,7 @@ class SiswaController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => 'required|min:6|max:12',
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
             'passwordConfirm' => 'required',
         ],$messages);
 

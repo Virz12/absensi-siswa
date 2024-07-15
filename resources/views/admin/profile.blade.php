@@ -77,7 +77,7 @@
                                     <h4>{{$data_user->nama_depan}} {{$data_user->nama_belakang}}</h4>
                                     <form action="{{ route('admin.fotoprofil') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="file" name="foto_profil" class="form-control border-2 @error('foto_profil') is-invalid @enderror" id="foto_profil" onchange="this.form.submit()">                                                                                                                                                                                                                                                 
+                                        <input type="file" name="foto_profil" class="form-control border-2  @error('foto_profil') is-invalid @enderror" accept="image/png, image/jpeg, image/jpg" id="foto_profil" onchange="this.form.submit()">                                                                                                                                                                                                                                                 
                                         @error('foto_profil')
                                             <div class=" text-danger "><small>{{ $message }}</small></div>
                                         @enderror
@@ -100,7 +100,7 @@
 									<label for="nama_depan" class="form-label">Nama Depan<span class="text-danger">*</span></label>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                    <input type="text" value="{{ $data_user->nama_depan }}" name="nama_depan" class="form-control border-2  @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off">
+                                    <input type="text" value="{{ $data_user->nama_depan }}" name="nama_depan" class="form-control border-2  @error('nama_depan') is-invalid @enderror" id="nama_depan" autocomplete="off" required>
                                     @error('nama_depan')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
@@ -111,7 +111,7 @@
 									<label for="nama_belakang" class="form-label">Nama Belakang<span class="text-danger">*</span></label>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" value="{{ $data_user->nama_belakang }}" name="nama_belakang" class="form-control border-2 @error('nama_belakang') is-invalid @enderror" id="nama_belakang" autocomplete="off">
+									<input type="text" value="{{ $data_user->nama_belakang }}" name="nama_belakang" class="form-control border-2 @error('nama_belakang') is-invalid @enderror" id="nama_belakang" autocomplete="off" required>
                                     @error('nama_belakang')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
@@ -146,7 +146,7 @@
                                         <label for="passwordLama" class="form-label">Password<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="passwordLama" class="form-control border-2 @error('passwordLama') is-invalid @enderror" id="passwordLama">
+                                        <input type="password" name="passwordLama" class="form-control border-2 @error('passwordLama') is-invalid @enderror" id="passwordLama" required>
                                         @error('passwordLama')
                                             <div class="text-danger"><small>{{ $message }}</small></div>
                                         @enderror
@@ -158,7 +158,7 @@
                                         <label for="password" class="form-label">Password Baru<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password">
+                                        <input type="password" name="password" class="form-control border-2 @error('password') is-invalid @enderror" id="password" required>
                                         @error('password')
                                             <div class="text-danger"><small>{{ $message }}</small></div>
                                         @enderror
@@ -170,7 +170,7 @@
                                         <label for="passwordConfirm" class="form-label">Konfirmasi Password Baru<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="passwordConfirm" class="form-control border-2 @error('passwordConfirm') is-invalid @enderror" id="passwordConfirm">
+                                        <input type="password" name="passwordConfirm" class="form-control border-2 @error('passwordConfirm') is-invalid @enderror" id="passwordConfirm" required>
                                         @error('passwordConfirm')
                                             <div class="text-danger"><small>{{ $message }}</small></div>
                                         @enderror

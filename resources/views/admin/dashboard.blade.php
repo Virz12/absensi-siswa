@@ -96,7 +96,17 @@
                                                         {{ $dabsen->waktu_pulang }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $dabsen->status_kehadiran }}</td>
+                                                <td ><span class="fw-medium p-2 bg-opacity-50 rounded                                                                                                        
+                                                    @if ($dabsen->status_kehadiran == 'Hadir')
+                                                        bg-success
+                                                    @elseif ($dabsen->status_kehadiran == 'Sakit')
+                                                        bg-secondary
+                                                    @elseif ($dabsen->status_kehadiran == 'Izin')
+                                                        bg-warning
+                                                    @elseif ($dabsen->status_kehadiran == 'Alpha')
+                                                        bg-danger
+                                                    @endif                                                                                                
+                                                    ">{{ $dabsen->status_kehadiran }}</span></td>
                                             </tr>
                                         @empty
                                             
@@ -112,7 +122,7 @@
                     <div class="col-12">
                         <div class="shadow-lg card text-center rounded p-4">
                             <div class="row align-items-baseline justify-content-between mb-4">
-                                <h5 class="mb-0 w-auto col-12 col-lg-4">Rekap Kehadiran {{ $rekapTahun }}</h5>
+                                <h5 class="mb-0 w-auto col-12 col-lg-4"><i class="fa-solid fa-file-pen"></i> Rekap Kehadiran</h5>
                                 <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
                                     @csrf
                                     <div class="col-sm-6 col-lg-3 col-xl-2">
@@ -149,17 +159,27 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Nama</th>
-                                            <th scope="col">Hadir</th>
-                                            <th scope="col">Sakit</th>
-                                            <th scope="col">Izin</th>
-                                            <th scope="col">Alpha</th>
+                                            <th  class="table-success" scope="col">Hadir</th>
+                                            <th class="table-secondary" scope="col">Sakit</th>
+                                            <th class="table-warning" scope="col">Izin</th>
+                                            <th class="table-danger" scope="col">Alpha</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ( $rekap as $stat)
                                             <tr class="align-middle">
-                                            @foreach ($stat as $item => $value)
-                                                <td>
+                                            @foreach ($stat as $item => $value)           
+                                                <td class="
+                                                @if ($item == 'Hadir')
+                                                    table-success
+                                                @elseif ($item == 'Sakit')
+                                                    table-secondary
+                                                @elseif ($item == 'Izin')
+                                                    table-warning
+                                                @elseif ($item == 'Alpha')
+                                                    table-danger
+                                                @endif
+                                                ">
                                                     @if ( $value == NULL )
                                                         -
                                                     @else                                                                                    
@@ -181,11 +201,11 @@
                     <div class="col-12">
                         <div class="shadow-lg card text-center rounded p-4">
                             <div class="row align-items-baseline justify-content-between mb-4">
-                                <h5 class="mb-0 w-auto col-12 col-lg-4">Chart {{ $status }} Tahun {{ $tahun }}</h5>
+                                <h5 class="mb-0 w-auto col-12 col-lg-4"><i class="fa-solid fa-chart-simple"></i> Chart {{ $status }} Tahun {{ $tahun }}</h5>
                                 <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
                                     @csrf
                                     <div class="col-12 col-sm-4 col-md-2 col-lg-auto">
-                                        <select name="status" class="form-control form-select me-2 border-2 border-primary">
+                                        <select name="status" class="form-control form-select me-2 border-2 border-primary" >
                                             <option value="{{ $status }}" selected hidden>{{ $status }}</option>
                                             <option value="Hadir">Hadir</option>
                                             <option value="Sakit">Sakit</option>
@@ -198,7 +218,7 @@
                                     <div class="col-12 col-sm-4 col-md-4 col-lg-auto">
                                         <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAkhir }}" name="hariAkhir" id="dateAkhir">
                                     </div>
-                                    <button type="submit" class="btn btn-primary ms-lg-1 col-12 col-sm-12 col-md-2 col-lg-auto">Ubah</button>
+                                    <button type="submit" class="btn btn-primary ms-lg-1 col-12 col-sm-12 col-md-2 col-lg-auto"><i class="fa-solid fa-arrow-up-from-bracket"></i> Ubah</button>
                                 </form>
                             </div>
                             {{-- Chart --}}

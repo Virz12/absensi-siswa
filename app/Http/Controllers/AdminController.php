@@ -325,12 +325,9 @@ class AdminController extends Controller
             'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'size' => 'Kolom :attribute tidak boleh lebih dari 20 karakter',
-            'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
             'max:15' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
             'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
             'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
         ];
@@ -373,10 +370,11 @@ class AdminController extends Controller
             'unique' => ':attribute sudah digunakan',
             'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'image' => 'File Harus Berupa Gambar.',
-            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
-            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',            
+            'password.min' => 'Kolom :attribute minimal berisi 8 karakter.',
+            'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
             'max:2048' => 'Ukuran file maksimal 2MB.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi'
         ];
 
         flash()
@@ -387,7 +385,7 @@ class AdminController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => 'required|min:6|max:12',
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
             'passwordConfirm' => 'required',
         ],$messages);
 
@@ -481,19 +479,17 @@ class AdminController extends Controller
         $messages = [
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
-            'unique' => ':attribute sudah digunakan',
-            'regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
-            'regex:/^[a-zA-Z0-9\s]*$/' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
-            'alpha_dash' => 'Kolom :attribute hanya boleh berisi huruf, angka, (-), (_).',
+            'unique' => ':attribute sudah digunakan',            
+            'alpha' => 'Kolom :attribute hanya boleh berisi huruf',
             'lowercase' => 'Kolom :attribute hnaya boleh berisi huruf kecil',
             'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
-            'nama.max' => 'Kolom :attribute maksimal berisi 50 karakter.',
             'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
-            'password.min' => 'Kolom :attribute minimal berisi 6 karakter.',
-            'password.max' => 'Kolom :attribute maksimal berisi 12 karakter.',
-            'nama_depan.regex' => 'Kolom Nama Depan tidak valid',
-            'nama_belakang.regex' => 'Kolom Nama Belakang tidak valid',
-            'nama_sekolah.regex' => 'Kolom Nama Sekolah tidak valid',
+            'password.min' => 'Kolom :attribute minimal berisi 8 karakter.',
+            'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
+            'nama_depan.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'nama_belakang.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
+            'nama_sekolah.regex' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi',
         ];
 
         flash()
@@ -503,8 +499,8 @@ class AdminController extends Controller
         ->error('Tambah Siswa Gagal');
 
         $request->validate([
-            'username' => 'required|max:15|unique:users',
-            'password' => 'required|min:6|max:12',
+            'username' => 'required|alpha|max:15|unique:users',
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
             'nama_depan' => 'nullable|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'nullable|regex:/^[\pL\s]+$/u',
             'telepon' => 'nullable|numeric',
