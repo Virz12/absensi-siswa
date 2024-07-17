@@ -305,7 +305,7 @@ class SiswaController extends Controller
             'password.min' => 'Kolom :attribute minimal berisi 8 karakter.',
             'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
-            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi'
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus yang Diizinkan[!@#$?&*] masing-masing Minimal 1 dan Tanpa Spasi'
         ];
 
         flash()
@@ -316,7 +316,7 @@ class SiswaController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?!.*[\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\;\:\'\"\\\|\[\]\{\}])(?=.*\d)(?=.*[\!\@\#\$\?\&\*]).*$/'],
             'passwordConfirm' => 'required',
         ],$messages);
 

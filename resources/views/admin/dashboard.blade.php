@@ -71,8 +71,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Tanggal</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Masuk</th>
+                                            <th scope="col">Username</th>                                                                                 <th scope="col">Masuk</th>
                                             <th scope="col">Pulang</th>
                                             <th scope="col">Status</th>
                                         </tr>
@@ -81,7 +80,7 @@
                                         @forelse ( $absen as $dabsen )
                                             <tr class="align-middle">
                                                 <td>{{ $dabsen->hari }} <br> {{ $dabsen->tanggal }}</td>
-                                                <td>{{ $dabsen->username }}</td>
+                                                <td>{{ $dabsen->username }}</td>                                                
                                                 <td>
                                                     @if ( $dabsen->waktu_masuk == false )
                                                         -
@@ -126,10 +125,10 @@
                                 <form action="" method="GET" class="row g-2 mt-2 mt-sm-2 mt-sm-0 me-2 justify-content-lg-end col-12 col-lg-8">
                                     @csrf
                                     <div class="col-12 col-sm-4 col-lg-auto">
-                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAwal }}" name="hariAwal" id="dateAwal">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAwal }}" name="hariAwal" id="dateAwal" required>
                                     </div>
                                     <div class="col-12 col-sm-4 col-lg-auto">
-                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAkhir }}" name="hariAkhir" id="dateAkhir">
+                                        <input type="date" class="form-control me-2 border-2 border-primary" value="{{ $hariAkhir }}" name="hariAkhir" id="dateAkhir" required>
                                     </div>
                                     <button type="submit" class="btn btn-primary ms-lg-1 col-12 col-sm-4 col-lg-auto">Ubah</button>
                                 </form>

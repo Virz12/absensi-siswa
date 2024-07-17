@@ -145,16 +145,17 @@ class AdminController extends Controller
             }");
 
         // Logika Hari
-        $hariAwal = new DateTime($request->input('hariAwal'));
-        $hariAkhir = new DateTime($request->input('hariAkhir'));
-
-        for ($hari = $hariAwal; $hari <= $hariAkhir; $hari->modify('+1 day')) {
-            $tanggal[] = $hari->format('d');
+        if ($request->input('hariAwal') && $request->input('hariAkhir')) {
+            $hariAwal = $request->input('hariAwal');
+            $hariAkhir = $request->input('hariAkhir');
+            
+        }else {
+            $toDate = carbon::now();
+            $hariAwal = $toDate->toDateString();
+            $hariAkhir = $toDate->toDateString();
         }
 
-        $hariAwal = $request->input('hariAwal');
-        $hariAkhir = $request->input('hariAkhir');
-
+        
         // Logika Rekap Bulan
         if ($request->input('hariAwal')) {
             $rekapBulan = Carbon::parse($request->input('hariAwal'))->format('m');
@@ -353,7 +354,7 @@ class AdminController extends Controller
             'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
             'max:2048' => 'Ukuran file maksimal 2MB.',
             'digits_between:1,20' => 'Kolom :attribute maksimal berisi angka 20 digit.',
-            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi'
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus yang Diizinkan[!@#$?&*] masing-masing Minimal 1 dan Tanpa Spasi'
         ];
 
         flash()
@@ -364,7 +365,7 @@ class AdminController extends Controller
 
         $request->validate([
             'passwordLama' => 'required',
-            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?!.*[\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\;\:\'\"\\\|\[\]\{\}])(?=.*\d)(?=.*[\!\@\#\$\?\&\*]).*$/'],
             'passwordConfirm' => 'required',
         ],$messages);
 
@@ -468,7 +469,7 @@ class AdminController extends Controller
             'nama_depan.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'nama_belakang.regex' => 'Kolom :attribute hanya boleh berisi huruf dan spasi.',
             'nama_sekolah.regex' => 'Kolom :attribute hanya boleh berisi huruf, angka, dan spasi',
-            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus masing-masing Minimal 1 dan Tanpa Spasi',
+            'password.regex'=>'hanya berisi Huruf, Angka(0-9), a-z, A-Z ,karakter khusus yang Diizinkan[!@#$?&*] masing-masing Minimal 1 dan Tanpa Spasi',
         ];
 
         flash()
@@ -479,7 +480,7 @@ class AdminController extends Controller
 
         $request->validate([
             'username' => 'required|alpha|max:15|unique:users',
-            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/'],
+            'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?!.*[\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\;\:\'\"\\\|\[\]\{\}])(?=.*\d)(?=.*[\!\@\#\$\?\&\*]).*$/'],
             'nama_depan' => 'nullable|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'nullable|regex:/^[\pL\s]+$/u',
             'telepon' => 'nullable|numeric',
