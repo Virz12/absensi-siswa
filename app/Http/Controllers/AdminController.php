@@ -260,7 +260,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Foto Gagal Di upload');
+        ->error('<b>Error!</b><br>Foto Gagal Di upload');
     
         $request->validate([
             'foto_profil' => 'nullable|image|max:2048|mimes:jpeg,jpg,png',
@@ -286,7 +286,7 @@ class AdminController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->success('Foto Berhasil Di upload');
+            ->success('<b>Berhasil!</b><br>Foto sudah Di upload');
 
             return redirect('/admin_profile');
         }
@@ -295,7 +295,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Foto Gagal Di upload');
+        ->error('<b>Error!</b><br>Foto Gagal Di upload');
 
         return redirect('/admin_profile')
                     ->with('imageName',$imageName);
@@ -320,7 +320,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Profil gagal diubah.');
+        ->error('<b>Error!</b><br>Profil gagal diubah.');
 
         $request->validate([
             'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
@@ -337,7 +337,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Profil berhasil diubah.');
+        ->success('<b>Berhasil!</b><br>Profil sudah diubah.');
     
         return redirect('/admin_profile');
     }
@@ -365,7 +365,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Password gagal diubah');
+        ->error('<b>Error!</b><br>Password gagal diubah');
 
         $request->validate([
             'passwordLama' => 'required',
@@ -388,7 +388,7 @@ class AdminController extends Controller
                 ->killer(true)
                 ->layout('bottomRight')
                 ->timeout(3000)
-                ->error('Password gagal diubah');
+                ->error('<b>Error!</b><br>Password gagal diubah');
 
                 return redirect('/admin_profile')->withErrors([
                     'password' => 'Password tidak sama',
@@ -400,7 +400,7 @@ class AdminController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->error('Password gagal diubah');
+            ->error('<b>Error!</b><br>Password gagal diubah');
             
             return redirect('/admin_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
@@ -408,7 +408,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Password berhasil diubah');
+        ->success('<b>Berhasil!</b><br>Password sudah diubah');
 
         return redirect('/admin_profile');
     }
@@ -422,7 +422,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Data Siswa Berhasil Dihapus.');
+        ->success('<b>Berhasil!</b><br>Data Siswa sudah Dihapus.');
         
         return redirect('/datasiswa');
     }
@@ -435,7 +435,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Status Siswa Berhasil Diubah Menjadi Aktif.');
+        ->success('<b>Berhasil!</b><br>Status Siswa sudah Diubah Menjadi Aktif.');
 
         return redirect()->back();
     }
@@ -448,7 +448,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Status Siswa Berhasil Diubah Menjadi Nonaktif.');
+        ->success('<b>Berhasil!</b><br>Status Siswa sudah Diubah Menjadi Nonaktif.');
 
         return redirect()->back();
     }
@@ -479,7 +479,7 @@ class AdminController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Tambah Siswa Gagal');
+        ->error('<b>Error!</b><br>Tambah Siswa Gagal');
 
         $request->validate([
             'username' => 'required|regex:/^[a-zA-Z]+$/|lowercase|max:15|unique:users',
@@ -508,7 +508,7 @@ class AdminController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->success('Siswa Berhasil Di Tambah.');
+            ->success('<b>Berhasil!</b><br>Siswa sudah Di Tambah.');
 
             return redirect('/datasiswa')->withInput();
         }else{
@@ -516,7 +516,7 @@ class AdminController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->error('Tambah Siswa Gagal');
+            ->error('<b>Error!</b><br>Tambah Siswa Gagal');
             return redirect('/tambahsiswa');
         }
     }

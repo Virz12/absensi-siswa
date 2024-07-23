@@ -53,7 +53,7 @@ class LoginController extends Controller
                     ->killer(true)
                     ->layout('bottomRight')
                     ->timeout(3000)
-                    ->error('Akun Anda Ditangguhkan !');
+                    ->error('<b>Error!</b><br>Akun Anda Ditangguhkan !');
                     return redirect('/login')->withInput();
                 }
             }

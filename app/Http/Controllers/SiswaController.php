@@ -70,7 +70,7 @@ class SiswaController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->success('Anda berhasil mengisi kehadiran.');
+            ->success('<b>Berhasil!</b><br>Anda sudah mengisi kehadiran.');
 
             return redirect('/kehadiran');
         } else {
@@ -78,7 +78,7 @@ class SiswaController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->error('Waktu masuk diizinkan jam 08:00 - 12:00.');
+            ->error('<b>Error!</b><br>Waktu masuk diizinkan jam 08:00 - 12:00.');
 
             return redirect('/kehadiran');
         }
@@ -110,7 +110,7 @@ class SiswaController extends Controller
                 ->killer(true)
                 ->layout('bottomRight')
                 ->timeout(3000)
-                ->success('Anda berhasil mengisi kehadiran');
+                ->success('<b>Berhasil!</b><br>Anda sudah mengisi kehadiran');
 
                 return redirect('/kehadiran');
             } else {
@@ -118,7 +118,7 @@ class SiswaController extends Controller
                 ->killer(true)
                 ->layout('bottomRight')
                 ->timeout(3000)
-                ->error('Tidak ditemukan absen masuk untuk hari ini.');
+                ->error('<b>Error!</b><br>Tidak ditemukan absen masuk untuk hari ini.');
 
                 return redirect('/kehadiran');
             }
@@ -127,7 +127,7 @@ class SiswaController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->error('Waktu pulang diizinkan jam 12:00 - 17:00.');
+            ->error('<b>Error!</b><br>Waktu pulang diizinkan jam 12:00 - 17:00.');
 
             return redirect('/kehadiran');
         }
@@ -151,7 +151,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Anda Berhasil Mengisi Kehadiran!');
+        ->success('<b>Berhasil!</b><br>Anda sudah Mengisi Kehadiran!');
 
         return redirect('/kehadiran');
     }
@@ -174,7 +174,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Anda Berhasil Mengisi Kehadiran!');
+        ->success('<b>Berhasil!</b><br>Anda sudah Mengisi Kehadiran!');
 
         return redirect('/kehadiran');
     }
@@ -200,7 +200,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Foto Gagal Di upload');
+        ->error('<b>Error!</b><br>Foto Gagal Di upload');
     
         $request->validate([
             'foto_profil' => 'nullable|image|max:2048|mimes:jpeg,jpg,png',
@@ -226,7 +226,7 @@ class SiswaController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->success('Foto Berhasil Di upload');
+            ->success('<b>Berhasil!</b><br>Foto sudah Di upload');
 
             return redirect('/siswa_profile');
         }
@@ -235,7 +235,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Foto Gagal Di upload');
+        ->error('<b>Error!</b><br>Foto Gagal Di upload');
 
         return redirect('/siswa_profile');
     }  
@@ -263,7 +263,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Profil gagal diubah.');
+        ->error('<b>Error!</b><br>Profil gagal diubah.');
 
         $request->validate([
             'nama_depan' => 'required|regex:/^[\pL\s]+$/u',
@@ -286,7 +286,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Profil berhasil diubah.');
+        ->success('<b>Berhasil!</b><br>Profil sudah diubah.');
     
         return redirect('/siswa_profile');
     }
@@ -312,7 +312,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->error('Password gagal diubah');
+        ->error('<b>Error!</b><br>Password gagal diubah');
 
         $request->validate([
             'passwordLama' => 'required',
@@ -335,7 +335,7 @@ class SiswaController extends Controller
                 ->killer(true)
                 ->layout('bottomRight')
                 ->timeout(3000)
-                ->error('Password gagal diubah');
+                ->error('<b>Error!</b><br>Password gagal diubah');
 
                 return redirect('/siswa_profile')->withErrors([
                     'password' => 'Password tidak sama',
@@ -347,7 +347,7 @@ class SiswaController extends Controller
             ->killer(true)
             ->layout('bottomRight')
             ->timeout(3000)
-            ->error('Password gagal diubah');
+            ->error('<b>Error!</b><br>Password gagal diubah');
             
             return redirect('/siswa_profile')->withErrors(['passwordLama' => 'Password tidak sesuai'])->withInput();
         }
@@ -355,7 +355,7 @@ class SiswaController extends Controller
         ->killer(true)
         ->layout('bottomRight')
         ->timeout(3000)
-        ->success('Password berhasil diubah');
+        ->success('<b>Berhasil!</b><br>Password sudah diubah');
 
         return redirect('/siswa_profile');
     }
