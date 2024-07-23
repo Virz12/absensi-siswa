@@ -59,7 +59,8 @@
                 <div class="col-lg-8 ">
                     <div class="shadow-lg card">
                         <div class="card-body">
-                        {{-- Form --}}        
+                        {{-- Form --}}
+                        <h2 class="mb-3 fw-bold">PROFIL SISWA</h2> 
                         <form  action="" method="POST">
                             @csrf
                             <div class="row mb-3">

@@ -91,7 +91,8 @@
                 <div class="col-lg-8">
                     <div class="shadow-lg card">
                         <div class="card-body">
-                        {{-- Form --}}        
+                        <h2 class="mb-3 fw-bold">PROFIL SISWA</h2> 
+                        {{-- Form --}}
                         <form  action="{{ route('admin.identitas') }}" method="POST">
                             @csrf
                             @method('PUT')                        
@@ -130,6 +131,7 @@
                     <div class="row g-4 justify-content-center m-auto">                        
                         <div class="shadow-lg card mb-3">
                             <div class="card-body">
+                                <h2 class="mb-3 fw-bold">UBAH PASSWORD</h2> 
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <label for="username" class="form-label">Username</span></label>

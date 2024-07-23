@@ -95,16 +95,16 @@
                                                         {{ $dabsen->waktu_pulang }}
                                                     @endif
                                                 </td>
-                                                <td ><span class="fw-medium p-2 bg-opacity-50 rounded                                                                                                        
+                                                <td ><span class="badge rounded-pill fs-6                                                                                                      
                                                     @if ($dabsen->status_kehadiran == 'Hadir')
-                                                        bg-success
+                                                        text-bg-success
                                                     @elseif ($dabsen->status_kehadiran == 'Sakit')
-                                                        bg-secondary
+                                                        text-bg-secondary
                                                     @elseif ($dabsen->status_kehadiran == 'Izin')
-                                                        bg-warning
+                                                        text-bg-warning
                                                     @elseif ($dabsen->status_kehadiran == 'Alpha')
-                                                        bg-danger
-                                                    @endif                                                                                                
+                                                        text-bg-danger
+                                                    @endif
                                                     ">{{ $dabsen->status_kehadiran }}</span></td>
                                             </tr>
                                         @empty

@@ -89,7 +89,13 @@
                                         <li class="list-group-item ">Jenis Kelamin : {{$dsiswa->jenis_kelamin}} </li>
                                         <li class="list-group-item ">No Tlp : {{$dsiswa->telepon}} </li>
                                         <li class="list-group-item ">Nama Sekolah : {{$dsiswa->nama_sekolah}} </li>
-                                        <li class="list-group-item fw-bold">Status : {{$dsiswa->status}}</li>
+                                        <li class="list-group-item fw-bold">Status : 
+                                        @if ($dsiswa->status == 'aktif')
+                                            <span class="badge rounded-pill text-bg-success">{{$dsiswa->status}}</span>
+                                        @else
+                                            <span class="badge rounded-pill text-bg-secondary">{{$dsiswa->status}}</span>
+                                        @endif
+                                        </li>
                                         <li class="list-group-item ">
                                             @if($dsiswa->status == 'nonaktif')
                                                         <div class="d-flex justify-content-between gap-2">
