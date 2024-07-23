@@ -160,11 +160,11 @@
                                     <td><span class="fw-medium p-2 bg-opacity-50 rounded                                                                                                        
                                         @if ($datahadir->status_kehadiran == 'Hadir')
                                             bg-success
-                                        @elseif ($dabsen->status_kehadiran == 'Sakit')
+                                        @elseif ($datahadir->status_kehadiran == 'Sakit')
                                             bg-secondary
-                                        @elseif ($dabsen->status_kehadiran == 'Izin')
+                                        @elseif ($datahadir->status_kehadiran == 'Izin')
                                             bg-warning
-                                        @elseif ($dabsen->status_kehadiran == 'Alpha')
+                                        @elseif ($datahadir->status_kehadiran == 'Alpha')
                                             bg-danger
                                         @endif                                                                                                
                                         ">{{ $datahadir->status_kehadiran }}</span></td>

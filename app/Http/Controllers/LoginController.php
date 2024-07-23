@@ -21,17 +21,17 @@ class LoginController extends Controller
         $messages = [
             'required' => 'Kolom :attribute wajib diisi',
             'username.alpha' => 'Kolom :attribute hanya boleh berisi huruf',
+            'lowercase' => 'Kolom :attribute hanya boleh berisi huruf kecil',
             'size' => 'Kolom :attribute tidak boleh lebih dari 10 karakter',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah dipakai',
-            'username.regex:/^[\pL\s]+$/u' => 'Kolom :attribute hanya boleh berisi huruf',
+            'username.regex' => 'Kolom :attribute hanya boleh berisi huruf',
             'username.max'=>'Kolom :attribute maksimal 15 karakter',
-            'password.regex' => 'Password hanya boleh berisi huruf, angka, dan karakter khusus tanpa spasi.',
             'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
         ];
 
         $request->validate ([
-            'username' => 'required|alpha|max:15',
+            'username' => 'required|regex:/^[a-zA-Z]+$/|max:15|lowercase',
             'password' => 'required|max:50',
         ],$messages);
 

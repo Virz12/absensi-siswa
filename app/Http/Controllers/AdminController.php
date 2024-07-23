@@ -19,10 +19,14 @@ class AdminController extends Controller
     function admin(Request $request)
     {   
         //data absen 
-        $absen = data_absen::orderBy('updated_at','DESC')->orderBy('id', 'DESC')->paginate(4);
+        $absen = data_absen::orderBy('tanggal','DESC')
+                                ->orderBy('updated_at','DESC')
+                                ->orderBy('id', 'DESC')
+                                ->paginate(6);
         $keyword = $request->input('keyword');
         if ($keyword) {
             $absen = DB::table('data_absen')
+                ->orderBy('tanggal','DESC')
                 ->orderBy('updated_at', 'DESC')
                 ->orderBy('id', 'DESC')
                 ->whereAny([
@@ -31,7 +35,7 @@ class AdminController extends Controller
                     'username',
                     'status_kehadiran',
                 ], 'LIKE', "%$keyword%")
-                ->paginate(4);
+                ->paginate(6);
         }
         
         //format tanggal
@@ -460,9 +464,8 @@ class AdminController extends Controller
             'required' => 'Kolom :attribute belum terisi.',
             'numeric' => 'Kolom :attribute hanya boleh berisi angka',
             'unique' => ':attribute sudah digunakan',            
-            'alpha' => 'Kolom :attribute hanya boleh berisi huruf',
+            'username.regex' => 'Kolom :attribute hanya berisi huruf tanpa spasi.',
             'lowercase' => 'Kolom :attribute hnaya boleh berisi huruf kecil',
-            'alpha_num' => 'Kolom :attribute hanya boleh berisi huruf dan angka',
             'username.max' => 'Kolom :attribute maksimal berisi 15 karakter.',
             'password.min' => 'Kolom :attribute minimal berisi 8 karakter.',
             'password.max' => 'Kolom :attribute maximal berisi 50 karakter.',
@@ -479,7 +482,7 @@ class AdminController extends Controller
         ->error('Tambah Siswa Gagal');
 
         $request->validate([
-            'username' => 'required|alpha|max:15|unique:users',
+            'username' => 'required|regex:/^[a-zA-Z]+$/|lowercase|max:15|unique:users',
             'password' => ['required','min:8','max:50','regex:/^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?!.*[\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\;\:\'\"\\\|\[\]\{\}])(?=.*\d)(?=.*[\!\@\#\$\?\&\*]).*$/'],
             'nama_depan' => 'nullable|regex:/^[\pL\s]+$/u',
             'nama_belakang' => 'nullable|regex:/^[\pL\s]+$/u',
