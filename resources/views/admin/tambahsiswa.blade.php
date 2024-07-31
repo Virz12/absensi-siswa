@@ -60,7 +60,7 @@
                     <div class="shadow-lg card">
                         <div class="card-body">
                         {{-- Form --}}
-                        <h2 class="mb-3 fw-bold">PROFIL SISWA</h2> 
+                        <h2 class="mb-3 fw-bold fs-3"><i class="fa-solid fa-user"></i> AKUN SISWA</h2> 
                         <form  action="" method="POST">
                             @csrf
                             <div class="row mb-3">
@@ -86,6 +86,7 @@
                                 </div>
                             </div>
                             <hr class="border-4  rounded">
+                            <h2 class="mb-3 fw-bold fs-3"><i class="fa-solid fa-id-card"></i> IDENTITAS SISWA</h2> 
                             <div class="row mb-3">
 								<div class="col-sm-3">
 									<label for="nama_depan" class="form-label">Nama Depan</label>
