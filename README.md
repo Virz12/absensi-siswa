@@ -1,6 +1,9 @@
 
 ## About Laravel
 
+```
+composer install
+```
 
 ## Learning Laravel
 
