@@ -20,7 +20,7 @@ Website Kehadiran untuk  membantu pengelolaan data kehadiran siswa dan data sisw
 - Mengubah Password
 
 ## Persyaratan Sistem
-- Framework Laravel 11
+- Laravel 11
 - PHP 8.2
 - bootstrap 5.3.3
 - composer
@@ -69,24 +69,4 @@ Jalankan laravel server lokal (jika ingin menjalankan server lokal)
 ```bash
     php artisan serve
 ```
-## Command Schedule
-command schedule untuk otomatis reset siswa yang sudah mengisi kehadiran menjadi belum pada pukul 00.00 WIB <br>
-dan otomatis menandai Alpha jika siswa tidak mengisi kehadiran dari waktu yang di tentukan <br>
-
-pemanggilan command schedule terdapat di routes/console.php,<br>
-reset dan alpha terdapat di app/console/command
-
-
-
-
-## Code of Conduct
-
-
-
-## Security Vulnerabilities
-
-
-
-## License
-
 
