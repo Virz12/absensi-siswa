@@ -1,5 +1,5 @@
 # Website Kehadiran Siswa
-Website Kehadiran untuk  membantu pengelolaan data kehadiran siswa dan absensi siswa
+Website Kehadiran untuk  membantu pengelolaan data kehadiran siswa dan data siswa
 
 ### ADMIN
 - Mengecek Status kehadiran siswa (Hadir, Sakit, Izin, Alpha)
