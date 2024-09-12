@@ -35,7 +35,7 @@ Route::middleware(['preventBackHistory','auth','userAccess:admin'])->group(funct
 
     Route::post('/admin_profile/fotoprofil', [AdminController::class, 'updateFotoProfil'])->name('admin.fotoprofil');
     Route::put('/admin_profile/identitas', [AdminController::class, 'updateIdentitas'])->name('admin.identitas');
-    Route::put('/admin_profile/bahpassword', [AdminController::class, 'updatePassword'])->name('admin.ubahpassword');
+    Route::put('/admin_profile/ubahpassword', [AdminController::class, 'updatePassword'])->name('admin.ubahpassword');
     
     Route::get('/hapussiswa/{user:id}',[AdminController::class, 'deletesiswa'])->name('admin.delete');
     Route::get('/activate/{user:id}',[AdminController::class, 'activate']);
