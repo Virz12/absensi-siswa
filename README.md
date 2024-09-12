@@ -27,27 +27,11 @@ Website Kehadiran untuk  membantu pengelolaan data kehadiran siswa dan data sisw
 - npm
 - Membutuhkan ekstensi php GD untuk intervention image
 
-Install package melalui Composer
-```bash
-    composer install
-```
-Update package Composer
-```bash
-    composer update
-```
-Install package melalui NPM
-```bash
-    npm install
-```
-Update package NPM
-```bash
-    npm update
-```
 Jalankan key generate Aplikasi
 ```bash
     php artisan key:generate
 ```
-Ubah nama file .env.example menjadi .env dan ubah bagian dibawah ini sesuai kebutuhan
+Ubah .env sesuai kebutuhan
 ```bash
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -61,9 +45,9 @@ Jalankan migration
 ```bash
     php artisan migrate
 ```
-Jalankan database seeders untuk mengisi database table user 
+Jalankan database seeders untuk mengisi database table user (dijalankan jika database kosong!)
 ```bash
-    php artisan db:seed --class=DatabaseSeeder
+    php artisan db:seed 
 ```
 Jalankan laravel server lokal (jika ingin menjalankan server lokal)
 ```bash
